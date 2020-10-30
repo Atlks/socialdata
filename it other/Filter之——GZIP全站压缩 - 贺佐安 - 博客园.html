@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Filter之——GZIP全站压缩 - 贺佐安 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=-hy83QNg62d4qYibixJzxMJkbf1P9fTBlqv7SK5zVL01"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/86287.css?v=hKJRWfMhtynRY6I%2bpDFFgdIAPGM%3d"/>
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore-mobile.css?v=d9LctKHRIQp9rreugMcQ1-UJuq_j1fo0GZXTXj8Bqrk1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jbelial/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jbelial/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/jbelial/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">var currentBlogApp = 'jbelial', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=O-NTEmnhjbG7lSYLc3yeqkrVxfMJyY9iXf4xyjlKikw1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<style type="text/css">
+    .Abstract
+    {
+        padding: 15px;
+        border: dotted 2px #999;
+        color: #999;
+        font-family: 'Microsoft Yahei';
+        border-radius: 4px;
+    }
+        
+    .First
+    {
+        margin: 10px 0;
+        font-family: 'Microsoft Yahei';
+        text-align: left;
+        padding: 6px 20px;
+        color: #fff;
+        background: #55895B;
+        font-size: 20px;
+        border-radius: 4px;
+        clear: both;
+    }
+        
+        
+    .Second
+    {
+        margin: 10px 0;
+        font-family: 'Microsoft Yahei';
+        padding: 6px 20px;
+        background: #93C8A2;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 4px;
+        clear: both;
+    }
+        
+        
+    .Third
+    {
+        margin: 10px 0;
+        padding: 6px 20px;
+        font-family: 'Microsoft Yahei';
+        margin: 15px 0;
+        font-size: 16px;
+        color: fff;
+        background: #C6EFD2;
+        color: #999;
+        border-radius: 4px;
+        clear: both;
+    }
+    .note
+    {
+        margin: 10px 0;
+        padding: 15px 20px 15px 60px;
+        background: #FCFAA9 url('http://images.cnblogs.com/cnblogs_com/libaoheng/305804/o_yellow-pin.png') no-repeat 20px 0;
+        font-size: 15px;
+        font-family: 'Microsoft Yahei';
+        box-shadow: 0 0 8px #aaa;
+        clear: both;
+    }
+        
+    .demo
+    {
+        text-align: left;
+        padding: 6px 20px;
+        overflow: auto;
+        border-radius: 4px;
+        background: orange;
+        color: #fff;
+        font-size: 16px;
+        clear: both;
+    }
+        
+    .cnblogs_Highlighter
+    {
+        border: solid 1px #ccc;
+        clear: both;
+    }
+        
+    .cnblogs_code
+    {
+        background: #EFFFF4;
+        border: solid 0px #939393;
+        font-size: 14px;
+        clear: both;
+        padding: 10px 20px;
+    }
+    .cnblogs_code pre
+    {
+        font-size: 14px;
+    }
+    .cnblogs_code span
+    {
+        font-family: Courier New;
+        font-size: 14px;
+    }
+</style>
+<!--PageBeginHtml Block End-->
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/jbelial/">桉树</a></div>
+<div class="subtitle">There are no accidents.</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/jbelial/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E8%B4%BA%E4%BD%90%E5%AE%89">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-104&nbsp;
+文章-11&nbsp;
+评论-57&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/jbelial/p/3204415.html">Filter之——GZIP全站压缩</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>　　　　　GZIP压缩：将压缩后的文本文件，发送给浏览器，减少流量。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">一、进行gzip压缩条件：</span></p>
+<p>　　1、请求头：Accept-Encoding : gzip&nbsp; 告诉服务器，该浏览器支持gzip压缩。</p>
+<p>　　2、响应头：Content-Encoding : gzip.&nbsp; 告诉浏览器，输出信息用gzip进行压缩了。</p>
+<p>　　3、两个主要类：</p>
+<p>　　　　ByteArrayOutputStream : 内存输出流，还有缓存。</p>
+<p>　　　　GZIPOutputStream 包装流；</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">二、gzip 压缩步骤：</span></p>
+<p>　　　　1、获取字符的字节数组 byte[] buf = str.getBytes() ;</p>
+<p>　　　　2、通过GZIPOutputStream 包装流进行输入：</p>
+<p>　　　　　&nbsp; 创建 GZIPOutputStream 输出流时，需要传一个带有缓冲区的输出流,所以我们ByteArrayOutputStream 输出流。而且，ByteArrayOutputStream还可以获取byte[];</p>
+<p>　　　　3、将ByteArrayOutputStream 流中的缓存数据，转换成字节数组。</p>
+<p>　　　　4、将 压缩后的字节数组通过response 进行输出。<span style="background-color: #ff0000;">不过输出之前要设置Content-Encoding 响应头，value为gzip。告诉浏览器数据进行了gzip压缩，要使用gzip解压</span>。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span>             String str = "我是个测试"<span style="color: #000000;">;
+</span><span style="color: #008080;"> 2</span>             <span style="color: #008000;">//</span><span style="color: #008000;">1\获取字节数组</span>
+<span style="color: #008080;"> 3</span>             <span style="color: #0000ff;">byte</span>[] bytes =<span style="color: #000000;"> str.getBytes() ;
+</span><span style="color: #008080;"> 4</span>             
+<span style="color: #008080;"> 5</span>             System.out.println("压缩前的长度：" +<span style="color: #000000;"> bytes.length); 
+</span><span style="color: #008080;"> 6</span>             <span style="color: #008000;">//</span><span style="color: #008000;">2\</span>
+<span style="color: #008080;"> 7</span>             ByteArrayOutputStream baos = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ByteArrayOutputStream() ; 
+</span><span style="color: #008080;"> 8</span>             GZIPOutputStream  gzip = <span style="color: #0000ff;">new</span><span style="color: #000000;"> GZIPOutputStream(baos) ;
+</span><span style="color: #008080;"> 9</span>             
+<span style="color: #008080;">10</span> <span style="color: #000000;">            gzip.write(bytes) ; 
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">            gzip.close() ;
+</span><span style="color: #008080;">12</span>             <span style="color: #008000;">//</span><span style="color: #008000;">3\</span>
+<span style="color: #008080;">13</span>             bytes =<span style="color: #000000;"> baos.toByteArray() ;
+</span><span style="color: #008080;">14</span>             System.out.println("压缩后的长度：" + bytes.length);</pre>
+</div>
+<p>　　　　数据较小是，压缩的效果不是很明显，不过数据越大，压缩效果越明显。所以，<span style="background-color: #ffff00;">GZIP压缩一般只处理文本内容，对图片、已经压缩过的文件则不进行压缩。这时就要在配置文件时，配置要过滤的资源</span>。</p>
+<p>　　</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">三、GZIPFilter</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> itheima.decorator.MyHttpServletResponse;
+</span><span style="color: #008080;"> 2</span> 
+<span style="color: #008080;"> 3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.ByteArrayOutputStream;
+</span><span style="color: #008080;"> 4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.IOException;
+</span><span style="color: #008080;"> 5</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.zip.GZIPOutputStream;
+</span><span style="color: #008080;"> 6</span> 
+<span style="color: #008080;"> 7</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.Filter;
+</span><span style="color: #008080;"> 8</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.FilterChain;
+</span><span style="color: #008080;"> 9</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.FilterConfig;
+</span><span style="color: #008080;">10</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.ServletException;
+</span><span style="color: #008080;">11</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.ServletRequest;
+</span><span style="color: #008080;">12</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.ServletResponse;
+</span><span style="color: #008080;">13</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.http.HttpServletRequest;
+</span><span style="color: #008080;">14</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.http.HttpServletResponse;
+</span><span style="color: #008080;">15</span> <span style="color: #008000;">/**</span>
+<span style="color: #008080;">16</span> <span style="color: #008000;"> * Gzip压缩过滤器
+</span><span style="color: #008080;">17</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@author</span><span style="color: #008000;"> 贺佐安
+</span><span style="color: #008080;">18</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;">19</span>  <span style="color: #008000;">*/</span>
+<span style="color: #008080;">20</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> GZIPFilter <span style="color: #0000ff;">implements</span><span style="color: #000000;"> Filter{
+</span><span style="color: #008080;">21</span> 
+<span style="color: #008080;">22</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> init(FilterConfig filterConfig) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> ServletException {
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">24</span> 
+<span style="color: #008080;">25</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> doFilter(ServletRequest req , ServletResponse resp ,
+</span><span style="color: #008080;">26</span>             FilterChain chain) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> IOException, ServletException {
+</span><span style="color: #008080;">27</span>         HttpServletResponse response =<span style="color: #000000;"> (HttpServletResponse) resp ; 
+</span><span style="color: #008080;">28</span>         HttpServletRequest request =<span style="color: #000000;"> (HttpServletRequest) req ;
+</span><span style="color: #008080;">29</span>         <span style="color: #008000;">//</span><span style="color: #008000;">创建HttpServletResponse 包装类的实例</span>
+<span style="color: #008080;">30</span>         MyHttpServletResponse myResponse = <span style="color: #0000ff;">new</span><span style="color: #000000;"> MyHttpServletResponse(response) ;
+</span><span style="color: #008080;">31</span>         
+<span style="color: #008080;">32</span> <span style="color: #000000;">        chain.doFilter(request, myResponse) ;
+</span><span style="color: #008080;">33</span>         
+<span style="color: #008080;">34</span>         <span style="color: #008000;">//</span><span style="color: #008000;">GZIP压缩：</span>
+<span style="color: #008080;">35</span>         <span style="color: #0000ff;">byte</span>[] buff =<span style="color: #000000;"> myResponse.getBufferedBytes() ;  
+</span><span style="color: #008080;">36</span>         <span style="color: #008000;">//</span><span style="color: #008000;">创建缓存容器：</span>
+<span style="color: #008080;">37</span>         ByteArrayOutputStream baos = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ByteArrayOutputStream() ;
+</span><span style="color: #008080;">38</span>         
+<span style="color: #008080;">39</span>         GZIPOutputStream gzip = <span style="color: #0000ff;">new</span><span style="color: #000000;"> GZIPOutputStream(baos) ;
+</span><span style="color: #008080;">40</span>         
+<span style="color: #008080;">41</span> <span style="color: #000000;">        gzip.write(buff) ;
+</span><span style="color: #008080;">42</span>         
+<span style="color: #008080;">43</span> <span style="color: #000000;">        gzip.close() ;
+</span><span style="color: #008080;">44</span>         
+<span style="color: #008080;">45</span>         buff =<span style="color: #000000;"> baos.toByteArray() ;
+</span><span style="color: #008080;">46</span>          
+<span style="color: #008080;">47</span>         <span style="color: #008000;">//</span><span style="color: #008000;">设置响应头；</span>
+<span style="color: #008080;">48</span>         response.setHeader("Content-Encoding", "gzip"<span style="color: #000000;">);
+</span><span style="color: #008080;">49</span> <span style="color: #000000;">        response.setContentLength(buff.length) ;  
+</span><span style="color: #008080;">50</span> <span style="color: #000000;">        response.getOutputStream().write( buff) ;
+</span><span style="color: #008080;">51</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">52</span> 
+<span style="color: #008080;">53</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> destroy() {
+</span><span style="color: #008080;">54</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">55</span> 
+<span style="color: #008080;">56</span> }</pre>
+</div>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">　　步骤：</span></p>
+<p>　　　　1、对HttpServletResponse 进行包装 ：改写getOutputStream()、getWriter() 方法，并且设置一个临时容器，<span style="background-color: #ff0000;">存储Serlvet处理后要输出的数据</span>。 这里是重点。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.ByteArrayOutputStream;
+</span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.IOException;
+</span><span style="color: #008080;"> 3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.OutputStreamWriter;
+</span><span style="color: #008080;"> 4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.PrintWriter;
+</span><span style="color: #008080;"> 5</span> 
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.ServletOutputStream;
+</span><span style="color: #008080;"> 7</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.http.HttpServletResponse;
+</span><span style="color: #008080;"> 8</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.http.HttpServletResponseWrapper;
+</span><span style="color: #008080;"> 9</span> <span style="color: #008000;">/**</span>
+<span style="color: #008080;">10</span> <span style="color: #008000;"> * 对HttpServletResponse 进行包装
+</span><span style="color: #008080;">11</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@author</span><span style="color: #008000;"> 贺佐安
+</span><span style="color: #008080;">12</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;">13</span>  <span style="color: #008000;">*/</span>
+<span style="color: #008080;">14</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MyHttpServletResponse <span style="color: #0000ff;">extends</span><span style="color: #000000;"> HttpServletResponseWrapper {
+</span><span style="color: #008080;">15</span>     <span style="color: #008000;">//</span><span style="color: #008000;">定义一个容器，用来存储Serlvet 处理完后response 写出的数据</span>
+<span style="color: #008080;">16</span>     <span style="color: #0000ff;">private</span> ByteArrayOutputStream bos = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ByteArrayOutputStream()  ;
+</span><span style="color: #008080;">17</span>     <span style="color: #0000ff;">private</span> PrintWriter printWriter = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+</span><span style="color: #008080;">18</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MyHttpServletResponse(HttpServletResponse  response) {
+</span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">super</span><span style="color: #000000;">(response) ;
+</span><span style="color: #008080;">20</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">21</span>     <span style="color: #008000;">//</span><span style="color: #008000;">处理字节流输出的情况</span>
+<span style="color: #008080;">22</span>     <span style="color: #0000ff;">public</span> ServletOutputStream getOutputStream() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> IOException {
+</span><span style="color: #008080;">23</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> MyServletOutputStream(bos); 
+</span><span style="color: #008080;">24</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">25</span> 
+<span style="color: #008080;">26</span>     <span style="color: #008000;">//</span><span style="color: #008000;">处理字符流输出的情况:用字符流时要注意乱码：字节转字符要查码表，字符转字节也要查码表</span>
+<span style="color: #008080;">27</span>     <span style="color: #0000ff;">public</span> PrintWriter getWriter() <span style="color: #0000ff;">throws</span><span style="color: #000000;"> IOException {
+</span><span style="color: #008080;">28</span>         printWriter  = <span style="color: #0000ff;">new</span> PrintWriter(<span style="color: #0000ff;">new</span> OutputStreamWriter(bos, <span style="color: #0000ff;">super</span><span style="color: #000000;">.getCharacterEncoding())) ;
+</span><span style="color: #008080;">29</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> printWriter;
+</span><span style="color: #008080;">30</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">31</span>     <span style="color: #008000;">//</span><span style="color: #008000;">获取response 写出的数据</span>
+<span style="color: #008080;">32</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">byte</span><span style="color: #000000;">[] getBufferedBytes(){
+</span><span style="color: #008080;">33</span>         <span style="color: #0000ff;">try</span><span style="color: #000000;"> {
+</span><span style="color: #008080;">34</span>             <span style="color: #0000ff;">if</span> (printWriter != <span style="color: #0000ff;">null</span><span style="color: #000000;">) 
+</span><span style="color: #008080;">35</span> <span style="color: #000000;">                printWriter.close() ;
+</span><span style="color: #008080;">36</span> <span style="color: #000000;">            bos.flush() ;
+</span><span style="color: #008080;">37</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (IOException e) {
+</span><span style="color: #008080;">38</span> <span style="color: #000000;">            e.printStackTrace(); 
+</span><span style="color: #008080;">39</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">40</span>         <span style="color: #0000ff;">byte</span>[] byteArray =<span style="color: #000000;"> bos.toByteArray() ;
+</span><span style="color: #008080;">41</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;">  byteArray;
+</span><span style="color: #008080;">42</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">43</span> }</pre>
+</div>
+<p>&nbsp;</p>
+<p>　　　　2、改写getOutputStream 方法时，要返回一个SerlvetOutputStream 类实例，因为SerlvetOutputStream是抽象类，不能创建实例，所以要重写SerlvetOutputStream 类：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.ByteArrayOutputStream;
+</span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.io.IOException;
+</span><span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> javax.servlet.ServletOutputStream;
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;">/**</span>
+<span style="color: #008080;"> 6</span> <span style="color: #008000;"> * 包装ServletOutputStream ，改写write 方法。
+</span><span style="color: #008080;"> 7</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@author</span><span style="color: #008000;"> 贺佐安
+</span><span style="color: #008080;"> 8</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;"> 9</span>  <span style="color: #008000;">*/</span>
+<span style="color: #008080;">10</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> MyServletOutputStream <span style="color: #0000ff;">extends</span><span style="color: #000000;"> ServletOutputStream {
+</span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">private</span> ByteArrayOutputStream bos = <span style="color: #0000ff;">null</span><span style="color: #000000;"> ; 
+</span><span style="color: #008080;">12</span>     <span style="color: #0000ff;">public</span><span style="color: #000000;"> MyServletOutputStream (ByteArrayOutputStream bos) {
+</span><span style="color: #008080;">13</span>         <span style="color: #0000ff;">this</span>.bos =<span style="color: #000000;"> bos ;
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">15</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> write(<span style="color: #0000ff;">int</span> b) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> IOException {
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">        bos.write(b) ;
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">18</span> }</pre>
+</div>
+<p>&nbsp;</p>
+<p>　　　　3、将包装过的HttpServletResponse 类的实例放行。</p>
+<p>　　　　4、然后获取Servlet 处理过后的数据，然后进行Gzip压缩。</p>
+<p>　　　　5、调用ServletResponse 的实例，将压缩后的数据写出去。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span>     <span style="color: #008000;">//</span><span style="color: #008000;">GZIP压缩：</span>
+<span style="color: #008080;"> 2</span>         <span style="color: #0000ff;">byte</span>[] buff =<span style="color: #000000;"> myResponse.getBufferedBytes() ;  
+</span><span style="color: #008080;"> 3</span>         <span style="color: #008000;">//</span><span style="color: #008000;">创建缓存容器：</span>
+<span style="color: #008080;"> 4</span>         ByteArrayOutputStream baos = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ByteArrayOutputStream() ;
+</span><span style="color: #008080;"> 5</span>         
+<span style="color: #008080;"> 6</span>         GZIPOutputStream gzip = <span style="color: #0000ff;">new</span><span style="color: #000000;"> GZIPOutputStream(baos) ;
+</span><span style="color: #008080;"> 7</span>         
+<span style="color: #008080;"> 8</span> <span style="color: #000000;">        gzip.write(buff) ;
+</span><span style="color: #008080;"> 9</span>         
+<span style="color: #008080;">10</span> <span style="color: #000000;">        gzip.close() ;
+</span><span style="color: #008080;">11</span>         
+<span style="color: #008080;">12</span>         buff =<span style="color: #000000;"> baos.toByteArray() ;
+</span><span style="color: #008080;">13</span>          
+<span style="color: #008080;">14</span>         <span style="color: #008000;">//</span><span style="color: #008000;">设置响应头；</span>
+<span style="color: #008080;">15</span>         response.setHeader("Content-Encoding", "gzip"<span style="color: #000000;">);
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">        response.setContentLength(buff.length) ;  
+</span><span style="color: #008080;">17</span>         response.getOutputStream().write( buff) ;</pre>
+</div>
+<p>　　</p>
+<p>　　以上便是用Filter 对一些文本资源进行GIZP压缩的步骤。重点就是第二步，如何获取Servlet 返回的数据。更细一点的流程如下图：<img src="https://images0.cnblogs.com/blog/287127/201307/21223534-c3a053fc15124b679656c1d45a6ff7e6.jpg" alt="" /></p>
+<p>　　　　</p>
+<p>　　　　</p>
+<p>&nbsp;</p>
+<p>&nbsp;--------------------------------------------------------------------------------------------更新：2013年7月21日 22:34:54</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2013-07-21 22:37</span> <a href='http://www.cnblogs.com/jbelial/'>贺佐安</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=3204415" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3204415);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=86287,cb_entryId=3204415,cb_blogApp=currentBlogApp,cb_blogUserGuid='6e482382-f459-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/7/21 22:37:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='cnblogs_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2018 贺佐安
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>

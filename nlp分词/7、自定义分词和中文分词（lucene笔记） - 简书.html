@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width"/>
+  <meta name="HandheldFriendly" content="true"/>
+  <meta name="mobile-agent" content="format=html5;url=https://www.jianshu.com/p/6b2cf6eceb43">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description"  content="一、自定义分词器 这里我们自定义一个停用分词器，也就是在进行分词的时候将某些词过滤掉。MyStopAnalyzer.java 说明： 这里我们定义一个Set集合用来存放分词信息，其中在无参构造器我们将默认停用分词器中停用的语汇单元赋给stops，这样我们就可以使用默认停用分词器中停用的语汇。而我们通过一个字符串数组将我们自己想要停用的词传递进来，同时stops不接受泛型，也就是说不能直接将字...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8" />
+  <meta property="wb:webmaster" content="294ec9de89e7fadb" />
+  <meta property="qc:admins" content="104102651453316562112116375" />
+  <meta property="qc:admins" content="11635613706305617" />
+  <meta property="qc:admins" content="1163561616621163056375" />
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4" />
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI" />
+  <meta http-equiv="mobile-agent" content="format=html5; url=https://www.jianshu.com/p/6b2cf6eceb43">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/4755817">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="7、自定义分词和中文分词（lucene笔记）" property="twitter:title">
+  <meta content="一、自定义分词器 这里我们自定义一个停用分词器，也就是在进行分词的时候将某些词过滤掉。MyStopAnalyzer.java 说明： 这里我们定义一个Set集合用来存放分词信..." property="twitter:description">
+  <meta content="https://www.jianshu.com/p/6b2cf6eceb43" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="7、自定义分词和中文分词（lucene笔记）">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jianshu.com/p/6b2cf6eceb43">
+  <meta property="og:description" content="一、自定义分词器 这里我们自定义一个停用分词器，也就是在进行分词的时候将某些词过滤掉。MyStopAnalyzer.java 说明： 这里我们定义一个Set集合用来存放分词信息，其中在无参构造器...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/4755817" />
+  <meta property="al:ios:app_store_id" content="888237539" />
+  <meta property="al:ios:app_name" content="简书" />
+
+  <meta property="al:android:url" content="jianshu://notes/4755817" />
+  <meta property="al:android:package" content="com.jianshu.haruki" />
+  <meta property="al:android:app_name" content="简书" />
+  <!-- End -->
+
+
+    <title>7、自定义分词和中文分词（lucene笔记） - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="bDs6LX4FKMCm+XdrFb3K/eGRmpG/emaQ5YbqnLCMustMH0sV/CZ8vmmKJCOBMXmDE+YFbp72YITLB2EJZ0Q7CA==" />
+
+  <link rel="stylesheet" media="all" href="//cdn2.jianshu.io/assets/web-56188f038c06ce022e40.css" />
+  
+  <link rel="stylesheet" media="all" href="//cdn2.jianshu.io/assets/web/pages/notes/show/entry-a9201972e0c141d2fe27.css" />
+
+  <link href="//cdn2.jianshu.io/assets/favicons/favicon-e743bfb1821442341c3ab15bdbe804f7ad97676bd07a770ccc9483473aa76f06.ico" rel="shortcut icon" type="image/x-icon">
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/57-a6f1f1ee62ace44f6dc2f6a08575abd3c3b163288881c78dd8d75247682a4b27.png" sizes="57x57" />
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/72-fb9834bcfce738fd7b9c5e31363e79443e09a81a8e931170b58bc815387c1562.png" sizes="72x72" />
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/76-49d88e539ff2489475d603994988d871219141ecaa0b1a7a9a1914f4fe3182d6.png" sizes="76x76" />
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/114-24252fe693524ed3a9d0905e49bff3cbd0228f25a320aa09053c2ebb4955de97.png" sizes="114x114" />
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/120-1bb7371f5e87f93ce780a5f1a05ff1b176828ee0d1d130e768575918a2e05834.png" sizes="120x120" />
+      <link rel="apple-touch-icon-precomposed" href="//cdn2.jianshu.io/assets/apple-touch-icons/152-bf209460fc1c17bfd3e2b84c8e758bc11ca3e570fd411c3bbd84149b97453b99.png" sizes="152x152" />
+
+  <!-- Start of 访问统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- End of 访问统计 -->
+</head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="/"><img src="//cdn2.jianshu.io/assets/web/nav-logo-4c7bbafe27adc892f3046e6978459bac.png" alt="Nav logo" /></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="/sign_up">注册</a>
+      <a class="btn log-in" href="/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div id="view-mode-ctrl">
+    </div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="tab ">
+              <a href="/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="tab ">
+              <a id="web-nav-app-download-btn" class="app-download-btn" href="/apps?utm_medium=desktop&amp;utm_source=navbar-apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+              <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input" />
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <a target="_blank" href="/apps/download?utm_source=sbc" id="web-note-ad-fixed"><span class="close">&times;</span></a>
+  <div class="post">
+    <div class="article">
+        <h1 class="title">7、自定义分词和中文分词（lucene笔记）</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="/u/9231f33f0db3">
+            <img src="//upload.jianshu.io/users/upload_avatars/1925650/7a95dfb3c842.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96" />
+</a>          <div class="info">
+            <span class="name"><a href="/u/9231f33f0db3">yjaal</a></span>
+            <!-- 关注用户按钮 -->
+            <div props-data-classes="user-follow-button-header" data-author-follow-button></div>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="最后编辑于 2017.12.03 08:16">2016.07.11 22:26*</span>
+              <span class="wordage">字数 1702</span>
+            </div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+
+        <!-- 文章内容 -->
+        <div data-note-content class="show-content">
+          <div class="show-content-free">
+            <h1>一、自定义分词器</h1>
+<p>这里我们自定义一个停用分词器，也就是在进行分词的时候将某些词过滤掉。<br>
+<strong><code>MyStopAnalyzer.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.io.Reader;
+import java.util.Set;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.LetterTokenizer;
+import org.apache.lucene.analysis.LowerCaseFilter;
+import org.apache.lucene.analysis.StopAnalyzer;
+import org.apache.lucene.analysis.StopFilter;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.util.Version;
+
+public class MyStopAnalyzer extends Analyzer {
+    
+    @SuppressWarnings("rawtypes")
+    private Set stops;//用于存放分词信息
+    
+    public MyStopAnalyzer() {
+        stops = StopAnalyzer.ENGLISH_STOP_WORDS_SET;//默认停用的语汇信息
+    }
+    
+    //这里可以将通过数组产生分词对象
+    public MyStopAnalyzer(String[] sws) {
+        //System.out.println(StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+        stops = StopFilter.makeStopSet(Version.LUCENE_35, sws, true);//最后的参数表示忽略大小写
+        stops.addAll(StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+    }
+
+    @Override
+    public TokenStream tokenStream(String fieldName, Reader reader) {
+        //注意：在分词过程中会有一个过滤器链，最开始的过滤器接收一个Tokenizer，而最后一个接收一个Reader流
+        //这里我们看到我们可以在过滤器StopFilter中接收LowerCaseFilter，而LowerCaseFilter接收一个Tokenizer
+        //当然如果要添加更多的过滤器还可以继续添加
+        return new StopFilter(Version.LUCENE_35, new LowerCaseFilter(Version.LUCENE_35, 
+                new LetterTokenizer(Version.LUCENE_35, reader)), stops);
+    }
+}
+</code></pre>
+<p><strong>说明：</strong></p>
+<ul>
+<li>这里我们定义一个<code>Set</code>集合用来存放分词信息，其中在无参构造器我们将默认停用分词器中停用的语汇单元赋给<code>stops</code>，这样我们就可以使用默认停用分词器中停用的语汇。而我们通过一个字符串数组将我们自己想要停用的词传递进来，同时<code>stops</code>不接受泛型，也就是说不能直接将字符串数组赋值给<code>stops</code>，而需要使用<code>makeStopSet</code>方法将需要停用的词转换为相应的语汇单元，然后再添加给<code>stops</code>进行存储。</li>
+<li>自定义的分词器需要继承<code>Analyzer</code>接口，实现<code>tokenStream</code>方法，此方法接收三个参数，第一个是版本，最后一个是停用的语汇单元，这里是<code>stops</code>，而第二个参数是别的分词器，因为分词过程中是一个分词器链。</li>
+</ul>
+<p><strong>测试：</strong><br>
+<strong><code>TestAnalyzer.java</code></strong></p>
+<pre><code class="java">@Test
+public void test04(){
+    //对中文分词不适用
+    Analyzer analyzer = new MyStopAnalyzer(new String[]{"I","you"});
+    Analyzer analyzer2 = new StopAnalyzer(Version.LUCENE_35);//停用分词器
+    
+    String text = "how are you thank you I hate you";
+    System.out.println("************自定义分词器***************");
+    AnalyzerUtils.displayAllTokenInfo(text, analyzer);
+    System.out.println("************停用分词器***************");
+    AnalyzerUtils.displayAllTokenInfo(text, analyzer2);
+}
+</code></pre>
+<p><strong>说明：</strong>从测试结果中我们可以很容易看出自定义分词器和默认分词器之间的区别，自定义分词相比默认分词器多了我们自定义的词语。<br>
+</p><div class="image-package">
+<div class="image-container" style="max-width: 402px; max-height: 269px;">
+<div class="image-container-fill" style="padding-bottom: 66.92%;"></div>
+<div class="image-view" data-width="402" data-height="269"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-d69d6a54d940b300.png" data-original-width="402" data-original-height="269" data-original-format="image/png" data-original-filesize="26159"></div>
+</div>
+<div class="image-caption">1</div>
+</div><p></p>
+<h1>二、中文分词器</h1>
+<p>这里我们使用<code>MMSEG</code>中文分词器，其分词信息使用的是搜狗词库。我们使用的是版本1.8.5.这个版本的包中有两个可用的<code>jar</code>包：</p>
+<pre><code>mmseg4j-all-1.8.5.jar
+mmseg4j-all-1.8.5-with-dic.jar
+</code></pre>
+<p>其中第二个相比第一个多了相关的语汇信息，便于我们进行分词，当然我们可以使用第一个，但是这样便和默认分词器没有多大差别，我们在方法中直接测试：</p>
+<pre><code class="java">@Test
+public void test02(){
+    //对中文分词不适用
+    Analyzer analyzer1 = new StandardAnalyzer(Version.LUCENE_35);//标准分词器
+    Analyzer analyzer2 = new StopAnalyzer(Version.LUCENE_35);//停用分词器
+    Analyzer analyzer3 = new SimpleAnalyzer(Version.LUCENE_35);//简单分词器
+    Analyzer analyzer4 = new WhitespaceAnalyzer(Version.LUCENE_35);//空格分词器
+    Analyzer analyzer5 = new MMSegAnalyzer();
+    
+    
+    String text = "西安市雁塔区";
+    AnalyzerUtils.displayToken(text, analyzer1);
+    AnalyzerUtils.displayToken(text, analyzer2);
+    AnalyzerUtils.displayToken(text, analyzer3);
+    AnalyzerUtils.displayToken(text, analyzer4);
+    AnalyzerUtils.displayToken(text, analyzer5);
+}
+</code></pre>
+<p><strong>说明：</strong>此时我们直接使用<code>MMSEG</code>中文分词器，测试结果为：<br>
+</p><div class="image-package">
+<div class="image-container" style="max-width: 241px; max-height: 118px;">
+<div class="image-container-fill" style="padding-bottom: 48.96%;"></div>
+<div class="image-view" data-width="241" data-height="118"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-41aa66d79e87c58f.png" data-original-width="241" data-original-height="118" data-original-format="image/png" data-original-filesize="3906"></div>
+</div>
+<div class="image-caption">2</div>
+</div><br>
+我们看到和默认的分词器并无多大差别，当然我们也可以在方法中指定相关语汇信息存放的目录：<p></p>
+<pre><code class="java">Analyzer analyzer5 = new MMSegAnalyzer(new File("E:/API/Lucene/mmseg/data"));
+</code></pre>
+<p>此时的测试结果为：<br>
+</p><div class="image-package">
+<div class="image-container" style="max-width: 223px; max-height: 115px;">
+<div class="image-container-fill" style="padding-bottom: 51.57000000000001%;"></div>
+<div class="image-view" data-width="223" data-height="115"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-66592cc8c1f72fab.png" data-original-width="223" data-original-height="115" data-original-format="image/png" data-original-filesize="3759"></div>
+</div>
+<div class="image-caption">3</div>
+</div><br>
+在目录<code>E:/API/Lucene/mmseg/data</code>中存在四个文件：<p></p>
+<pre><code>chars.dic
+units.dic
+words.dic
+words-my.dic
+</code></pre>
+<p>这写文件便存放了相关的语汇单元，当然如果我们想停用某些词，可以在最后一个文件中直接进行添加。</p>
+<h1>三、同义词索引（1）</h1>
+<h2>3.1思路</h2>
+<p></p><div class="image-package">
+<div class="image-container" style="max-width: 700px; max-height: 188px;">
+<div class="image-container-fill" style="padding-bottom: 26.33%;"></div>
+<div class="image-view" data-width="714" data-height="188"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-48b327e6ac1b84d6.png" data-original-width="714" data-original-height="188" data-original-format="image/png" data-original-filesize="26855"></div>
+</div>
+<div class="image-caption">4</div>
+</div><br>
+<strong>说明：</strong>首先我们需要使用<code>MMSEG</code>进行分词，之后我们自定义的分词器从同义词容器中取得相关的同义词，然后将同义词存储在同一个位置，我们在之前讲过，就是同一个偏移量可以有多个语汇单元。<p></p>
+<h2>3.2 自定义分词器</h2>
+<p><strong><code>MySameAnalyzer.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.io.Reader;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
+import com.chenlb.mmseg4j.Dictionary;
+import com.chenlb.mmseg4j.MaxWordSeg;
+import com.chenlb.mmseg4j.analysis.MMSegTokenizer;
+
+public class MySameAnalyzer extends Analyzer {
+
+    @Override
+    public TokenStream tokenStream(String fieldName, Reader reader) {
+        
+        Dictionary dic = Dictionary.getInstance("E:/API/Lucene/mmseg/data");
+        
+        //我们首先使用MMSEG进行分词，将相关内容分成一个一个语汇单元
+        return new MySameTokenFilter(new MMSegTokenizer(new MaxWordSeg(dic), reader));
+    }
+}
+</code></pre>
+<p><strong>说明：</strong>和之前一样还是需要实现<code>Analyzer</code>接口。这里我们实例化<code>Dictionary</code>对象，此对象是单例的，用于保存相关的语汇信息。可以看到，首先是经过<code>MMSEG</code>分词器，将相关内容分成一个一个的语汇单元。</p>
+<p><strong>自定义同义词过滤器<code>MySameTokenFilter.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.lucene.analysis.TokenFilter;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+
+public class MySameTokenFilter extends TokenFilter {
+    
+    private CharTermAttribute cta = null;
+
+    protected MySameTokenFilter(TokenStream input) {
+        super(input);
+        cta = this.addAttribute(CharTermAttribute.class);
+    }
+
+    @Override
+    public boolean incrementToken() throws IOException {
+        if(!this.input.incrementToken()){//如果输入进来的内容中没有元素
+            return false;
+        }
+        //如果有，则需要进行相应的处理，进行同义词的判断处理
+        String[] sws = getSameWords(cta.toString());
+        if(sws != null){
+            //处理
+            for(String s : sws){
+                cta.setEmpty();
+                cta.append(s);
+            }
+        }
+        return true;
+    }
+    
+    private String[] getSameWords(String name){
+        Map&lt;String, String[]&gt; maps = new HashMap&lt;String, String[]&gt;();
+        maps.put("中国", new String[]{"天朝", "大陆"});
+        maps.put("我", new String[]{"咱", "俺"});
+        return maps.get(name);
+    }
+}
+</code></pre>
+<p><strong>说明：</strong>这里我们需要定义一个<code>CharTermAttribute</code> 属性，在之前说过，这个类相当于在分词流中的一个标记。</p>
+<p><strong>相关方法<code>AnalyzerUtils.java</code></strong></p>
+<pre><code class="java">public static void displayAllTokenInfo(String str, Analyzer analyzer){
+    try {
+        TokenStream stream = analyzer.tokenStream("content", new StringReader(str));
+        PositionIncrementAttribute pia = stream.addAttribute(PositionIncrementAttribute.class);
+        OffsetAttribute oa = stream.addAttribute(OffsetAttribute.class);
+        CharTermAttribute cta = stream.addAttribute(CharTermAttribute.class);
+        TypeAttribute ta = stream.addAttribute(TypeAttribute.class);
+
+        while (stream.incrementToken()) {
+            System.out.print("位置增量： " + pia.getPositionIncrement());//词与词之间的空格
+            System.out.print("，单词： " + cta + "[" + oa.startOffset() + "," + oa.endOffset() + "]");
+            System.out.print("，类型： " + ta.type()) ;
+            System.out.println();
+        }
+        
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+<p><strong>测试：</strong></p>
+<pre><code class="java">@Test
+public void test05(){
+    //对中文分词不适用
+    Analyzer analyzer = new MySameAnalyzer();
+    
+    String text = "我来自中国西安市雁塔区";
+    System.out.println("************自定义分词器***************");
+    AnalyzerUtils.displayAllTokenInfo(text, analyzer);
+}
+</code></pre>
+<p><strong>说明：</strong>整个执行流程就是：</p>
+<ul>
+<li>1.首先实例化一个自定义的分词器<code>MySameAnalyzer</code>，在此分词器中实例化一个<code>MySameTokenFilter</code>过滤器，而从过滤器中的参数中可以看到接收<code>MMSEG</code>分词器，而<code>MySameTokenFilter</code>的构造方法中接收一个分词流，然后将<code>CharTermAttribute</code>加入到此流中。</li>
+<li>2.在<code>displayAllTokenInfo</code>方法中我们调用<code>incrementToken</code>方法时先是调用<code>getSameWords</code>方法查看分词流中有没有同义词，如果没有则直接返回，否则进行相关的处理。</li>
+<li>3.在这里的处理方式中，先是使用方法<code>setEmpty</code>将原来的语汇单元清除，然后将此语汇单元同义词添加进去，但是这样就将原来的语汇单元删除了，这显然不符合要求。测试结果为：<br>
+<div class="image-package">
+<div class="image-container" style="max-width: 377px; max-height: 156px;">
+<div class="image-container-fill" style="padding-bottom: 41.38%;"></div>
+<div class="image-view" data-width="377" data-height="156"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-96f768700e307798.png" data-original-width="377" data-original-height="156" data-original-format="image/png" data-original-filesize="15497"></div>
+</div>
+<div class="image-caption">5</div>
+</div>
+<br>
+可以看到将“我”换成了“俺”，将“中国”换成了“大陆”。也就是说我们使用同义词将原来的词语替换掉了。</li>
+</ul>
+<p><strong>解决方法</strong><br>
+我们之前说过，每个语汇单元都有一个位置，这个位置由PositionIncrTerm属性保存，如果两个语汇单元的位置相同，或者说距离为0，那么就表示是同义词了。而我们看到上面的测试结果中每个语汇单元的距离都为1，显然不是同义词。而对于上面例子中的问题，我们可以这样解决：<br>
+<strong><code>MySameTokenFilter.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import org.apache.lucene.analysis.TokenFilter;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
+import org.apache.lucene.util.AttributeSource;
+
+public class MySameTokenFilter extends TokenFilter {
+    
+    private CharTermAttribute cta = null;
+    private PositionIncrementAttribute pia = null;
+    private AttributeSource.State current ;
+    private Stack&lt;String&gt; sames = null;
+
+    protected MySameTokenFilter(TokenStream input) {
+        super(input);
+        cta = this.addAttribute(CharTermAttribute.class);
+        pia = this.addAttribute(PositionIncrementAttribute.class);
+        sames = new Stack&lt;String&gt;();
+    }
+
+    @Override
+    public boolean incrementToken() throws IOException {
+        while(sames.size() &gt; 0){
+            //将元素出栈，并且获取这个同义词
+            String str = sames.pop();
+            restoreState(current);//还原到原来的状态
+            cta.setEmpty();
+            cta.append(str);
+            //设置位置为0
+            pia.setPositionIncrement(0);
+            return true;
+        }
+        
+        if(!this.input.incrementToken()){//如果输入进来的内容中没有元素
+            return false;
+        }
+        if(getSameWords(cta.toString())){
+            //如果有同义词，捕获当前的状态
+            current = captureState();
+        }
+        return true;
+    }
+    
+    private boolean getSameWords(String name){
+        Map&lt;String, String[]&gt; maps = new HashMap&lt;String, String[]&gt;();
+        maps.put("中国", new String[]{"天朝", "大陆"});
+        maps.put("我", new String[]{"咱", "俺"});
+        String[] sws = maps.get(name);
+        if(sws != null){
+            for(String s : sws){
+                sames.push(s);
+            }
+            return true;
+        }
+        return false;
+    }
+}
+</code></pre>
+<p><strong>说明：</strong></p>
+<ul>
+<li>1.首先我们添加了三个属性<code>PositionIncrementAttribute 、AttributeSource.State、Stack</code>，分别是位置属性、当前状态、栈。其中栈用来保存同义词单元。在构造函数中初始化相关属性。</li>
+<li>2.在调用<code>incrementToken</code>方法开始时我们先使用方法<code>incrementToken</code>，让标记<code>CharTermAttribute</code> 向后移动一个位置，同时将本位置（<code>current</code> ）保留下来。而此时第一个语汇单元“我”已经写入到分词流中了，然后我们利用<code>current</code>在读取到同义词之后回到前一个位置进行添加同义词，其实就是将同义词的位置设置为0（同义词之间的位置为0），这样就将原始单元和同义词单元都写入到了分词流中了。这就将第一个单元的同义词设置好了，立即返回，进入到下一个语汇单元进行处理。</li>
+<li>
+<p>测试结果为：</p>
+<br>
+<div class="image-package">
+<div class="image-container" style="max-width: 370px; max-height: 245px;">
+<div class="image-container-fill" style="padding-bottom: 66.22%;"></div>
+<div class="image-view" data-width="370" data-height="245"><img data-original-src="//upload-images.jianshu.io/upload_images/1925650-fecc872d0a002298.png" data-original-width="370" data-original-height="245" data-original-format="image/png" data-original-filesize="23606"></div>
+</div>
+<div class="image-caption">6</div>
+</div>
+</li>
+</ul>
+<p><strong>下面我们编写一个测试方法进行同义词查询操作：</strong></p>
+<pre><code class="java">@Test
+public void test06() throws CorruptIndexException, LockObtainFailedException, IOException{
+    //对中文分词不适用
+    Analyzer analyzer = new MySameAnalyzer();
+    
+    String text = "我来自中国西安市雁塔区";
+    Directory dir = new RAMDirectory();
+    IndexWriter write = new IndexWriter(dir, new IndexWriterConfig(Version.LUCENE_35, analyzer));
+    Document doc = new Document();
+    doc.add(new Field("content", text, Field.Store.YES, Field.Index.ANALYZED));
+    write.addDocument(doc);
+    write.close();
+    IndexSearcher searcher = new IndexSearcher(IndexReader.open(dir));
+    //TopDocs tds = searcher.search(new TermQuery(new Term("content", "中国")), 10);
+    TopDocs tds = searcher.search(new TermQuery(new Term("content", "大陆")), 10);
+    Document d = searcher.doc(tds.scoreDocs[0].doc);
+    System.out.println(d.get("content"));
+    System.out.println("************自定义分词器***************");
+    AnalyzerUtils.displayAllTokenInfo(text, analyzer);
+}
+</code></pre>
+<p><strong>说明：</strong>我们在查询的时候可以使用“中国”的同义词“大陆”进行查询。但是这种方式并不好，因为将将同义词等信息都写死了，不便于管理。</p>
+<h1>四、同义词索引（2）</h1>
+<p>（工程<code>lucene_analyzer02</code>）<br>
+这里我们专门创建一个类用来存放同义词：<br>
+<strong><code>SamewordContext.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+public interface SamewordContext {
+    public String[] getSamewords(String name);
+}
+</code></pre>
+<p><strong>实现<code>SimpleSamewordContext.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.util.HashMap;
+import java.util.Map;
+
+public class SimpleSamewordContext implements SamewordContext {
+    
+    private Map&lt;String, String[]&gt; maps = new HashMap&lt;String, String[]&gt;();
+    
+    public SimpleSamewordContext() {
+        maps.put("中国", new String[]{"天朝", "大陆"});
+        maps.put("我", new String[]{"咱", "俺"});
+    }
+    
+    @Override
+    public String[] getSamewords(String name) {
+        return  maps.get(name);
+    }
+}
+</code></pre>
+<p><strong>说明：</strong>这里我们只是简单的实现了接口，封装了一些同义词，之后我们在使用的时候便可以使用此类来获取同义词。测试我们需要改进相关的类：<br>
+<strong><code>MySameTokenFilter.java</code></strong></p>
+<pre><code class="java">package cn.itcast.util;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import org.apache.lucene.analysis.TokenFilter;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
+import org.apache.lucene.util.AttributeSource;
+
+public class MySameTokenFilter extends TokenFilter {
+    
+    private CharTermAttribute cta = null;
+    private PositionIncrementAttribute pia = null;
+    private AttributeSource.State current ;
+    private Stack&lt;String&gt; sames = null;
+    private SamewordContext samewordContext ;//用来存储同义词
+
+    protected MySameTokenFilter(TokenStream input, SamewordContext samewordContext) {
+        super(input);
+        cta = this.addAttribute(CharTermAttribute.class);
+        pia = this.addAttribute(PositionIncrementAttribute.class);
+        sames = new Stack&lt;String&gt;();
+        this.samewordContext = samewordContext;
+    }
+
+    @Override
+    public boolean incrementToken() throws IOException {
+        
+        while(sames.size() &gt; 0){
+            //将元素出栈，并且获取这个同义词
+            String str = sames.pop();
+            restoreState(current);//还原到原来的状态
+            cta.setEmpty();
+            cta.append(str);
+            //设置位置为0
+            pia.setPositionIncrement(0);
+            return true;
+        }
+        
+        if(!this.input.incrementToken()){//如果输入进来的内容中没有元素
+            return false;
+        }
+        if(addSames(cta.toString())){
+            //如果有同义词，捕获当前的状态
+            current = captureState();
+        }
+        return true;
+    }
+    
+    private boolean addSames(String name){
+        String[] sws = samewordContext.getSamewords(name);
+        if(sws != null){
+            for(String s : sws){
+                sames.push(s);
+            }
+            return true;
+        }
+        return false;
+    }
+}
+</code></pre>
+<p><strong>说明：</strong>在此类中我们太添加了一个属性<code>SamewordContext</code>，用来保存相关的同义词，在方法<code>addSames</code>中使用此类来获取相关的同义词。于是我们在后面使用<code>MySameTokenFilter</code>类的时候需要通过构造函数将此类传递进去。注意：这里需要面向接口编程，在后面我们需要想更换同义词存储类，只需要重现实现接口即可。</p>
+
+          </div>
+        </div>
+    </div>
+
+    <!-- 如果是付费文章，未购买，则显示购买按钮 -->
+
+    <!-- 连载目录项 -->
+
+    <!-- 如果是付费文章 -->
+      <!-- 如果是付费连载，已购买，且作者允许赞赏，则显示付费信息和赞赏 -->
+        <div data-vcomp="free-reward-panel"></div>
+
+      <div class="show-foot">
+        <a class="notebook" href="/nb/3960907">
+          <i class="iconfont ic-search-notebook"></i>
+          <span>lucene笔记</span>
+</a>        <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+          © 著作权归作者所有
+        </div>
+        <div class="modal-wrap" data-report-note>
+          <a id="report-modal">举报文章</a>
+        </div>
+      </div>
+
+      <!-- 文章底部作者信息 -->
+        <div class="follow-detail">
+          <div class="info">
+            <a class="avatar" href="/u/9231f33f0db3">
+              <img src="//upload.jianshu.io/users/upload_avatars/1925650/7a95dfb3c842.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96" />
+</a>            <div props-data-classes="user-follow-button-footer" data-author-follow-button></div>
+            <a class="title" href="/u/9231f33f0db3">yjaal</a>
+          </div>
+            <div class="signature">一名程序猿</div>
+        </div>
+
+    <div class="meta-bottom">
+      <div class="btn like-group"></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-action="weibo-share" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;推荐 yjaal 的文章《7、自定义分词和中文分词（lucene笔记）》（ 分享自 @简书 ）&#39;,&#39;https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/4755817/weibo/image_7aa081477940.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content='
+          <ul class="share-list">
+            <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 yjaal 的文章《7、自定义分词和中文分词（lucene笔记）》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><i class="social-icon-sprite social-icon-zone"></i><span>分享到QQ空间</span></a></li>
+            <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 yjaal 的文章《7、自定义分词和中文分词（lucene笔记）》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><i class="social-icon-sprite social-icon-twitter"></i><span>分享到Twitter</span></a></li>
+            <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><i class="social-icon-sprite social-icon-facebook"></i><span>分享到Facebook</span></a></li>
+            <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><i class="social-icon-sprite social-icon-google"></i><span>分享到Google+</span></a></li>
+            <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;https://www.jianshu.com/p/6b2cf6eceb43?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;7、自定义分词和中文分词（lucene笔记）&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><i class="social-icon-sprite social-icon-douban"></i><span>分享到豆瓣</span></a></li>
+          </ul>
+        '>更多分享</a>
+      </div>
+    </div>
+      <a id="web-note-ad-1" target="_blank" href="/apps/download?utm_source=nbc"><img src="//cdn2.jianshu.io/assets/web/web-note-ad-1-10f08e404d3887d2d45a4bc8f1831403.png" alt="Web note ad 1" /></a>
+    <div id="vue_comment"></div>
+  </div>
+
+  <div class="vue-side-tool" props-data-props-show-qr-code="0"></div>
+</div>
+<div class="note-bottom">
+  <div class="js-included-collections"></div>
+  <div data-vcomp="recommended-notes" data-lazy="1.5" data-note-id="4755817"></div>
+  <!-- 相关文章 -->
+  <div class="seo-recommended-notes">
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="/p/46fd0faecac1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="//upload-images.jianshu.io/upload_images/7328262-54f7992145380c10.png?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="240" />
+</a>          <a class="title" target="_blank" href="/p/46fd0faecac1?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Spring Cloud</a>
+          <p class="description">Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理，服务发现，断路器，智能路由，微代理，控制总线）。分布式系统的协调导致了样板模式, 使用Spring Cloud开发人员可以快速地支持实现这些模式的服务和应用程序。他们将在任何分布式...</p>
+          <a class="author" target="_blank" href="/u/d90908cb0d85?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//cdn2.jianshu.io/assets/default_avatar/2-9636b13945b9ccf345bc98d0d81074eb.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">卡卡罗2017</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="/p/dad51f6c9c4d?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">Android - 收藏集  </a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金 Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金 相信有很多...</p>
+          <a class="author" target="_blank" href="/u/e946d18f163c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//cdn2.jianshu.io/assets/default_avatar/4-3397163ecdb3855a0a4139c34a695885.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">passiontim</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="/p/cf6d96155980?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="//upload-images.jianshu.io/upload_images/1925650-0a35bcfec4877332.png?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="240" />
+</a>          <a class="title" target="_blank" href="/p/cf6d96155980?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">6、分词（lucene笔记）</a>
+          <p class="description">一、概述 1.1 分词的基本过程 首先是TokenStream通过接收一个StringReader流将需要进行分词的内容读入进来，TokenStream有两个子抽象类Tokenizer和TokenFilter。读入的过程为：StringReader流经过Tokenizer接...</p>
+          <a class="author" target="_blank" href="/u/9231f33f0db3?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/1925650/7a95dfb3c842.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">yjaal</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="/p/2623ffb0d57a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">iOS开发 非常全的三方库、插件、大牛博客等等</a>
+          <p class="description">用到的组件1、通过CocoaPods安装项目名称项目信息AFNetworking网络请求组件FMDB本地数据库组件SDWebImage多个缩略图缓存组件UICKeyChainStore存放用户账号密码组件Reachability监测网络状态DateTools友好化时间MBP...</p>
+          <a class="author" target="_blank" href="/u/c58eb2bd18c1?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/6175219/494f983e-201e-4dcc-b246-10b9864496b1?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">frolaqi</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="/p/5ad013eb5364?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">掘金 Android 文章精选合集</a>
+          <p class="description">用两张图告诉你，为什么你的 App 会卡顿? - Android - 掘金Cover 有什么料？ 从这篇文章中你能获得这些料： 知道setContentView()之后发生了什么？ ... Android 获取 View 宽高的常用正确方式，避免为零 - 掘金相信有很多朋友...</p>
+          <a class="author" target="_blank" href="/u/5fc9b6410f4f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/120495/6220dd63-bf1a-40a8-8ccc-e364a5c90f13.png?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">掘金官方</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="/p/1bd7a180ca78?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="//upload-images.jianshu.io/upload_images/1514534-fa65c7549b6615c9.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="240" />
+</a>          <a class="title" target="_blank" href="/p/1bd7a180ca78?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">小孩子就应该学习理财</a>
+          <p class="description">上午牛牛（6岁）跟爷爷去医院打乙肝育苗第三针，爷爷给了医生100元，医生问牛牛：“这一针是50元，我该找你多少钱？”牛牛说：“让我算算.”“五十块！”牛牛片刻之后回答。高兴的回家后，牛牛非常自豪的把打针的经历告诉我，非缠着我跟他玩“大富翁”的游戏。我就趁机把从《小狗钱钱》上...</p>
+          <a class="author" target="_blank" href="/u/ef9aec2c3806?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/1514534/ab7ae34499b2?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">玉如蓝</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="/p/285c4c82873a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="//upload-images.jianshu.io/upload_images/2135524-eb1b62264cc60116.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="240" />
+</a>          <a class="title" target="_blank" href="/p/285c4c82873a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">我的三月书单【下】</a>
+          <p class="description">承接上次的文章，另有三本分享给大家。 1、《红与黑》 幸福，不就近在咫尺吗？过这样的生活，无需多少花费。我可以随自己选择，或者娶艾莉莎为妻，或者去跟傅凯合作......一个人经过长途跋涉，刚爬上陡峭的山峰，坐在山顶休息片刻，自会觉得无比惬意。如果要一直坐下去，他还会觉得快活...</p>
+          <a class="author" target="_blank" href="/u/b0922aae382f?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/2135524/0604c29b-bc71-485c-ae48-cd89834f2cb8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">李泽贤</span>
+</a>        </div>
+
+        <div class="note have-img">
+          <a class="cover" target="_blank" href="/p/82f7da78ac5e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <img src="//upload-images.jianshu.io/upload_images/457854-5464c56cef50d5ab.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="240" />
+</a>          <a class="title" target="_blank" href="/p/82f7da78ac5e?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">七月与安生 || 被颠覆的友情观与爱情观</a>
+          <p class="description">难得只有短暂会议的午后，表情包说，听说七月与安生挺好看的，我们改天去看电影吧。因为不知道下次有时间还得多久，于是决定今天圆了她的念想。 作为一个不爱看小说的姑娘，安妮的小说略有耳闻，但从未观摩。《七月与安生》，小说名字一般，看吧。 七月和安生，从13岁相识，之后陪伴整个青春...</p>
+          <a class="author" target="_blank" href="/u/9c3cb2159d82?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/457854/b958dad46d51.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">随艺艺艺</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="/p/be9d2ddb0380?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">虽千万人，吾往矣</a>
+          <p class="description">命运，凌驾于时间与空间之上的至高存在，而此刻却在百灵师姐的嘴里轻描淡写地说了出来。 将臣突然感觉身体一震，隐约间好像有一股莫大的恐怖力量在头顶聚集，连空气都变得粘稠无比，他急忙抬头望去，只见无限辽阔的天空里依旧是蓝天白云，却是没有丝毫异常。 但他没有看到的是，师姐百灵此刻也...</p>
+          <a class="author" target="_blank" href="/u/6879909a6b85?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/4323042/7c818db2-b2fe-4038-b860-d64b5b49e45c.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">蚂蚁撼树</span>
+</a>        </div>
+
+        <div class="note ">
+                    <a class="title" target="_blank" href="/p/b0f0a5a30853?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">易经的奥秘：何为阴阳？它对我们有什么作用？</a>
+          <p class="description">《易经》中有64卦象，而这些看似复杂的卦象，其实只包含着两个符号，一个是阴，一个是阳。那么什么是阴，什么是阳呢？为什么说中国人是阴阳合一的？又怎么能够证明，阴阳是构成宇宙万事万物的基本元素呢？ 大自然包罗万象，千奇百怪，如果进行分类的话，将是一个看不到头的天文数字，但是《易...</p>
+          <a class="author" target="_blank" href="/u/538bf14c79dd?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=seo_notes&amp;utm_source=recommendation">
+            <div class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/4093682/d516c0a985be?imageMogr2/auto-orient/strip|imageView2/1/w/48/h/48" alt="48" />
+            </div>
+            <span class="name">易经风水杨永曜</span>
+</a>        </div>
+  </div>
+</div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"follow_state":0,"uuid":"440464f7-e92e-448d-85e7-59ad3f53c6f7"},"note":{"id":4755817,"slug":"6b2cf6eceb43","user_id":1925650,"notebook_id":3960907,"commentable":true,"likes_count":3,"views_count":1289,"public_wordage":1702,"comments_count":0,"featured_comments_count":0,"total_rewards_count":0,"is_author":false,"paid_type":"free","paid":false,"paid_content_accessible":false,"author":{"nickname":"yjaal","total_wordage":394366,"followers_count":523,"total_likes_count":634}}}</script>
+    
+    <script src="//cdn2.jianshu.io/assets/babel-polyfill-e9c9b9785eb2c39c58e4.js" crossorigin="anonymous"></script>
+    <script src="//cdn2.jianshu.io/assets/web-base-2d541906cef5dcf0fd22.js" crossorigin="anonymous"></script>
+<script src="//cdn2.jianshu.io/assets/web-211e04d27fb3d9764421.js" crossorigin="anonymous"></script>
+    
+    <script src="//cdn2.jianshu.io/assets/web/pages/notes/show/entry-086fe40459dbedd0b3b8.js" crossorigin="anonymous"></script>
+    <script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  </body>
+</html>

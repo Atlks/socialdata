@@ -1,0 +1,689 @@
+<!--STATUS OK-->
+  <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+  <base href="http://www.cnblogs.com/pipelone/articles/1168765.html">
+  <style>
+  body{margin:4px 0}
+  #bd_sn_h{text-align:left;background-color:#ffffff;color:#000000}
+  #bd_sn_h #p1{clear:both;font:14px Arial;margin:0 0 0 2px;padding:4px 0 0 0}
+  #bd_sn_h a{color:#0000ff;text-decoration:underline}
+  #bd_sn_h #p1 a{font-weight:bold}
+  #baidu div{position:static}
+  </style>
+
+<table id="baidu" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td>
+  <div style="text-align:left;background-color:#ffffff;color:#000000">
+    <div style="margin:6px 18px 0 10px;float:left"><a href="http://www.baidu.com"><img style="border:0px" alt="到百度首页" src="http://img.baidu.com/img/logo-kz.gif"></a></div>
+    <div style="margin:27px 0 0 0;float:left">
+      <form style="margin:0;padding:0" action="http://www.baidu.com/s"> 
+      <input name="wd" size="35" style="font:16px Arial"> <input type="submit" value="百度一下">
+      <input name="cl" type="hidden" value="3">
+   	  </form>
+    </div>
+	<p style="clear:both;font:14px Arial;margin:0 0 0 2px;padding:4px 0 0 0;width:100%;text-align:left;background-color:#ffffff;color:#000000">您查询的关键词是：<B style='color:black;background-color:#ffff66'><a href=http://cache.baidu.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f73260878e482a958448e435061e5a24b8f9707c4d5884d82f2747f41802bdb12b7134072ab29fcf9f4aaae1d477719c6269304a891e59925af1dc4654d650964d9eab0e97bce74193b9d3a3c82458dd27736df0f19c2b71&p=8b2a921fc8871aff57ee92214c0d&user=baidu#baidusnap0>mysql</a>&nbsp;</B><B style='color:black;background-color:#A0FFFF'><a href=http://cache.baidu.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f73260878e482a958448e435061e5a24b8f9707c4d5884d82f2747f41802bdb12b7134072ab29fcf9f4aaae1d477719c6269304a891e59925af1dc4654d650964d9eab0e97bce74193b9d3a3c82458dd27736df0f19c2b71&p=8b2a921fc8871aff57ee92214c0d&user=baidu#baidusnap1>存储过程</a>&nbsp;</B> 。如果打开速度慢，可以尝试<a style="color:#0000ff;text-decoration:underline;font-weight:bold" href="http://cache.baidu.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f73260878e482a958448e435061e5a24b8f9707c4d5884d82f2747f41802bdb12b7134072ab29fcf9f4aaae1d477719c6269304a891e59925af1dc4654d650964d9eab0e97bce74193b9d3a3c82458dd27736df0f19c2b71&p=8b2a921fc8871aff57ee92214c0d&user=baidu&fast=y">快速版</a>；如果想保存快照，可以<a style="color:#0000ff;text-decoration:underline;font-weight:bold" onclick="window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(document.title)+'&amp;iu='+encodeURIComponent(location.href)+'&amp;fr=ps#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes'); return false;" href="http://cang.baidu.com/do/add" target="_blank">添加到搜藏</a>。</p>
+	<p style="font:12px Arial;color:gray;margin:0 2px;width:100%text-align:left;background-color:#ffffff">(百度和网页<a style="color:#0000ff;text-decoration:underline" href="http://www.cnblogs.com/pipelone/articles/1168765.html">http://www.cnblogs.com/pipelone/articles/1168765.html</a>的作者无关，不对其内容负责。百度快照谨为网络故障时之索引，不代表被搜索网站的即时页面。)</p>
+	<hr style="margin:8px 0;width:100%">
+  </div>
+</td></tr>
+</table>
+  <div style="position:relative">
+  <!DOCTYPE html public "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head id="Head"><title>
+	mysql存储过程语法学习 - uu.Net - 博客园
+</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta id="metaKeywords" name="keywords" content="mysql存储过程语法学习" /><meta name="description" content="简介：一个存储过程包括名字，参数列表，以及可以包括很多SQL语句的SQL语句集。一个存储过程包括名字，参数列表，以及可以包括很多SQL语句的SQL语句集。创建存储过程：语法：" /><link id="CommondCss" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common.css" /><link id="MainCss" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/Skins/fighting/style.css" /><link id="CommondCss2" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common2.css" /><link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/pipelone/rss" />
+    
+</head>
+<body>
+    <form name="Form1" method="post" action="1168765.html" id="Form1">
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="" />
+
+
+												
+
+
+        
+<!--done-->
+<center>
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/pipelone/"><img id="blogLogo" src="/Skins/fighting/images/logo.gif" alt="" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/pipelone/">uu.Net</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<!--done-->
+			<ul id="navList">
+				<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+				<li><a id="MyLinks1_SpaceLink" class="menu" href="http://space.cnblogs.com/">社区</a></li>
+				<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/pipelone/">首页</a></li>
+				<li><a id="MyLinks1_NewPostLink" class="menu" href="http://www.cnblogs.com/pipelone/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+				<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" href="http://www.cnblogs.com/pipelone/contact.aspx?id=1">联系</a></li>
+				<li><a id="MyLinks1_Admin" class="menu" href="http://www.cnblogs.com/pipelone/admin/EditPosts.aspx">管理</a></li>
+				<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/pipelone/rss">订阅</a>
+				<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/pipelone/rss"><img src="/Skins/Custom/images/rss.gif" alt="订阅" border="0" /></a></li>
+			</ul>
+
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 13&nbsp;
+文章- 14&nbsp;
+评论- 2&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div class="clear"></div>
+	<div id="topicList">
+		
+					
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a name=baidusnap0></a><a name=baidusnap1></a><a id="AjaxHolder_ctl01_TitleUrl" class="postTitle2" href="http://www.cnblogs.com/pipelone/articles/1168765.html"><B style='color:black;background-color:#ffff66'>mysql</B><B style='color:black;background-color:#A0FFFF'>存储过程</B>语法学习</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div><strong>简介：</strong>一个<B style='color:black;background-color:#A0FFFF'>存储过程</B>包括名字，参数列表，以及可以包括很多SQL语句的SQL语句集。</div>
+<p style="margin: 0in 0in 0pt"><font size="2"><span style="color: black; font-family: 宋体">一个<B style='color:black;background-color:#A0FFFF'>存储过程</B>包括名字，参数列表，以及可以包括很多</span><span style="color: black; font-family: Tahoma">SQL</span><span style="color: black; font-family: 宋体">语句的</span><span style="color: black; font-family: Tahoma">SQL</span><span style="color: black; font-family: 宋体">语句集。</span></font></p>
+<p style="margin: 0in 0in 0pt"><span style="font-family: 宋体"><font size="3"><font size="2">创建<B style='color:black;background-color:#A0FFFF'>存储过程</B>：<br />
+</font><br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: 宋体">语法：</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CREATE PROCEDURE p()</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;BEGIN</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;/*</span><span style="font-size: 10pt; color: navy; font-family: 宋体">此<B style='color:black;background-color:#A0FFFF'>存储过程</B>的正文</span><span style="font-size: 10pt; color: navy; font-family: Arial">*/</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;END</span></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: #d4d0c8; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CREATE PROCEDURE productpricing()</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;BEGIN</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp;&nbsp;SELECT Avg(pro_price) AS priceaverage</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp;&nbsp;FROM</span><span style="font-size: 10pt; color: navy; font-family: 宋体">　</span><span style="font-size: 10pt; color: navy; font-family: Arial">products;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;END;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">#&nbsp;begin&#8230;end</span><span style="font-size: 10pt; color: navy; font-family: 宋体">之间是<B style='color:black;background-color:#A0FFFF'>存储过程</B>的主体定义</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">#&nbsp;<B style='color:black;background-color:#ffff66'>mysql</B></span><span style="font-size: 10pt; color: navy; font-family: 宋体">的分界符是分号（；）</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p style="margin: 0in 0in 0pt; tab-stops: 75.0pt"><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></p>
+<p style="margin: 0in 0in 0pt; tab-stops: 75.0pt"><span style="font-family: 宋体"><font size="3"><font size="2">调用<B style='color:black;background-color:#A0FFFF'>存储过程</B>的方法是：<br />
+</font><br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># CALL</span><span style="font-size: 10pt; color: navy; font-family: 宋体">加上过程名以及一个括号</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># </span><span style="font-size: 10pt; color: navy; font-family: 宋体">例如调用上面定义的<B style='color:black;background-color:#A0FFFF'>存储过程</B></span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CALL productpricing(); </span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># </span><span style="font-size: 10pt; color: navy; font-family: 宋体">哪怕是不用传递参数，<B style='color:black;background-color:#A0FFFF'>存储过程</B>名字后面的括号&#8220;（）&#8221;也是必须的</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p style="margin: 0in 0in 0pt"><span style="font-family: 宋体"><font size="3"><font size="2">删除<B style='color:black;background-color:#A0FFFF'>存储过程</B>的方法是：<br />
+</font><br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">DROP PROCUDURE productpricing;</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p style="margin: 0in 0in 0pt"><span style="font-family: 宋体"><font size="3"><font size="2">创建带参数的<B style='color:black;background-color:#A0FFFF'>存储过程</B>：</font><br />
+<br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CREATE PROCUDURE productpricing(</span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">OUT p1 DECIMAL(8,2),</span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">OUT ph DECIMAL(8,2),</span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">OUT pa DECIMAL(8,2)</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">)</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">BEGIN</span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT Min(prod_price) INTO pl FROM products;</span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt; tab-stops: 270.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT Max(prod_price) INTO ph FROM products;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+            <p style="margin: 0in 0in 0pt; text-indent: 21.75pt; tab-stops: 270.75pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT Avg(prod_price) INTO pa FROM products;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">END;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># DECIMAL</span><span style="font-size: 10pt; color: navy; font-family: 宋体">用于指定参数的数据类型</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># OUT</span><span style="font-size: 10pt; color: navy; font-family: 宋体">用于表明此值是用于从<B style='color:black;background-color:#A0FFFF'>存储过程</B>里输出的</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># <B style='color:black;background-color:#ffff66'>MySQL</B></span><span style="font-size: 10pt; color: navy; font-family: 宋体">支持</span><span style="font-size: 10pt; color: navy; font-family: Arial"> OUT, IN, INOUT</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p style="margin: 0in 0in 0pt"><span style="font-family: 宋体"><font size="3"><font size="2">调用带参数的<B style='color:black;background-color:#A0FFFF'>存储过程</B>：</font><br />
+<br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CALL</span><span style="font-size: 10pt; color: navy; font-family: 宋体">　</span><span style="font-size: 10pt; color: navy; font-family: Arial">productpricing(&#64;pricelow,</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#64;pricehigh,</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&#64;priceaverage);&nbsp;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># </span><span style="font-size: 10pt; color: navy; font-family: 宋体">所有的参数必须以</span><span style="font-size: 10pt; color: navy; font-family: Arial">&#64;</span><span style="font-size: 10pt; color: navy; font-family: 宋体">开头</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># </span><span style="font-size: 10pt; color: navy; font-family: 宋体">要想获取</span><span style="font-size: 10pt; color: navy; font-family: Arial">&#64;priceaverage</span><span style="font-size: 10pt; color: navy; font-family: 宋体">的值，用以下语句</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT &#64;priceaverage;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial"># </span><span style="font-size: 10pt; color: navy; font-family: 宋体">获取三个的值，用以下语句</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT &#64;pricehigh, &#64;pricelow, &#64;priceaverage;</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p style="margin: 0in 0in 0pt"><font size="2"><span style="font-family: 宋体">另一个带</span><font face="Times New Roman">IN</font><span style="font-family: 宋体">和</span><font face="Times New Roman">OUT</font></font><span style="font-family: 宋体"><font size="3"><font size="2">参数的<B style='color:black;background-color:#A0FFFF'>存储过程</B>：</font><br />
+<br />
+</font></span></p>
+<div align="center">
+<table style="border-right: medium none; border-top: medium none; background: #e6e6e6; border-left: medium none; border-bottom: medium none; border-collapse: collapse" cellspacing="0" cellpadding="0" border="1">
+    <tbody>
+        <tr>
+            <td style="border-right: windowtext 1pt solid; padding-right: 5.4pt; border-top: windowtext 1pt solid; padding-left: 5.4pt; padding-bottom: 0in; border-left: windowtext 1pt solid; width: 426.1pt; padding-top: 0in; border-bottom: windowtext 1pt solid; background-color: transparent" valign="top" width="568">
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CREATE PROCEDURE ordertotal(</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; IN onumber INT,</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; OUT ototal DECIMAL(8,2)</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">)</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">BEGIN</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; SELECT Sum(item_price*quantity)</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; FROM orderitems</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; WHERE order_num = onumber</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">&nbsp;&nbsp; INTO ototal;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">END;</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">CALL ordertotal(20005, &#64;total);</span></p>
+            <p style="margin: 0in 0in 0pt"><span style="font-size: 10pt; color: navy; font-family: Arial">SELECT &#64;total;</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div align="left">&nbsp;添加一个完整的例子:(这是一个自定义分页的<B style='color:black;background-color:#A0FFFF'>存储过程</B>)<br />
+<p><font face="Verdana">DELIMITER $$</font></p>
+<p><font face="Verdana">DROP PROCEDURE IF EXISTS `dbcall`.`get_page`$$</font></p>
+<p><font face="Verdana">CREATE DEFINER=`root`&#64;`localhost` PROCEDURE `get_page`(<br />
+&nbsp;&nbsp;&nbsp; /**//*Table name*/<br />
+&nbsp;&nbsp;&nbsp; tableName varchar(100),<br />
+&nbsp;&nbsp;&nbsp; /**//*Fileds to display*/<br />
+&nbsp;&nbsp;&nbsp; fieldsNames varchar(100),<br />
+&nbsp;&nbsp;&nbsp; /**//*Page index*/<br />
+&nbsp;&nbsp;&nbsp; pageIndex int,<br />
+&nbsp;&nbsp;&nbsp; /**//*Page Size*/<br />
+&nbsp;&nbsp;&nbsp; pageSize int,&nbsp; <br />
+&nbsp;&nbsp;&nbsp; /**//*Field to sort*/<br />
+&nbsp;&nbsp;&nbsp; sortName varchar(500),<br />
+&nbsp;&nbsp;&nbsp; /**//*Condition*/<br />
+&nbsp;&nbsp;&nbsp; strWhere varchar(500)<br />
+&nbsp; )<br />
+BEGIN&nbsp; <br />
+&nbsp;&nbsp;&nbsp; DECLARE fieldlist varchar(200);&nbsp; <br />
+&nbsp;&nbsp;&nbsp; if fieldsNames=''||fieldsNames=null THEN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set fieldlist='*';<br />
+&nbsp;&nbsp;&nbsp; else<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set fieldlist=fieldsNames;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; end if;</font></p>
+<p><font face="Verdana">&nbsp;&nbsp;&nbsp; if strWhere=''||strWhere=null then<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if sortName=''||sortName=null then&nbsp; <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set &#64;strSQL=concat('SELECT ',fieldlist,' FROM ',tableName,' LIMIT ',(pageIndex-1)*pageSize,',',pageSize);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set &#64;strSQL=concat('SELECT ',fieldlist,' FROM ',tableName,' ORDER BY ',sortName,' LIMIT ',(pageIndex-1)*pageSize,',',pageSize);&nbsp; <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if;<br />
+&nbsp;&nbsp;&nbsp; else<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if sortName=''||sortName=null then<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set &#64;strSQL=concat('SELECT ',fieldlist,' FROM ',tableName,' WHERE ',strWhere,' LIMIT ',(pageIndex-1)*pageSize,',',pageSize);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set &#64;strSQL=concat('SELECT ',fieldlist,' FROM ',tableName,' WHERE ',strWhere,' ORDER BY ',sortName,' LIMIT ',(pageIndex-1)*pageSize,',',pageSize);&nbsp; <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end&nbsp;&nbsp; if;<br />
+&nbsp;&nbsp;&nbsp; end&nbsp;&nbsp; if;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; PREPARE stmt1 FROM &#64;strSQL;&nbsp; <br />
+&nbsp;&nbsp;&nbsp; EXECUTE stmt1;<br />
+&nbsp;&nbsp;&nbsp; DEALLOCATE PREPARE stmt1;<br />
+END$$</font></p>
+<p><font face="Verdana">DELIMITER ;</font></p>
+</div>
+
+		</div>
+		<div class = "postDesc">posted @ 2008-04-24 10:07 <a href='http://www.cnblogs.com/pipelone/'>uu.Net</a> 阅读(219) <a href='#Post'>评论(0)</a> &nbsp;<a href="http://www.cnblogs.com/pipelone/admin/EditArticles.aspx?postid=1168765">编辑</a> <a href="http://www.cnblogs.com/pipelone/AddToFavorite.aspx?id=1168765">收藏</a> <a href="#" onclick="PutInWz();return false;">网摘</a>  </div>
+	</div>
+	<img src ="http://www.cnblogs.com/pipelone/aggbug/1168765.html?type=2&webview=1" width = "1" height = "1" />
+	
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/pipelone/articles/1168765.html"
+dc:identifier="http://www.cnblogs.com/pipelone/articles/1168765.html"
+dc:title="mysql存储过程语法学习"
+trackback:ping="http://www.cnblogs.com/pipelone/services/trackbacks/1168765.aspx" />
+</rdf:RDF>
+-->
+
+</div><!--end: topics 文章、评论容器-->
+
+<div id="AjaxHolder_UpdatePanel1">
+	    
+    
+<style>
+td { font-size: 12px }
+.commentTextBox 
+{ 
+    font-family : Verdana; 
+    font-size: 13px;
+ }
+ 
+a.blue:visited,
+a.blue:active,
+a.blue:link,
+a.blue:hover
+{
+	color:blue;
+	
+}
+</style>
+<!--Beging Temp Save-->
+<STYLE>.userData { BEHAVIOR: url(#default#userdata) }
+	</STYLE>
+<DIV class="userData" id="CommentsPersistDiv"></DIV>
+
+
+<!--Ene TempSave-->
+<div id="divRefreshComments" style="text-align:right;margin-right:10px;margin-bottom:5px;font-size:12px"><a href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_refreshList" href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</a>&nbsp;&nbsp;</div>
+<div class="commentform">
+<span id="AjaxHolder_PostComment_ltSubmitMsg"><font color="Red"></font></span>
+<br />
+<a name="Feedback"></a>
+	<table cellSpacing="1" cellPadding="1" border="0" style="width:600px">
+	    <tr>
+			<td colspan="3">
+            </td>
+		</tr>
+		<tr>
+			<td></TD>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="55">标题</TD>
+			<td colspan="2"><input name="AjaxHolder$PostComment$tbTitle" type="text" value="re: mysql存储过程语法学习" id="AjaxHolder_PostComment_tbTitle" class="commenttb" />&nbsp;</TD>
+		</tr>
+		<tr>
+			<td>姓名</td>
+			<td colspan="2"><input name="AjaxHolder$PostComment$tbName" type="text" id="AjaxHolder_PostComment_tbName" class="commenttb" />&nbsp;</TD>
+		</tr>
+		<tr>
+			<td>主页</td>
+			<td><input name="AjaxHolder$PostComment$tbUrl" type="text" id="AjaxHolder_PostComment_tbUrl" class="commenttb" /></td>
+			<td></td>
+		</tr>
+		<tr id="AjaxHolder_PostComment_trEmail">
+		<td>Email</td>
+		<td colspan="2"><input name="AjaxHolder$PostComment$tbEmail" type="text" id="AjaxHolder_PostComment_tbEmail" class="commenttb" />(博主才能看到)&nbsp;</td>
+	</tr>
+	
+		<tr>
+			<td align="left" colspan="3">
+				<table id="AjaxHolder_PostComment_tbCaptchaImage" class="CommentForm" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td colspan="3">
+							
+							<span id="AjaxHolder_PostComment_lblImage"><b><font color="Red"></font></b></span>
+						</td>
+		</tr>
+		<tr>
+			<td width="56">验证码</td>
+			<td colspan="2"><input name="AjaxHolder$PostComment$CodeNumberTextBox" type="text" id="AjaxHolder_PostComment_CodeNumberTextBox" style="width:100px" />*&nbsp;&nbsp;<img src="http://www.cnblogs.com/Modules/CaptchaImage/JpegImage.aspx?cacheid=20081114101124"/><a id="AjaxHolder_PostComment_lkbChangeCode" href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</a> [<a href="/login.aspx?ReturnUrl=/pipelone/articles/1168765.html">登录</a>][<a href="/RequireRegister.aspx">注册</a>]</td>
+		</tr>
+	</table>
+	
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="text-align:left">
+			<div style="width:600px;">
+			    <div class="divPostCommentBox">
+			    内容(请不要发表任何与政治相关的内容)	    
+				    &nbsp;<br/>
+				    <textarea name="AjaxHolder$PostComment$tbComment" rows="2" cols="20" id="AjaxHolder_PostComment_tbComment" class="commentTextBox" onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')"></textarea>
+			    </div>
+				<div class="CommentBoxNav">
+				<a href="http://www.cnblogs.com" target="_blank" tabIndex="-1">网站首页</a><br/><br/>
+				<a href="http://news.cnblogs.com" target="_blank" tabIndex="-1">新闻频道</a><br/><br/>
+				<a href="http://space.cnblogs.com" target="_blank" tabIndex="-1">社区</a><br/><br/>
+				<a href="http://space.cnblogs.com/group.htm" target="_blank" tabIndex="-1">小组</a><br/><br/>
+				<a href="http://space.cnblogs.com/q" target="_blank" tabIndex="-1">博问</a><br/><br/>
+				<a href="http://wz.cnblogs.com" target="_blank" tabIndex="-1">网摘</a><br/><br/>
+				<a href="http://space.cnblogs.com/ing" target="_blank" tabIndex="-1">闪存</a><br/><br/>
+				<a href="http://zzk.cnblogs.com" target="_blank" tabIndex="-1">找找看</a><br/><br/>
+				</div>
+			</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+		<span id="AjaxHolder_PostComment_Message"><font color="Red"></font></span>
+		</td>
+		</tr>
+		<tr>
+			<td colspan="3"><input id="AjaxHolder_PostComment_chkRemember" type="checkbox" name="AjaxHolder$PostComment$chkRemember" checked="checked" tabindex="-1" /><label for="AjaxHolder_PostComment_chkRemember">Remember Me?</label></td>
+		</tr>
+		<tr>
+			<td height="23"><input type="submit" name="AjaxHolder$PostComment$btnSubmit" value="提交" onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="AjaxHolder_PostComment_btnSubmit" class="commentButton" />
+				</td>
+			<td colSpan="2" height="23">&nbsp;
+				<a id="AjaxHolder_PostComment_lnkLogin" href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/pipelone/articles/1168765.html&amp;SourceURL=/pipelone/articles/1168765.html">登录</a>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_linkLoginComment" OnClick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" href="http://www.cnblogs.com/pipelone/articles/1168765.html?login=1#Post">使用高级评论</a>&nbsp;&nbsp;<a href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<A href="#Top">返回页首</A>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_lbRestore" OnClick="Restore('AjaxHolder_PostComment_tbComment'); return false;" href="/pipelone/articles/1168765.html#Post">恢复上次提交</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+		</tr>
+		<tr>
+			<td colspan="3"><label class="CtrlEnter">[使用Ctrl+Enter键可以直接提交]</label></td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><a href="http://www.cnblogs.com/search.aspx" target="_blank">Google站内搜索</a></td>
+		</tr>
+		<tr>
+			<td colspan="3"><br /><div id="relative_posts"><b>相关文章:</b><br/></div></td>
+		</tr>	
+		<tr>
+			<td colspan="3">
+			<div id="div_a4_ads"><br/><b>相关链接:</b>
+			
+	        </div>
+	        </td>
+		</tr>	
+		<tr>
+			<td colspan="3"></td>
+		</tr>
+		</tr>
+		<tr>
+			<td colspan="3" height="5">
+<br />
+
+
+<br />
+            </td>
+		</tr>
+		<tr>
+			<td colspan="3">
+
+<div class="itnews">
+<br /><b>最新IT新闻:</b><br />
+
+            <a href='http://news.cnblogs.com/n/43540/' target="_blank">谷歌称为赢得亚洲市场占有率或将展开持久战</a><br />
+	
+            <a href='http://news.cnblogs.com/n/43539/' target="_blank">联想将要裁员过寒冬</a><br />
+	
+            <a href='http://news.cnblogs.com/n/43538/' target="_blank">19.19美元 微软股价创10年新低</a><br />
+	
+            <a href='http://news.cnblogs.com/n/43537/' target="_blank">分析师:Google最糟糕的时刻</a><br />
+	
+            <a href='http://news.cnblogs.com/n/43536/' target="_blank">Windows Live转型社交平台 成为Facebook对手</a><br />
+	
+</div></td>
+	    </tr>
+		<tr>
+			<td colspan="3" height="5">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="5"> 
+            </td>
+		</tr>
+		<tr>
+			<td colspan="3" height="1"></td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+		<td colspan="3"></td>
+		</tr>
+	</table>	
+</div>
+
+</div>
+
+
+				
+	</div><!--end: topicList 文章列表容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="calendar"><table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+	<tr><td colspan="7"><table class="CalTitle" cellspacing="0" border="0">
+		<tr><td class="CalNextPrev"><a href="javascript:__doPostBack('Calendar1$entryCal','V3196')" style="color:Black" title="Go to the previous month">&lt;</a></td><td align="center">2008年11月</td><td class="CalNextPrev" align="right"><a href="javascript:__doPostBack('Calendar1$entryCal','V3257')" style="color:Black" title="Go to the next month">&gt;</a></td></tr>
+	</table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td class="CalTodayDay" align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</table>
+</div>
+			
+			<DIV id="leftcontentcontainer">
+				
+<div class="catListInteraction">
+<h3 class="catListTitle">与我联系</h3>
+<ul>
+ <li>
+     <a id="SingleColumn1_ctl00_lnkSendMsg" class="sendMsg" href="http://space.cnblogs.com/msg/send/uu.Net">发短消息</a>
+ </li>
+</ul>
+</div>
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div class="div_my_zzk"><input  type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk"/>&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"/></div>
+</div>
+<div class="catListLink">
+<h3 class ="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_ctl00_lnkLinkItem" href="http://www.cnblogs.com/pipelone/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_ctl01_lnkLinkItem" href="http://space.cnblogs.com/pipelone">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_ctl02_lnkLinkItem" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/pipelone/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_ctl00_lnkLinkItem" href="http://www.cnblogs.com/pipelone/MyArticles.html">我的文章</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_ctl01_lnkLinkItem" title="我发表过评论的随笔" href="http://www.cnblogs.com/pipelone/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_ctl02_lnkLinkItem" href="http://www.cnblogs.com/pipelone/MyNews.html">我的新闻</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/pipelone/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_ctl04_lnkLinkItem" href="http://www.cnblogs.com/pipelone/tag/">我的标签</a></li>
+	
+</ul>
+</div>
+</div>
+<div class="catListNoteBook">
+<h3 class="catListTitle">留言簿</h3>
+<ul>
+	<li><a id="SingleColumn1_ctl03_lnkMessages" class="sendMSG" href="http://www.cnblogs.com/pipelone/Contact.aspx?id=1">给我留言</a></li>
+	<!--<li><a id="SingleColumn1_ctl03_lnkPublicMsgView" class="viewPubMSG" href="http://www.cnblogs.com/pipelone/default.aspx?opt=msg">查看公开留言</a></li>-->
+	<li><a id="SingleColumn1_ctl03_lnkPrivateMsgView" class="viewPerMSG" href="http://www.cnblogs.com/pipelone/admin/MyMessages.aspx" target="_blank">查看留言</a></li>
+	</ul>
+</div>
+
+</asp:Panel>
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(13)</span></h3>
+
+<ul>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link" href="http://www.cnblogs.com/pipelone/archive/2008/09.html">2008年9月 (2)</a> </li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link" href="http://www.cnblogs.com/pipelone/archive/2008/08.html">2008年8月 (4)</a> </li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link" href="http://www.cnblogs.com/pipelone/archive/2008/07.html">2008年7月 (4)</a> </li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link" href="http://www.cnblogs.com/pipelone/archive/2008/06.html">2008年6月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListArticleCategory">
+<h3 class="catListTitle">文章分类<span style="font-size:11px;font-weight:normal">(5)</span></h3>
+
+<ul>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link" href="http://www.cnblogs.com/pipelone/category/133131.html">Asp.net(2)</a> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_RssLink" title="Subscribe to Asp.net(2)" href="http://www.cnblogs.com/pipelone/category/133131.html/rss">(rss)</a></li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link" href="http://www.cnblogs.com/pipelone/category/133134.html">MSSQL(1)</a> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_RssLink" title="Subscribe to MSSQL(1)" href="http://www.cnblogs.com/pipelone/category/133134.html/rss">(rss)</a></li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link" href="http://www.cnblogs.com/pipelone/category/133130.html"><B style='color:black;background-color:#ffff66'>mysql</B>(2)</a> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_RssLink" title="Subscribe to mysql(2)" href="http://www.cnblogs.com/pipelone/category/133130.html/rss">(rss)</a></li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link" href="http://www.cnblogs.com/pipelone/category/133132.html">pattern</a> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_RssLink" title="Subscribe to pattern" href="http://www.cnblogs.com/pipelone/category/133132.html/rss">(rss)</a></li>
+
+<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link" href="http://www.cnblogs.com/pipelone/category/140462.html">SEO</a> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_RssLink" title="Subscribe to SEO" href="http://www.cnblogs.com/pipelone/category/140462.html/rss">(rss)</a></li>
+
+</ul>
+
+</div>
+
+
+
+<div class="catListComment">
+<h3 class = "catListTitle">最新评论<a id="SingleColumn1__12b488_RSSHyperlink1" title="RSS订阅最最新评论" href="http://www.cnblogs.com/pipelone/CommentsRSS.aspx"><img title="RSS订阅最最新评论" src="/images/xml.gif" border="0" /></a></h3>
+
+	
+			<div  class="divRecentCommentAticle">
+				<a id="SingleColumn1__12b488_CommentList_ctl00_Hyperlink2" class="listitem" href="http://www.cnblogs.com/pipelone/archive/2008/10/16/1169516.html#1342017">1.?re: 游标学习笔记　</a>
+			</div>
+			<div class="divRecentComment">
+				讲解的非常好。 (kivenhou)
+			</div>		
+		
+</div>
+
+<div class="catListView">
+<h3 class = "catListTitle">阅读排行榜</h3>
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__37efae7_TopList_ctl01_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/07/20/1246941.html">1.?linux_ip配置(320)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__37efae7_TopList_ctl02_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/06/25/1229354.html">2.?<B style='color:black;background-color:#ffff66'>Mysql</B>的字符集(206)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__37efae7_TopList_ctl03_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/08/28/1278828.html">3.?基于asterisk的开源呼叫中心解决方案astercrm的安装和配置(99)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__37efae7_TopList_ctl04_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/07/20/1246942.html">4.?<B style='color:black;background-color:#ffff66'>mysql</B>_用户权限添加编辑(86)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__37efae7_TopList_ctl05_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/07/01/1233536.html">5.?解决<B style='color:black;background-color:#ffff66'>mysql</B>表被crash的一次维护始末(73)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__3588279_TopList_ctl01_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/06/14/1221990.html">1.?百度收录论坛的问题(0)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__3588279_TopList_ctl02_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/06/18/1225036.html">2.?lock(object)访问共享数据(0)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__3588279_TopList_ctl03_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/06/25/1229354.html">3.?<B style='color:black;background-color:#ffff66'>Mysql</B>的字符集(0)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__3588279_TopList_ctl04_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/07/01/1233536.html">4.?解决<B style='color:black;background-color:#ffff66'>mysql</B>表被crash的一次维护始末(0)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__3588279_TopList_ctl05_Hyperlink1" href="http://www.cnblogs.com/pipelone/archive/2008/07/17/1245016.html">5.?<B style='color:black;background-color:#ffff66'>mysql</B>无法创建function的一个bug,代号1418(0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+		<div class="clear"></div>
+	</div><!--end: sideBar 侧边栏容器 -->
+</div><!--end: home 自定义的最大容器 -->
+		<div class="clear"></div>
+<div id="footer">
+	
+<!--done-->
+Copyright &copy;2008 uu.Net
+</div><!--end: footer -->
+</center>
+    
+
+
+</form>
+    
+	<span style="display:none"></span> 
+</body>
+</html>
+
+

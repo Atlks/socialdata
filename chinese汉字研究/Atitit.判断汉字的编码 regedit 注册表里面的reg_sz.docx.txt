@@ -1,0 +1,29 @@
+Atitit.判断汉字的编码 regedit 注册表里面的reg_sz
+
+
+byte[] ai={44, 103, 51, 0, 51, 0, 77, 0};
+
+byte[] a2="本".getBytes("unicode");
+[-2, -1, 103, 44]
+
+
+可以判断出是unicode编码
+
+有下面分割ucs2 大头小偷编码
+
+ java ucs2编码 2014-08-28 21:06:00
+分类： Java
+byte[] arr = deliver.getMessageContent().getBytes();
+ 
+String content = new String( arr ,"UnicodeBigUnmarked");
+
+使用小偷编码测试
+
+	byte[] ai={44, 103, 51, 0, 51, 0, 77, 0};
+		System.out.println( new String(ai,"UnicodeLittleUnmarked")  );
+
+结果ok
+
+
+
+

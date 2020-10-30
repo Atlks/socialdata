@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/yuanchao3333/article/details/2238382"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="lucene 支持的检索语法和检索运算符分类列表        近期用到 lucene ，读了一些文档，因为以前一直用开发商用引擎或用商用引擎的原因，所以一上来就想找比较完整的分类文档，主要是lucene的数据类型，支持的运算符，运算能力，各种功能的性能推荐等等。后来发现lucene文档很详细，内容很全了，可惜有些内容没有汇总，散落在各处，找了半天也没找到个全的，自己动手总结了一个。 " />
+    <meta name="keywords" content="lucene,文档" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>lucene 支持的检索语法和检索运算符分类列表 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-4eebab50e6.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-02ffddfbf5.min.css">
+
+    <script type="text/javascript">
+        var username = "yuanchao3333";
+        var blog_address = "https://blog.csdn.net/yuanchao3333";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "attilax"; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/yuanchao3333/article/details/2238382"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+        <script type="text/javascript" src="https://csdnimg.cn/pubfooter/js/tracking-1.0.2.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h6 class="title-blog">
+				<a href="https://blog.csdn.net/yuanchao3333">远超的blog</a>
+			</h6>
+			<p class="description">思路</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/yuanchao3333/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h6 class="title-article">lucene 支持的检索语法和检索运算符分类列表</h6>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2008年04月01日 16:07:00</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：954</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                <h3>lucene 支持的检索语法和检索运算符分类列表</h3>
+<p>        近期用到 lucene ，读了一些文档，因为以前一直用开发商用引擎或用商用引擎的原因，所以一上来就想找比较完整的分类文档，主要是lucene的数据类型，支持的运算符，运算能力，各种功能的性能推荐等等。后来发现lucene文档很详细，内容很全了，可惜有些内容没有汇总，散落在各处，找了半天也没找到个全的，自己动手总结了一个。</p>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" xml:lang="en-us"></span></p><p><font face="Calibri" size="3"> </font></p>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" xml:lang="en-us"></span></p><p><font face="Calibri" size="3"> </font></p>
+<h3 style="margin:13pt 0cm;"><a></a><font size="3"><span style="font-family:'宋体';">检索请求语法</span><span lang="en-us" xml:lang="en-us">:</span></font></h3>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><font size="3"><span style="font-family:'宋体';">基本形式</span><span lang="en-us" xml:lang="en-us"><font face="Calibri">: q=</font></span><span style="font-family:'宋体';">检索项和运算符组成的检索请求表达式</span></font></p>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-family:'宋体';"><font size="3">检索项：</font></span></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:-18pt;"><span lang="en-us" xml:lang="en-us"><span><font face="Calibri" size="3">1，</font><span style="font:7pt 'Times New Roman';">  </span></span></span><span style="font-family:'宋体';"><font size="3">检索字段名称（在建立索引时候给定）</font></span></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">1.1</font></span><span style="font-family:'宋体';">用户可以指定要检索的字段，语法为</span><font face="Calibri"> <span lang="en-us" xml:lang="en-us">“</span></font><span style="font-family:'宋体';">字段名</span><span lang="en-us" xml:lang="en-us"><font face="Calibri">=</font></span><span style="font-family:'宋体';">检索串</span><span lang="en-us" xml:lang="en-us"><font face="Calibri">”</font></span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">1.2</font></span><span style="font-family:'宋体';">不输入情况下，自动检索默认检索字段，建立索引时设置</span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">1.3</font></span><span style="font-family:'宋体';">多字段之间可以进行逻辑运算检索，默认情况下为或关系，</span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">1.4</font></span><span style="font-family:'宋体';">字段内容范围</span><font face="Calibri"> </font><span style="font-family:'宋体';">为紧邻的字符串，或者可以用括号运算符确认</span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:-18pt;"><span lang="en-us" xml:lang="en-us"><span><font face="Calibri" size="3">2，</font><span style="font:7pt 'Times New Roman';">  </span></span></span><span style="font-family:'宋体';"><font size="3">请求文本（非检索系统保留字的文本串）</font></span></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">2.1</font></span><span style="font-family:'宋体';">可以用双引号</span><font face="Calibri"> </font><span style="font-family:'宋体';">括起来</span><font face="Calibri"> </font><span style="font-family:'宋体';">当作一个多个词语的短语串整体来对待</span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">2.2</font></span><span style="font-family:'宋体';">保留字如下：</span><span lang="en-us" xml:lang="en-us"><font face="Calibri">+ ,-, &amp;&amp;, ||, !, ( ), { }, [ ], ^, ", ~, *, ?, :, /,</font></span></font></p>
+<p class="MsoListParagraph" style="margin:0cm 0cm 0pt 18pt;text-indent:0cm;"><font size="3"><span lang="en-us" xml:lang="en-us"><font face="Calibri">2.3</font></span><span style="font-family:'宋体';">如果需要输入保留字，请自行做好转义</span><span lang="en-us" xml:lang="en-us"><span><font face="Calibri">  </font></span></span><span style="font-family:'宋体';">转义符如下：</span><span lang="en-us" xml:lang="en-us"><font face="Calibri">/</font></span></font></p>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" xml:lang="en-us"></span></p><p><font face="Calibri" size="3"> </font></p>
+<p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" xml:lang="en-us"></span></p><p><font face="Calibri" size="3"> </font></p>
+<h3 style="margin:13pt 0cm;"><span style="font-family:'宋体';"><font size="3">运算符列表</font></span></h3>
+<p>
+</p><table class="MsoTableGrid8" style="border-right:medium none;border-top:medium none;border-left:medium none;border-bottom:medium none;border-collapse:collapse;" cellspacing="0" cellpadding="0" width="593" border="1"><tbody><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;background:#000080;padding-bottom:0cm;border-left:#000080 1pt solid;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span><strong>运算集名称</strong></span></p><p><strong></strong></p><strong></strong>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;border-left-color:#d4d0c8;background:#000080;padding-bottom:0cm;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><strong><span style="font-size:10pt;color:#FFFFFF;font-family:'宋体';">运算集备注</span></strong><strong><span lang="en-us" style="font-size:10pt;color:#FFFFFF;font-family:'Times New Roman', serif;" xml:lang="en-us"></span></strong></p><p><strong></strong></p><strong></strong>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;border-left-color:#d4d0c8;background:#000080;padding-bottom:0cm;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><strong><span style="font-size:10pt;color:#FFFFFF;font-family:'宋体';">运算符名称</span></strong><strong><span lang="en-us" style="font-size:10pt;color:#FFFFFF;font-family:'Times New Roman', serif;" xml:lang="en-us"></span></strong></p><p><strong></strong></p><strong></strong>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;border-left-color:#d4d0c8;background:#000080;padding-bottom:0cm;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><strong><span style="font-size:10pt;color:#FFFFFF;font-family:'宋体';">符号</span></strong><strong><span lang="en-us" style="font-size:10pt;color:#FFFFFF;font-family:'Times New Roman', serif;" xml:lang="en-us"></span></strong></p><p><strong></strong></p><strong></strong>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;border-left-color:#d4d0c8;background:#000080;padding-bottom:0cm;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><strong><span style="font-size:10pt;color:#FFFFFF;font-family:'宋体';">解释</span></strong><strong><span lang="en-us" style="font-size:10pt;color:#FFFFFF;font-family:'Times New Roman', serif;" xml:lang="en-us"></span></strong></p><p><strong></strong></p><strong></strong>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;border-top:#000080 1pt solid;padding-left:5.4pt;border-left-color:#d4d0c8;background:#000080;padding-bottom:0cm;padding-top:0cm;border-bottom:#000080 1pt solid;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><strong><span style="font-size:10pt;color:#FFFFFF;font-family:'宋体';">示例</span></strong><strong><span lang="en-us" style="font-size:10pt;color:#FFFFFF;font-family:'Times New Roman', serif;" xml:lang="en-us"></span></strong></p><p><strong></strong></p><strong></strong>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" width="95" rowspan="6">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">逻辑运算符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95" rowspan="6">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">与<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">AND</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">或者<span lang="en-us" xml:lang="en-us"> &amp;&amp;</span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“A” AND “B”</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">或<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">OR </span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">或者<span lang="en-us" xml:lang="en-us"> ||</span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“A” OR “B”</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">非<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">NOT</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">或者<span lang="en-us" xml:lang="en-us"> !</span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“A” NOT “B”</span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">表示检索含有<span lang="en-us" xml:lang="en-us">A</span>但不含有<span lang="en-us" xml:lang="en-us">B</span></span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">存在操作符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">+</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">+</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">“<span lang="en-us" xml:lang="en-us">A</span>”<span lang="en-us" xml:lang="en-us"> OR “B”</span></span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">禁止操作符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">-</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“A”-“B”</span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">表示<span lang="en-us" xml:lang="en-us">A</span>的结果中除去<span lang="en-us" xml:lang="en-us">B</span>的结果<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">括号<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">()</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">提升优先级别<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">(A | B) @ C</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">范围运算符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">开区间<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">( TO )</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">(2 TO 18)</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">闭区间<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">[ TO ]</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">[ apple TO bear ]<span>  </span></span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">同在运算符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">当前不支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">同句<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">s , S</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">A s B</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">不同句<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">nots ,NOTS</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">A nots B</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">同段<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">p ,P</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">A p B</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">不同段<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">notp ,NOTP</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">A notp B</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">邻近运算符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95" rowspan="4">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“word1</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">空格<span lang="en-us" xml:lang="en-us">word2”~</span>数字<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">“A B”~10</span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">表示 检索<span lang="en-us" xml:lang="en-us">A</span>与<span lang="en-us" xml:lang="en-us">B</span>之间<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#666699 4.5pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" width="95" rowspan="2">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">通配符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95" rowspan="2">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">0</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">或<span lang="en-us" xml:lang="en-us">1</span>字符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">?</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">Englishman?</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">多字符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">+</span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">Englishm+</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">模糊运算符<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">~</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">浮点型权值<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">只支持英文，并且按照应分分析方法建立的字段<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">在一个具体的检索词或者部分后面添上运算符<span lang="en-us" xml:lang="en-us"> fa~</span></span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">结果可以得到 如<span lang="en-us" xml:lang="en-us"> father</span></span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">默认情况下权值为<span lang="en-us" xml:lang="en-us">0.2 </span>可以用户指定<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">China~1.5</span></p><p></p>
+            </td>
+        </tr><tr><td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;padding-bottom:0cm;border-left:#000080 1pt solid;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:12pt;font-family:'黑体';">权值指定<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;text-align:center;" align="center"><span style="font-size:9pt;color:#FF0000;font-family:'微软雅黑', 'sans-serif';">支持<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">^</span><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">权值数字<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="95">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">支持词，短语，字段<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            </td>
+            <td style="border-right:#000080 1pt solid;padding-right:5.4pt;padding-left:5.4pt;border-left-color:#d4d0c8;padding-bottom:0cm;border-top-color:#d4d0c8;padding-top:0cm;border-bottom:#000080 1pt solid;background-color:transparent;" valign="top" width="117">
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';">例如：<span lang="en-us" xml:lang="en-us"></span></span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">1,A^3 B</span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us">2,“A AND B”^2 “C D”</span></p><p></p>
+            <p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" style="font-size:9pt;font-family:'微软雅黑', 'sans-serif';" xml:lang="en-us"></span></p><p> </p>
+            </td>
+        </tr></tbody></table><p class="MsoNormal" style="margin:0cm 0cm 0pt;"><span lang="en-us" xml:lang="en-us"></span></p><p><font face="Calibri" size="3"> </font></p>            </div>
+                </div>
+			</article>
+	
+		<div class="article-bar-bottom">
+						<div class="tags-box artic-tag-box">
+			<span class="label">文章标签：</span>
+						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=lucene&t=blog" target="_blank">lucene						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=文档&t=blog" target="_blank">文档						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=引擎&t=blog" target="_blank">引擎						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=apple&t=blog" target="_blank">apple						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=c&t=blog" target="_blank">c						</a>
+		</div>
+						<div class="tags-box">
+			<span class="label">个人分类：</span>
+						<a class="tag-link" href="https://blog.csdn.net/yuanchao3333/article/category/303334"  target="_blank">搜索技术						</a>
+		</div>
+					</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> 
+    MathJax.Hub.Config({ 
+			"HTML-CSS": { 
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<img src="https://avatar.csdn.net/3/9/1/3_attilax.jpg">
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="delphi">Delphi</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="vb">Visual Basic</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/wuyinggui10000/article/details/46315989" target="_blank" strategy="BlogCommendFromBaidu_0">
+				一步一步跟我学习<em>lucene</em>（17）---<em>lucene</em>搜索之expressions表达式处理			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/wuyinggui10000/article/details/46315989" target="_blank" >
+				有时候我们在做<em>lucene</em>的结果展示的时候可能需要对多个列的内容进行计算，根据多个field对应的值做数值方面的运算。
+<em>lucene</em>自4.6版本起，提供了用于运算的expression模块；
+expr...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/wuyinggui10000" title="wuyinggui10000" target="_blank">
+					<img src="https://avatar.csdn.net/9/6/E/3_wuyinggui10000.jpg" alt="wuyinggui10000" class="avatar-pic">
+					<span class="name">wuyinggui10000</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-06-02 00:36:11</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2163</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u012443091/article/details/43941241" target="_blank" strategy="BlogCommendFromBaidu_1">
+				<em>Lucene</em>搜索方式大合集			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012443091/article/details/43941241" target="_blank" >
+				package junit;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+im...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u012443091" title="u012443091" target="_blank">
+					<img src="https://avatar.csdn.net/2/7/F/3_u012443091.jpg" alt="u012443091" class="avatar-pic">
+					<span class="name">u012443091</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-02-25 22:31:19</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：749</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+					<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/wuyinggui10000/8762423" target="_blank" strategy="BlogCommendFromBaidu_2">
+						<em>lucene</em>表达式处理查询					</a>
+				</h4>
+				<p>
+					<span class="data">2015年06月02日 </span>
+					<span class="size">4.07MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/wuyinggui10000/8762423" target="_blank" strategy="BlogCommendFromBaidu_2">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/rar.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/mbgmbg/article/details/4310181" target="_blank" strategy="BlogCommendFromBaidu_3">
+				关于<em>lucene</em>全匹配<em>检索</em>的问题			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/mbgmbg/article/details/4310181" target="_blank" >
+				<em>lucene</em>的分词<em>检索</em>自然不用说，可是我们的日常程序中还是经常会用到类似于数据库的等于操作。应用中发现如果关键字为我们平时的数字ID，那么一般是没有问题的，但碰到英文和中文的时候就产生了麻烦。也就是说...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/mbgmbg" title="mbgmbg" target="_blank">
+					<img src="https://avatar.csdn.net/7/E/9/3_mbgmbg.jpg" alt="mbgmbg" class="avatar-pic">
+					<span class="name">mbgmbg</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2009-06-30 15:52:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：764</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/l1028386804/article/details/49287663" target="_blank" strategy="BlogCommendFromBaidu_4">
+				<em>Lucene</em>之——搜索实例			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/l1028386804/article/details/49287663" target="_blank" >
+				一个搜索功能：要求将所有包括搜索字段的文章的标题列出来（文章的内容存储在Oracle的CLOB字段中），也就是要用<em>Lucene</em>实现对数据库的大字段进行索引和搜索。创建<em>lucene</em>通过java定时任务来...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/l1028386804" title="l1028386804" target="_blank">
+					<img src="https://avatar.csdn.net/4/7/A/3_l1028386804.jpg" alt="l1028386804" class="avatar-pic">
+					<span class="name">l1028386804</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-10-21 00:35:58</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1876</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/wuyinggui10000/article/details/46053107" target="_blank" strategy="BlogCommendFromBaidu_5">
+				一步一步跟我学习<em>lucene</em>（15）---java读取word excel pdf及<em>lucene</em>搜索之正则表达式查询RegExQuery和手机邮箱查询示例			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/wuyinggui10000/article/details/46053107" target="_blank" >
+				今天快下班的时候收到了一个群友的问题，大意是读取文本文件中的内容，找出文件中的手机号和邮箱，我自己写了一个读取文档的内容的正则查询示例，用于匹配文件中是否含有邮箱或者手机号，这个等于是对之前的文本处理...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/wuyinggui10000" title="wuyinggui10000" target="_blank">
+					<img src="https://avatar.csdn.net/9/6/E/3_wuyinggui10000.jpg" alt="wuyinggui10000" class="avatar-pic">
+					<span class="name">wuyinggui10000</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-05-28 00:49:17</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2650</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/jinwufeiyang/article/details/51819945" target="_blank" strategy="BlogCommendFromBaidu_6">
+				<em>Lucene</em>查询<em>语法</em>详解			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/jinwufeiyang/article/details/51819945" target="_blank" >
+				<em>Lucene</em>提供了丰富的API来组合定制你所需要的查询器，同时也可以利用Query Parser提供的强大的查询<em>语法</em>解析来构造你想要的查询器。本文章详细的介绍了<em>Lucene</em>的查询<em>语法</em>。通过Java<em>语法</em>...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/jinwufeiyang" title="jinwufeiyang" target="_blank">
+					<img src="https://avatar.csdn.net/9/7/B/3_jinwufeiyang.jpg" alt="jinwufeiyang" class="avatar-pic">
+					<span class="name">jinwufeiyang</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-07-04 12:01:52</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1095</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/xtjsxtj/article/details/49662051" target="_blank" strategy="BlogCommendFromBaidu_7">
+				ELK：kibana使用的<em>lucene</em>查询<em>语法</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/xtjsxtj/article/details/49662051" target="_blank" >
+				kibana在ELK阵营中用来查询展示数据
+elasticsearch构建在<em>Lucene</em>之上，过滤器<em>语法</em>和<em>Lucene</em>相同
+
+
+kibana4官方演示页面
+
+全文搜索
+
+在搜索栏输入l...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/xtjsxtj" title="xtjsxtj" target="_blank">
+					<img src="https://avatar.csdn.net/9/6/F/3_xtjsxtj.jpg" alt="xtjsxtj" class="avatar-pic">
+					<span class="name">xtjsxtj</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-11-05 14:07:47</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：8366</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/jediael_lu/article/details/34434519" target="_blank" strategy="BlogCommendFromBaidu_8">
+				<em>Lucene</em>学习总结之八：<em>Lucene</em>的查询<em>语法</em>，JavaCC及QueryParser			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/jediael_lu/article/details/34434519" target="_blank" >
+				一、<em>Lucene</em>的查询<em>语法</em>
+<em>Lucene</em>所<em>支持</em>的查询<em>语法</em>可见http://<em>lucene</em>.apache.org/java/3_0_1/queryparsersyntax.html
+(1) <em>语法</em>关键字...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/jediael_lu" title="jediael_lu" target="_blank">
+					<img src="https://avatar.csdn.net/D/B/F/3_jediael_lu.jpg" alt="jediael_lu" class="avatar-pic">
+					<span class="name">jediael_lu</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2014-06-25 14:25:37</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2835</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/pwlazy/article/details/1530225" target="_blank" strategy="searchFromBaidu_9">
+				小议<em>lucene</em>搜索表达式中的AND和OR以及+和空格			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/pwlazy/article/details/1530225" target="_blank" >
+				在构造搜索表达式的时候你可以使用+(与AND相当,当不完全相同) 和空格(与OR相当),也可以使用AND和OR,当然也可以都混在一起,个人感觉最好不要构造复杂的表达式的时候千万要注意,特别是使用AND...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/pwlazy" title="pwlazy" target="_blank">
+					<img src="https://avatar.csdn.net/4/3/8/3_pwlazy.jpg" alt="pwlazy" class="avatar-pic">
+					<span class="name">pwlazy</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2007-03-15 14:25:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：5546</span>
+			</p>
+		</div>
+	</div>
+			            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/yuanchao3333">
+                <img src="https://avatar.csdn.net/2/8/E/3_yuanchao3333.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/yuanchao3333" target="_blank" class="text-truncate" id="uid">yuanchao3333</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" id="btnAttent">关注</a>
+                            </span>
+            
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="35">
+            <dt>原创</dt>
+            <dd><span class="count">35</span></dd>
+        </dl>
+        <dl class="text-center" title="25">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">25</span></dd>
+        </dl>
+        <dl class="text-center" title="0">
+            <dt>喜欢</dt>
+            <dd><span class="count">0</span></dd>
+        </dl>
+        <dl class="text-center" title="3">
+            <dt>评论</dt>
+            <dd><span class="count">3</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="121217">
+                12万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1746">
+                1746            </dd>
+        </dl>
+        <dl title="29127">
+            <dt>排名：</dt>
+            <dd>2万+</dd>
+        </dl>
+    </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/yuanchao3333/article/details/8763720" target="_blank">php-fpm 无法启动</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/yuanchao3333/article/details/7109346" target="_blank">macbook osx 停止 启动 重启 apache 或者httpd</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/yuanchao3333/article/details/6527178" target="_blank">gdb 一些小技巧</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/yuanchao3333/article/details/6527175" target="_blank">c++ include 读入 txt文件</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/yuanchao3333/article/details/6367348" target="_blank">macbook的锁定屏幕</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/373332">
+                    c++相关收藏                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/388282">
+                    cv                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/373333">
+                    java相关收藏                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/815060">
+                    macbook 经验                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/688393">
+                    script kid                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/688390">
+                    tool user                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/377294">
+                    web                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/303336">
+                    一些想法                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/663382">
+                    分词                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/693184">
+                    基础算法                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/303334">
+                    搜索技术                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/374333">
+                    搜索资料备忘                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/363735">
+                    生活                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/706005">
+                    科学、哲学                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/363737">
+                    程序开发                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/363739">
+                    自然语言处理技术                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/category/375771">
+                    语义                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2013/04">
+                    2013年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2011/12">
+                    2011年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2011/06">
+                    2011年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2011/04">
+                    2011年4月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/10">
+                    2010年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/08">
+                    2010年8月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/07">
+                    2010年7月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/06">
+                    2010年6月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/05">
+                    2010年5月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/04">
+                    2010年4月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2010/03">
+                    2010年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2009/07">
+                    2009年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2009/01">
+                    2009年1月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/12">
+                    2008年12月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/11">
+                    2008年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/10">
+                    2008年10月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/08">
+                    2008年8月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/05">
+                    2008年5月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/04">
+                    2008年4月                    <span class="count float-right">28篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yuanchao3333/article/month/2008/03">
+                    2008年3月                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/yuanchao3333/article/details/4376816">bash if</a>
+					<p class="read">阅读量：<span>12515</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yuanchao3333/article/details/5728355">javascript error unterminated string literal 错误的解决办法</a>
+					<p class="read">阅读量：<span>4233</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yuanchao3333/article/details/3855419">float和double类型的内存分布和比较方法收藏</a>
+					<p class="read">阅读量：<span>4156</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yuanchao3333/article/details/2829856">萧何月下追韩信时候，韩信对项羽的这个评价是否属实</a>
+					<p class="read">阅读量：<span>3379</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yuanchao3333/article/details/2392502">计算图像相似度</a>
+					<p class="read">阅读量：<span>2227</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yuanchao3333/article/details/4376816#comments">bash if</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/trydofor" class="user-name" target="_blank">trydofor</a>：-s filename                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yuanchao3333/article/details/5701172#comments">从前有棵树，叫高数，树上挂了很多人</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/匿名用户" class="user-name" target="_blank">匿名用户</a>：[e03]                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yuanchao3333/article/details/4376816#comments">bash if</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/匿名用户" class="user-name" target="_blank">匿名用户</a>：thx                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom978359" class="aside-box custom-box">
+    <h3 class="aside-title">backup</h3>
+    <div class="aside-content clearfix">
+        <ul><li><a href="http://qianwuge.spaces.live.com/blog/" target=_blank>数据库</a></li><li><a href="http://www.vldb.org/" target=_blank>v'l'd'b</a></li><li><a href="http://www.yankay.com/" target=_blank>goooood blog  galaxydb作者</a></li><li><a href="http://voltdb.com/voltdb-launches-next-generation-open-source-oltp-dbms" target=_blank>voltdb</a></li><li><a href="http://www.jos.org.cn/" target=_blank>软件学报 有非常多非常好的论文可已下载</a></li><li><a href="http://chasen.org/~taku/software/darts/" target=_blank>darts  双数组分词dtire的非常好的实现的老家</a></li><li><a href="https://groups.google.com/group/irnlp" target=_blank>nlp一个google讨论组</a></li><li><a href="http://www.chinarate.org/" target=_blank>汇率</a></li><li><a href="http://www.ceaj.org/jsjgc/" target=_blank>计算机应用与工程 论文</a></li><li><a href="http://hi.baidu.com/stefanie_zhao/blog" target=_blank>有搜索引擎资料的blog</a></li><li><a href="http://www.thinktag.cn/" target=_blank>搜索引擎 技术 产品的很好的blog</a></li><li><a href="http://www-igm.univ-mlv.fr/~lecroq/string/node1.html" target=_blank>string 相关算法 非常好！！！！</a></li><li><a href="http://yishan.cc/blogs/gpww/" target=_blank>字符串匹配分析</a></li><li><a href="http://www.coolinfographics.com" target=_blank>数据图！！！！！！！！</a></li><li><a href="http://www.ionz.com.br/index.html" target=_blank>个人数据图 不错的创意</a></li><li><a href="http://www.webdesignerdepot.com/" target=_blank>web设计</a></li><li><a href="http://www.baihui.com/0.asp" target=_blank>在线办公 百会</a></li><li><a href="http://www.tineye.com/" target=_blank>图片搜索（similarity image search   content-based image retrieval）</a></li><li><a href="http://linux.chinaitlab.com/manual.htm" target=_blank>很多 linux 和工具语言的manual</a></li><li><a href="http://www.cvchina.info" target=_blank> 计算机视觉的一个news 和论文的blog，非常好</a> (<a href="http://www.cvchina.info/feed" target=_blank>RSS</a>)</li><li><a href="http://code.google.com/p/libibase/" target=_blank>libibase 实时增量全文检索搜索引擎系统</a></li><li><a href="http://www.ajax-cross-domain.com/" target=_blank>ajax跨域 js库</a></li><li><a href="http://www1.csdb.cn/index.html" target=_blank>中科院科学数据库</a></li><li><a href="http://data.earthquake.cn/index.do" target=_blank>国家地震科学共享中心</a></li><li><a href="http://www.matrix67.com/blog/" target=_blank>matrix67 数学blog 厉害！</a></li><li><a href="http://www.mostlymaths.net/" target=_blank>数学blog </a></li><li><a href="http://hi.baidu.com/rodimus/blog/item/3052ca09c4259d236b60fbf8.html" target=_blank>字符串匹配算法之Aho-Corasick</a></li><li><a href="http://www.guwenzi.com/" target=_blank>古文字</a></li><li><a href="http://www.wenzi.cn/" target=_blank>文字</a></li><li><a href="http://tester.jonasjohn.de/" target=_blank>在线网页测试大全</a></li><li><a href="http://www.research.att.com/~njas/sequences/" target=_blank>在线整数大全，整数序列的意义</a></li><li><a href="http://oeis.org/" target=_blank>在线整数大全，整数序列的意义</a></li></ul>    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js?20180309" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="report-box">
+    <div class="pos-box">
+        <h2 class="title">不良信息举报</h2>
+        <a class="btn-close">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-times"></use>
+            </svg>
+        </a>
+        <form id="frmReport">
+            <div class="form-box">
+                <div class="txt-row-box">
+                    <label class="title" id="reptTit">举报内容：</label>
+                    <p class="rpt-title text-truncate">lucene 支持的检索语法和检索运算符分类列表</p>
+                </div>
+                <div class="txt-row-box">
+                    <label class="title">举报原因：</label>
+                    <div class="rdo-box">
+                        <label><input type="radio" class="rdo-chk report-type" id="report_sex" name="report_type" value="1">色情</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_Politics" name="report_type" value="2">政治</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_copy" name="report_type" value="3">抄袭</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_ad" name="report_type" value="4">广告</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_want" name="report_type" value="5">招聘</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_call" name="report_type" value="6">骂人</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_other" name="report_type" value="7">其他</label>
+                    </div>
+                </div>
+                <div class="txt-row-box" id="rptOriginalurl">
+                    <label class="title">原文地址：</label>
+                    <div class="txt-box">
+                        <input class="ipt" type="text" name="originalurl">
+                    </div>
+                </div>
+                <div class="txt-row-box">
+                    <label class="title">原因补充：</label>
+                    <div class="txt-box">
+                        <textarea class="ipt ipt-textarea" name="description" maxlength="30"></textarea>
+                        <p class="remark">最多只允许输入30个字</p>
+                    </div>
+                </div>
+            </div>
+            <div class="opt-box text-right">
+                <input type="reset" class="btn btn-link-gray btn-close" value="取消">
+                <input type="submit" class="btn btn-red btn-submit" value="提交">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = 'lucene 支持的检索语法和检索运算符分类列表';
+    var ChannelId = 12;
+    var articleId = '2238382';
+    var commentscount = 0;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/yuanchao3333/article/details/2238382";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "lucene+%E6%B1%82%E5%92%8C%E8%AF%AD%E6%B3%95";
+    var needInsertBaidu = false;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,'lucene 支持的检索语法和检索运算符分类列表');
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-f135ae5334.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=lucene+%E6%B1%82%E5%92%8C%E8%AF%AD%E6%B3%95"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

@@ -1,0 +1,65 @@
+Atitit GRASP(General Responsibility Assignment Software Patterns)，中文名称为“通用职责分配软件模式”
+
+
+	1. GRASP (职责分配原则)	1
+	1.1. GRASP设计模式	1
+	1.2. 9个基本的OO设计原则或基本的设计构件。这9个设计模式分别是：创建者（Creator）、信息专家（Information Expert）、低耦合（Low Coupling）、控制器（Controller）、高内聚（High Cohesion）、多态性（Polymorphism）、纯虚构（Pure Fabrication）、间接性（Indirection）、防止变异（Protected Variations）。	2
+
+
+
+GRASP (职责分配原则)
+要学习设计模式，有些基础知识是我们必须要先知道的，设计模式是关于类和对象的一种高效、灵活的使用方式，也就是说，必须先有类和对象，才能有设计模式的用武之地，否则一切都是空谈，那么类和对象是从那冒出来的呢？这时就需要比23种设计模式更重要更经典的GRASP模式登场了，嘿嘿，原来这才是老大！
+GRASP(General Responsibility Assignment Software Patterns)，中文名称为“通用职责分配软件模式”，GRASP一共包括9种模式，它们描述了对象设计和职责分配的基本原则。也就是说，如何把现实世界的业务功能抽象成对象，如何决定一个系统有多少对象，每个对象都包括什么职责，GRASP模式给出了最基本的指导原则。初学者应该尽快掌握、理解这些原则，因为这是如何设计一个面向对象系统的基础。可以说，GRASP是学习使用设计模式的基础。
+
+
+GRASP设计模式
+说到设计模式，更为人所知的当然是GoF（Gang of Four）的23种设计模式。与GoF的23种设计模式不同的是，GRASP设计模式描述的是在OO设计中为互相协作的类分配职责的原则或者建议，而GoF的设计模式则是在更高的层次上描述一个OO系统或者其局部系统的行为以及结构上的抽象。
+ 
+GRASP设计模式的全称是General Responsibility Assignment Software Patterns，即通用职责分配软件模式。它定义了
+9个基本的OO设计原则或基本的设计构件。这9个设计模式分别是：创建者（Creator）、信息专家（Information Expert）、低耦合（Low Coupling）、控制器（Controller）、高内聚（High Cohesion）、多态性（Polymorphism）、纯虚构（Pure Fabrication）、间接性（Indirection）、防止变异（Protected Variations）。
+ GRASP，全称为General Responsibility Assignment Software Pattern，即通用职责分配软件模式，它由《UML和模式应用》(Applying UML and Patterns)一书作者Craig Larman提出。与其将它们称之为设计模式，不如称之为设计原则，因为它是站在面向对象设计的角度，告诉我们怎样设计问题空间中的类与分配它们的行为职责，以及明确类之间的相互关系等，而不像GoF模式一样是针对特定问题而提出的解决方案。因此GRASP站在一个更高的角度来看待面向对象软件的设计，它是GoF设计模式的基础。
+       GRASP是对象职责分配的基本原则，其核心思想是职责分配(Responsibility Assignment)，用职责设计对象(Designing Objects with Responsibilities)。它包含如下9个基本模式：
+ 
+      1. 信息专家模式 (Information Expert Pattern)
+      (1) 问题：给对象分配职责的通用原则是什么？
+      (2) 解决方案：将职责分配给拥有履行一个职责所必需信息的类，即信息专家。
+      (3) 分析：信息专家模式是面向对象设计的最基本原则。通俗点来讲，就是一个类只干该干的事情，不该干的事情不干。在系统设计时，需要将职责分配给具有实现这个职责所需要信息的类。信息专家模式对应于面向对象设计原则中的单一职责原则。
+ 
+      2. 创造者模式 (Creator Pattern)
+      (1) 问题：谁应该负责产生类的实例？
+      (2) 解决方案：如果符合下面的一个或者多个条件，则可将创建类A实例的职责分配给类B：
+B包含A；
+B聚合A；
+B拥有初始化A的数据并在创建类A的实例时将数据传递给类A；
+B记录A的实例；
+B频繁使用A。
+      此时，我们称类B是类A对象的创建者。如果符合多个条件，类B聚合或者包含类A的条件优先。
+      (3) 分析：创建对象是面向对象系统中最普遍的活动之一，因此，确定一个分配创建对象的通用职责非常重要。如果职责分配合理，设计就能降低耦合，提高设计的清晰度、封装性和重用性。通常情况下，如果对象的创建过程不是很复杂，则根据上述原则，由使用对象的类来创建对象。但是如果创建过程非常复杂，而且可能需要重复使用对象实例或者需要从外部注入一个对象实例，此时，可以委托一个专门的工厂类来辅助创建对象。创建者模式与各种工厂模式（简单工厂模式、工厂方法模式和抽象工厂模式）相对应。
+
+
+GRASP设计模式及OO设计原则浅谈-钟声的博客-搜狐博客!!!.htm
+
+GRASP模式 - 刘伟技术博客 - 博客频道 - CSDN.NET.htm
+
+作者:: 绰号:老哇的爪子claw of Eagle 偶像破坏者Iconoclast image-smasher
+捕鸟王"Bird Catcher 王中之王King of Kings 虔诚者Pious 宗教信仰捍卫者 Defender of the Faith. 卡拉卡拉红斗篷 Caracalla red cloak
+简称：： Emir Attilax Akbar 埃米尔 阿提拉克斯 阿克巴
+全名：：Emir Attilax Akbar bin Mahmud bin  attila bin Solomon bin adam Al Rapanui 
+埃米尔 阿提拉克斯 阿克巴 本 马哈茂德 本 阿提拉 本 所罗门 本亚当  阿尔 拉帕努伊   
+常用名：艾提拉（艾龙），   EMAIL:1466519819@qq.com
+
+
+头衔：uke总部o2o负责人，全球网格化项目创始人，
+uke宗教与文化融合事务部部长， uke宗教改革委员会副主席
+，Uke部落首席大酋长，
+uke制度与重大会议委员会委员长，uke保安部首席大队长,uke制度检查委员会副会长，
+奶牛科技cto ，uke 首席cto 
+uke波利尼西亚区大区连锁负责人，克尔格伦群岛区连锁负责人，莱恩群岛区连锁负责人，uke汤加王国区域负责人。布维岛和南乔治亚和南桑威奇群岛大区连锁负责人 
+ Uke软件标准化协会理事长理事长 uke终身教育学校副校长 
+Uke 数据库与存储标准化协会副会长 uke出版社编辑总编
+Uke医院方面的创始人
+
+转载请注明来源：attilax的专栏   http://blog.csdn.net/attilax
+--Atiend
+
+

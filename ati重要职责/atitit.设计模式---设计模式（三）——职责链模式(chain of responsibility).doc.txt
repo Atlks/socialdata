@@ -1,0 +1,241 @@
+atitit.设计模式（1）--—职责链模式(chain of responsibility)最佳实践O7 日期转换
+
+11
+11
+22
+22
+44
+44
+55
+55
+55
+55
+66
+77
+77
+77
+88
+88
+88
+1111
+11
+需求:::日期转换
+Str2date  也许是通常格式,,2013-01-11 01:02:03
+也也许是us格式 2/13/2013 01:02:03
+
+通常方法的问题,一瓦if else 选择结构..
+可以选择的模式: 表格模式,责任链模式
+日期转换表驱动改进职责链
+表驱动（Table driven），其实就是指用查表的方式来获取值。
+
+作者:: 老哇的爪子 Attilax 艾龙，  EMAIL:1466519819@qq.com
+转载请注明来源： _http://blog.csdn.net/attilax_
+
+
+调用代码
+List li=new ArrayList();
+		Date d=
+		(Date) handleChainUtil.handleReq(li, new Handler(
+				"ConcreteHandler cn prcsr") {
+
+			@Override
+			public Object handleReq(Object arg) throws ParseException   {
+
+				return str2date_excpt(source, includeTime);
+			}
+		},
+
+		new Handler("ConcreteHandler us prcsr") {
+			@Override
+			public Object handleReq(Object arg) throws ParseException {
+
+				return str2date_excpt(source, includeTime, usFmt);
+			}
+		});
+		Handler bg=(Handler) li.get(0);
+		System.out.println("---bingo handerl:"+bg.name);
+		return d;
+
+
+责任链链的特性：
+1. 链是一系列节点的集合。
+2. 链的各节点可灵活拆分再重组。
+职责链模式：使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。
+职责链是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。
+职责链可以是一条直线、一个环或者一个树形结构，最常见的职责链是直线型，即沿着一条单向的链来传递请求。
+ 
+　　链上的每一个对象都是请求处理者，职责链模式可以将请求的处理者组织成一条链，并使请求沿着链传递，由链上的处理者对请求进行相应的处理，
+ 
+客户端无须关心请求的处理细节以及请求的传递，只需将请求发送到链上即可，将请求的发送者和请求的处理者解耦。这就是职责链模式的模式动机。
+职责链模式(Chain of Responsibility Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，
+ 
+并且沿着这条链传递请求，直到有对象处理它为止。由于英文翻译的不同，职责链模式又称为责任链模式，它是一种对象行为型模式。
+在职责链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链
+
+模式结构
+
+职责链模式包含如下角色：Handler,ConcreteHandler: 具体处理者,HandlerChainUtil ,Client
+•Handler: 抽象处理者：定义出一个处理请求的接口。如果需要，接口可以定义出一个方法，以设定和返回对下家的引用。这个角色通常由一个抽象类或接口实现。
+•ConcreteHandler: 具体处理者：具体处理者接到请求后，可以选择将请求处理掉，或者将请求传给下家。由于具体处理者持有对下家的引用，因此，如果需要，具体处理者可以访问下家。
+•Client: 客户端
+HandlerChainUtil :这个十俄的总结...来foreach 每结点..
+
+
+设置哈一个handler,,两个法:排序法,指定法
+指定法
+
+  pm.Successor = hr;
+hr.Successor = manager;
+排序法
+List 排序..
+
+职责链 != 链表
+让我们来看一下链表的典型特征：
+1. 链表是一个链状结构，每个节点有一个next属性去指向他的下一节点。
+2. 链表有一个Header节点，然后用户每次必须通过头节点，然后去遍历寻找每一个节点。
+
+职责链，我们可以从头将他拿起，也可以从中间将他拿起：
+也就是说我们用户可以去访问节点中的任何一个节点作为开始节点，这就是链表与职责链不同的地方
+职责链的扩展——树状链结构
+职责链中，我们之前看到的都是一些单链结构，但是其实在很多情况下，每一个节点都对应着很多其他的部分。
+ 
+那么这样，我们的每一个节点都可以使用一个List来维护他节点的下一节点，甚至可以用组合模式来分别设计每一节点
+职责链的兜底条款默认的条款：
+
+在我们的职责链中，如果不存在这样的兜底条款，那么用户如果不从首节点开始访问，那么就很可能出现异常的情况。于是我们应该为职责链设置一个默认的条款：
+
+九. 职责链的缺点
+让我们继续回到上面的例子，我们发现，其实当请假时间超过2天的时候，PM和HR其实没有做任何的事情，而只是做了一个传递工作。
+而传递工作之后，他们就成了垃圾对象。
+也就是说，他们在实际的处理中，并没有发挥任何的作用。
+那么当这个链结构比较长，比较复杂的话，会产生很多的内存垃圾对象。
+这也就是职责链的最大缺点之所在。
+模式优缺点
+职责链模式的优点
+• 降低耦合度
+ 
+• 可简化对象的相互连接
+ 
+• 增强给对象指派职责的灵活性
+ 
+• 增加新的请求处理类很方便
+ 
+职责链模式的缺点
+•不能保证请求一定被接收。
+ 
+•系统性能将受到一定影响，而且在进行代码调试时不太方便；可能会造成循环调用。
+
+职责链的适合领域
+如果存在N对N，或者是一般的常规线性关系，那么我们完全可以用表驱动来取代职责链。驱动
+用户无论是从哪一个节点作为他的请求头节点，最终用户都可以得到一个请求的反馈。
+职责链并非是严格的上下级的传递，其中也包括同级的传递，职责链一样可以在同级之间做传递。
+•有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。
+ 
+•在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。
+ 
+•可动态指定一组对象处理请求。
+使用中的问题and解决
+具体handler详细...use list传类k,在add解决
+完全的代码
+##1
+ System.out.println(DateUtil.str2dateX("2/13/2013 01:02:03", true));
+##2
+public static Date str2dateX(final String source, final boolean includeTime) {
+
+		Handler bingo_handler =  (Handler) core.new_cglib(Handler.class);
+		List li=new ArrayList();
+		Date d=
+		(Date) handleChainUtil.handleReq(li, new Handler(
+				"ConcreteHandler cn prcsr") {
+
+			@Override
+			public Object handleReq(Object arg) throws ParseException   {
+
+				return str2date_excpt(source, includeTime);
+			}
+		},
+
+		new Handler("ConcreteHandler us prcsr") {
+			@Override
+			public Object handleReq(Object arg) throws ParseException {
+
+				return str2date_excpt(source, includeTime, usFmt);
+			}
+		});
+		Handler bg=(Handler) li.get(0);
+		System.out.println("---bingo handerl:"+bg.name);
+		return d;
+	}
+
+##3
+public class handleChainUtil {
+
+ 
+	//todox o7g if trans by arr ,is val trans ,,not ref trans ..
+	//object ya bsin ,yash val trans..only list ok..
+	public static Object handleReq(List bingo,Handler... proccsor2) {
+	
+	//	Handler bingo=proccsor2[0];
+		 List li =Arrays.asList(proccsor2);
+		// List li=li2.subList(1, li2.size());
+		// li.get(0)
+		 final List li_r=new ArrayList ();
+		 Handler bingoPrcsr=	   (Handler) Any.any(li,new Func_4SingleObj(){
+
+			@Override
+			public Object invoke(Object o) {
+				Handler p=(Handler) o;
+				try {
+					Object rst=p.handleReq("");
+					li_r.add(rst);
+					return true;
+				} catch (ParseException e) {
+					 return false;
+				}
+				 
+			}});
+		 bingo.add(bingoPrcsr);
+		return li_r.get(0);
+	}
+
+##--4
+public class Any {
+	
+	/**
+	 * ret a any elmt
+	 * @param arr
+	 * @param function
+	 * @return
+	 */@SuppressWarnings("all")
+	public static <atiType, iptType, retType,retTypeFinnaly>  Object  any(
+			atiType arr, Func_4SingleObj function) {
+	
+		
+//			retTypeFinnaly ja = new tryX<retTypeFinnaly>() {
+//
+//				@Override
+//				public retTypeFinnaly item(Object t) throws Exception {
+//					// attilax 老哇的爪子 下午01:34:58 2014-5-26
+//					return retTypeFinnalyClass.newInstance();
+//				}
+//			}.$();
+			
+			List ia = (List) arr;
+			// JSONArray arr1=(JSONArray)arr;
+			List li = (List) arr;
+			Iterator<iptType> it = li.iterator();
+	 
+			while (it.hasNext()) {
+				iptType next = it.next();
+				Boolean invokeRzt = (Boolean) function.invoke(next);
+				if(invokeRzt)
+				  return next;
+			}
+			return   ia;
+		
+	
+	}
+参考
+重温设计模式（三）——职责链模式(chain of responsibility) - 飞林沙 - 博客园.htm
+设计模式之三职责链模式 - vito qi - 博客园.htm
+

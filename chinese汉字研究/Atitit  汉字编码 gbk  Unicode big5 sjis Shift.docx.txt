@@ -1,0 +1,4 @@
+Atitit  汉字编码 gbk  Unicode big5 sjis Shift_JIS EUC-JP, JIS, Shift-JIS转码方法[转载]
+
+
+

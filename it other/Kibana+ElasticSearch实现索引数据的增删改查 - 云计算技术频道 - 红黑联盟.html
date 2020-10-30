@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="https://statics.2cto.com/css/articles.css" type="text/css" />
+<link href="https://statics.2cto.com/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>Kibana+ElasticSearch实现索引数据的增删改查 - 云计算技术频道 - 红黑联盟</title>
+<meta http-equiv="mobile-agent" content="format=html5;url=https://m.2cto.com/net/201803/730766.html" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="description" content="Kibana+ElasticSearch实现索引数据的增删改查。在上一篇博客已经介绍了ElasticSearch相关开发环境的搭建,接下来着手做该环境下索引数据的简单的增删改查操作 " />
+<script src="https://statics.2cto.com/js/uaredirect.js" type="text/javascript"></script>
+<script type="text/javascript">uaredirect("https://m.2cto.com/net/201803/730766.html");</script>
+<script charset="UTF-8" src="https://statics.2cto.com/js/gg.js"></script>
+
+</head>
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="/"></a></dd>
+		<dd class="left_menu_link">
+																			<a class="first" href="//www.2cto.com/news/">资讯</a>
+																<a href="//www.2cto.com/article/">安全</a>
+																<a href="https://bbs.2cto.com">论坛</a>
+																<a href="//www.2cto.com/soft/">下载</a>
+																<a href="https://book.2cto.com">读书</a>
+																<a href="//www.2cto.com/kf/">程序开发</a>
+																<a href="//www.2cto.com/database/">数据库</a>
+																<a href="//www.2cto.com/os/">系统</a>
+																<a href="//www.2cto.com/net/">网络</a>
+																<a href="//www.2cto.com/ebook/">电子书</a>
+																<a href="//www.2cto.com/weixin/">微信学院</a>
+																<a href="https://zz.2cto.com/">站长学院</a>
+																<a href="//www.2cto.com/qq/">QQ</a>
+																<a href="//www.2cto.com/px/">考试</a>
+														</dd>
+	</dl>
+</div>
+
+<div class="line_top_lmbox">
+	<dl class="lmpic"><dt><i></i>频道栏目</dt></dl>
+	<dl class="lmlinkbox"><dd>
+										<a href="https://www.2cto.com/net/Router/">路由器</a>|
+							<a href="https://www.2cto.com/net/Switch/">交换机</a>|
+							<a href="https://www.2cto.com/net/net/">网络协议</a>|
+							<a href="https://www.2cto.com/net/lan/">组网</a>|
+							<a href="https://www.2cto.com/net/yinan/">疑难</a>|
+							<a href="https://www.2cto.com/net/qita/">其他</a>|
+							<a href="https://www.2cto.com/net/cloud/">云计算</a>|
+								</dd></dl>
+	<div class="login" id="userbar">
+		<div class="unlogin"><a class="loginbtn" href="//home.2cto.com/?forward=&siteid=1" target="_blank">登录</a><a class="regbtn" href="//home.2cto.com/index.php/index/regedit" target="_blank">注册</a></div>
+	</div>
+</div>
+<div class="ibox mt8 mb8">
+<!-- 2cto_通栏 -->
+<script type="text/javascript">cto_A_D("2cto_1");</script>
+</div>
+<div class="wrapper">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="/">首页</a><span> > </span><a href="https://www.2cto.com/net/">网络</a> > <a href="https://www.2cto.com/net/cloud/">云计算</a> >  正文</dd>
+		</dl>
+		<h1 class="box_t">Kibana+ElasticSearch实现索引数据的增删改查</h1>
+																										<dl class="box_INFO clearfix">
+			<dd class="frinfo">2018-03-19 14:22:26  &nbsp;&nbsp;&nbsp;&nbsp;
+			<i class="comm"></i><a class="num" href="#SOHUCS" id="changyan_count_unit"></a><a href="#SOHUCS">个评论</a>
+			<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+&nbsp;&nbsp;  来源：<a href="//blog.csdn.net/linhaiyun_ytdx" target="_blank" rel="nofollow">Coder</a>&nbsp;&nbsp;  </dd>
+			<dd class="frsize">
+				<a href="javascript:;" onclick="add_favorite('Kibana+ElasticSearch实现索引数据的增删改查');" class="t6">收藏</a>&nbsp;&nbsp;
+				<a target="_blank" href="/index.php?m=member&c=content&a=publish&modid=1&siteid=1"><i class="publish"></i>我要投稿</a>
+			</dd>
+		</dl>
+		<div class="cont_ibox">
+		<!-- 2cto_左一 -->
+		<script type="text/javascript">cto_A_D("2cto_9");</script>
+		</div>
+		<div class="box_body" id="fontzoom">
+		<div id="Article">
+		<link href="https://csdnimg.cn/release/phoenix/production/htmledit_views-1f9cf0a071.css" rel="stylesheet" />
+<p><strong>在上一篇博客已经介绍了ElasticSearch相关开发环境的搭建,接下来着手做该环境下索引数据的简单的增删改查操作.</strong></p>
+<p><strong>1.结构化创建索引(创建一个名称为school的结构化索引,数据类型定义好的)</strong></p>
+<pre class="brush:java;">
+PUT school
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;: 3,   
+    &quot;number_of_replicas&quot;: 1	
+  },
+  &quot;mappings&quot;:{
+    &quot;student&quot;:{
+      &quot;properties&quot;:{
+        &quot;name&quot;:{
+          &quot;type&quot;:&quot;text&quot;
+        },
+        &quot;address&quot;:{
+          &quot;type&quot;:&quot;keyword&quot;
+        },
+        &quot;age&quot;:{
+          &quot;type&quot;:&quot;integer&quot;
+        },
+        &quot;date&quot;:{
+          &quot;type&quot;:&quot;date&quot;,
+          &quot;format&quot;:&quot;yyyy-MM-dd HH:mm:ss|| yyy-MM-dd||epoch_millis&quot;
+        }
+      }
+    }
+  }
+}</pre>
+<strong>2.指定ID插入数据(相当于插入一条记录到一个<a href="https://www.2cto.com/database/" target="_blank" class="keylink">数据库</a>表中)</strong>
+<pre class="brush:java;">
+PUT /school/student/1
+{
+  &quot;name&quot;:&quot;杨旭&quot;,
+  &quot;address&quot;:&quot;山东烟台&quot;,
+  &quot;age&quot;:22,
+  &quot;date&quot;:&quot;1995-04-12&quot;
+}</pre>
+<strong>3.<a href="https://www.2cto.com/os/" target="_blank" class="keylink">系统</a>指定ID的插入方式</strong>
+<pre class="brush:java;">
+POST /school/student/
+{
+  &quot;name&quot;:&quot;张小花&quot;,
+  &quot;address&quot;:&quot;山东烟台&quot;,
+  &quot;age&quot;:24,
+  &quot;date&quot;:&quot;1996-07-24&quot;
+}</pre>
+<strong>4.索引的查询语句(简单的查询)</strong>
+<p><strong>4.1 获取某个索引的某个类型的某个id的数据(以下两种方式均可)</strong></p>
+<pre class="brush:java;">
+GET /school/student/1
+
+GET /school/student/1_source</pre>
+<strong>4.2 查询指定ID的某些字段</strong>
+<p><strong>这个语句相当于SELECT ADDRESS FROM STUDENT WHERE ID = 1</strong></p>
+<pre class="brush:java;">
+GET /school/student/1_source=address</pre>
+<strong>这个语句相当于SELECT NAME,ADDRESS FROM STUDENT WHERE ID = 1</strong><br />
+<pre class="brush:java;">
+GET /school/student/1_source=name,address</pre>
+<p><strong>4.3 查询当前索引school的所有数据</strong></p>
+<pre class="brush:java;">
+GET /school/_search
+{
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {
+      
+    }
+  }
+}</pre>
+<p><strong>4.4 设置查询返回的索引数据数量</strong></p>
+<pre class="brush:java;">
+GET /school/_search
+{
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {
+      
+    }
+  },
+  &quot;from&quot;: 1,
+  &quot;size&quot;: 1
+}</pre>
+<p><strong>4.5 按照字段内容name模糊查询相关数据</strong></p>
+<pre class="brush:java;">
+GET /school/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;name&quot;: &quot;海&quot;
+    }
+  }
+}</pre>
+<strong>4.6 查询内容排序(按照时间倒序排列)</strong>
+<pre class="brush:java;">
+GET /school/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;name&quot;: &quot;海&quot;
+    }
+  },
+  &quot;sort&quot;: [
+    {
+      &quot;date&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    }
+  ]
+}</pre>
+<strong>5.索引的更新操作(相当于SQL的修改操作)</strong>
+<p><strong>5.1 覆盖式修改索引文档</strong></p>
+<p><strong>该句相当于SQL的UPDATE STUDENT SET NAME = ,ADDRESS = ,AGE = ,DATE = WHERE ID = 1</strong></p>
+<pre class="brush:java;">
+PUT /school/student/1
+{
+  &quot;name&quot;:&quot;杨旭&quot;,
+  &quot;address&quot;:&quot;山东济宁&quot;,
+  &quot;age&quot;:25,
+  &quot;date&quot;:&quot;1995-04-12&quot;
+}</pre>
+<p><strong>5.2 修改索引文档的某些字段</strong></p>
+<p><strong>该句相当于SQL的UPDATE STUDENT SET AGE = 20 WHERE ID =1</strong></p>
+<pre class="brush:java;">
+POST /school/student/1/_update
+{
+  &quot;doc&quot;:{
+    &quot;age&quot;:20
+  }
+}</pre>
+<strong>6.索引的删除操作</strong>
+<p><strong>删除操作分为3种:</strong></p>
+<p><strong>6.1 删除整个index(库)</strong></p>
+<pre class="brush:java;">
+DELETE school</pre>
+<p><strong>6.2 删除一个type(表)</strong></p>
+<pre class="brush:java;">
+DELETE school/student</pre>
+<strong>尝试了一下,结果不行,说明ES5以后不再支持删除type.</strong><br />
+<p><strong>6.3 删除一条记录</strong></p>
+<pre class="brush:java;">
+DELETE /school/student/1/</pre>
+						</div>
+		</div>
+		<div id="pages" class="box_body"></div>
+		<div class="cont_ibox">
+		<script type="text/javascript">cto_A_D("2cto_5");</script>
+		</div>
+		<div class="box_Nsc clearfix">
+			<div class="lcopy"><a class="ckcopy" id="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="/">回本站首页</a></div>
+			<div class="Article-Tool">
+	<!--<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a></div>                                -->
+		  	</div>
+		</div>
+	<div class="more_tags"><span>相关TAG标签</span>
+																		<a href="https://www.2cto.com/tag/kibana.html"  target="_blank"> Kibana</a>
+								 		         															<a href="https://www.2cto.com/tag/elasticsearch.html"  target="_blank"> ElasticSearch</a>
+								 		         															<a href="https://www.2cto.com/tag/shixian.html"  target="_blank"> 实现</a>
+								 		         															<a href="https://www.2cto.com/tag/suoyinshuju.html"  target="_blank"> 索引数据</a>
+								 		         															<a href="https://www.2cto.com/tag/zengshangaicha.html"  target="_blank"> 增删改查</a>
+								 		             </div>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="https://www.2cto.com/net/201803/730611.html">Docker 产品手册之 Docker Hub - Docker Hub 上的组织和团队</a></dd>
+		<dd><strong>下一篇：</strong><a href="https://www.2cto.com/net/201803/730767.html">hadoop命令使用put上传文件报错的解决方法</a></dd>
+	</dl>
+	<div class="inbox">
+	<div class="about">相关文章</div>
+	</div>
+				<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201706/648659.html">Elasticsearch5.4.0(head/kibana/logs</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201712/702877.html">分析与可视化平台kibana解析</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201803/731417.html">最全Flume、ElasticSearch、Kibana实现</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201804/738634.html">如何开放kibana的elasticsearch的索引</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201610/555725.html">[ElasticSearch]ElasticSearch插件之H</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201610/555732.html">[ElasticSearch]JavaAPI之滚动搜索(Sc</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201610/557112.html">[ElasticSearch]JavaAPI之词条查询（T</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201612/573903.html">Elasticsearch安装</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201612/575656.html">ElasticSearch集群安装笔记</a></div>
+			<div class="alistline"><a target="_blank" href="https://www.2cto.com/net/201612/580278.html">Docker安装Elasticsearch</a></div>
+			<div class="more_tags"><span class="t2">热门专题推荐</span>
+																														<a target="_blank" href="https://www.2cto.com/special/win7jh/"> win7激活工具</a>
+													<a target="_blank" href="https://www.2cto.com/special/vmware/"> vmware</a>
+													<a target="_blank" href="https://www.2cto.com/special/win10jh/"> win10激活工具</a>
+													<a target="_blank" href="https://www.2cto.com/special/upanzhizuogongju/"> u盘启动工具</a>
+													<a target="_blank" href="https://www.2cto.com/special/ucliulangqi/"> uc浏览器</a>
+													<a target="_blank" href="https://www.2cto.com/special/shujuhuifu/"> 数据恢复</a>
+													<a target="_blank" href="https://www.2cto.com/special/xiaomajihuogongju/"> 小马激活工具</a>
+													<a target="_blank" href="https://www.2cto.com/special/word/"> word</a>
+													<a target="_blank" href="https://www.2cto.com/special/excel/"> excel</a>
+													<a target="_blank" href="https://www.2cto.com/special/office/"> office激活</a>
+										 				 				 	
+    </div>
+	<div class="inbox">
+	<div class="cont_ibox">
+		<!-- 2cto_左三 -->
+		<script type="text/javascript">cto_A_D("2cto_13");</script>
+	</div>
+	</div>
+	<div class="inbox"><div class="about">图文推荐</div></div>
+	<ul class="picbox clearfix">
+						<li>
+			<a target="_blank" class="imgbox" href="https://www.2cto.com/net/201805/747077.html"><img src="http://www.2cto.com/uploadfile/Collfiles/20180516/20180516092944406.png" /></a>
+			<a class="npictext" target="_blank" href="https://www.2cto.com/net/201805/747077.html">Scala混合组成的类（</a>
+		</li>
+				<li>
+			<a target="_blank" class="imgbox" href="https://www.2cto.com/net/201805/747074.html"><img src="http://www.2cto.com/uploadfile/Collfiles/20180516/20180516092947477.png" /></a>
+			<a class="npictext" target="_blank" href="https://www.2cto.com/net/201805/747074.html">云计算分布式文件系统</a>
+		</li>
+				<li>
+			<a target="_blank" class="imgbox" href="https://www.2cto.com/net/201805/747028.html"><img src="http://www.2cto.com/uploadfile/Collfiles/20180516/201805160931101269.png" /></a>
+			<a class="npictext" target="_blank" href="https://www.2cto.com/net/201805/747028.html">用一张图概括MapRedu</a>
+		</li>
+				<li>
+			<a target="_blank" class="imgbox" href="https://www.2cto.com/net/201805/747025.html"><img src="http://www.2cto.com/uploadfile/Collfiles/20180516/201805160931161280.jpg" /></a>
+			<a class="npictext" target="_blank" href="https://www.2cto.com/net/201805/747025.html">从普通JAVA程序员到B</a>
+		</li>
+					</ul>
+	<div class="cont_ibox">
+		<!-- 2cto_左四 --><script type="text/javascript">cto_A_D("2cto_4");</script>
+	</div>
+	<div id="SOHUCS"></div>
+	</div>
+	<div class="box_right">
+		<div class="side-ibox h250">
+            <!-- 2cto_右一 -->
+            <script type="text/javascript">cto_A_D("2cto_6");</script>
+        </div>
+            <div class="box_right_box mt8">
+              <dl class="bTitle tabtitle borT" id="ltabTitle"><dd class="on">文章</dd><dd>推荐</dd></dl>
+                <div class="paddingbox tab_wrap" id="listTab">
+				<div class="tab_main">
+				<dl class="index tab_item">
+                                                                        <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201708/559459.html">iOS9.2正式版是否可以越狱</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201708/398554.html">高通10核处理器骁龙818再曝光</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201708/47635.html">微软反驳谷歌弃用Windows称谷歌产品有</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201611/570362.html">支付宝上线交友圈：竟然有用户传大尺度</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201705/642431.html">WannaCry病毒爆发并未对微软品牌造成太</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201705/642420.html">银联正式发布标准二维码：首批40家银行</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201705/642418.html">IT业工资首次超金融居首,媒体：为何这</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/news/201705/642412.html">Android恶意软件感染3650万部手机 传</a></dd>
+                                                                 </dl>
+                 <dl class="index tab_item">
+                                                                        <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/special/win7jh/">win7激活工具</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201607/522176.html">win10激活工具</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/special/win7jihuogongju/">win7激活工具旗舰版</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201602/489186.html">office2010激活密钥</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201601/456235.html">windows7激活密钥</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201601/488006.html">office2010激活工具</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201601/456247.html">小马激活工具</a></dd>
+                                                <dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/os/201607/524552.html">win10激活工具</a></dd>
+                                                                 </dl>
+                </div>
+			</div>
+		</div>
+		<div class="side-ibox mt8">
+		<!-- 2cto_右二 -->
+		<script type="text/javascript">cto_A_D("2cto_7");</script>
+		</div>
+		<div class="box_right_box mt8 bt1">
+			<dl class="bTitle tabtitle">
+				<dd class="on">热门新闻</dd>
+			</dl>
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+															<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/622194.html">dockerCE&&EE版本centos安装</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/623478.html">使用TensorFlow实现余弦距离/欧氏距离</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/622145.html">Tensorflow实例-CNN处理句子相似度（上</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/622204.html">Kafka的kafka-server-stop.sh脚本在ce</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/622166.html">spark2.1.0版本SparkSQL相关内容的测试</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/624974.html">Kubernetes1.5部署安装dashboard</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/622211.html">HBase创建表已经存在，删除表又不存在</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" href="https://www.2cto.com/net/201704/626170.html">&ldquo;Tensorflow+OpenCV&ldquo;容器进行CNN数字</a></dd>
+														</dl>
+			</div>
+		</div>
+		<div class="side-ibox mt8">
+            <!-- 2cto_右三 -->
+            <script type="text/javascript">cto_A_D("2cto_14");</script>
+        </div>
+			<div class="box_right_box">
+                <div class="paddingbox">
+                    <dl class="index" id="Articles">
+                        <dd>
+    						<!-- <div id="cyHotnews" role="cylabs" data-use="hotnews"></div>
+    						<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid=cyrBEfE7C"></script> -->
+    					</dd>
+                    </dl>
+                </div>
+			</div><!--box_right_box end-->
+		<div class="side-ibox mt8">
+            <!-- 2cto_右四 -->
+            <script type="text/javascript">cto_A_D("2cto_8");</script>			
+		</div>
+	</div>
+</div>
+<div class="ibox p8">
+<!-- 2cto_通栏2 -->
+<script type="text/javascript">cto_A_D("2cto_2");</script>
+</div>
+<div class="ibox p8">
+<!-- 2cto_通栏3 -->
+<a target="_blank" href="//vip.2cto.com"><img src="/adv/980-80.gif" class="style2" /></a>
+</div>
+<span style="display:none"><script type="text/javascript" src="https://statics.2cto.com/js/baidu_js_push.js"></script></span>
+<div class="foot">
+<p>
+<a href="/about">关于我们</a> |
+<a href="/about/contact.html">联系我们</a> |
+<a href="/about/ads.html">广告服务</a> |
+<a href="/about/touzi.html">投资合作</a> |
+<a href="/about/Copyright.html">版权申明</a> |
+<a href="/about/faq.html">在线帮助</a> |
+<a href="/about/map.html">网站地图</a> |
+<a href="/about/tg.html">作品发布</a> |
+<a target="_blank" href="//vip.2cto.com/"><span class="c-red">Vip技术培训</span></a> |
+<a rel="nofollow" href="//www.2cto.com/member/report.php" >举报中心</a>
+</p>
+<p class="style4">版权所有: <a href="/" >红黑联盟</a>--致力于做实用的IT技术学习网站<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258398875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D1258398875' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260439972'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D1260439972' type='text/javascript'%3E%3C/script%3E"));</script> 
+</p>
+<div class="hidden"><script type="text/javascript" src="https://statics.2cto.com/js/tj.js"></script>
+<script type="text/javascript">usertongji("邓海龙")</script>
+</div>
+<!-- 2cto_图加 -->
+<script type="text/javascript">cto_A_D("2cto_10");</script>
+<!-- 2cto_视窗 -->
+<script type="text/javascript">cto_A_D("2cto_11");</script>
+<!-- 2cto_对联 -->
+<script type="text/javascript">cto_A_D("2cto_12");</script>
+</div><script type="text/javascript" src="https://statics.2cto.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://statics.2cto.com/js/swiper.min.js"></script>
+<script type="text/javascript" src="https://statics.2cto.com/js/init_swiper.js"></script>
+<script type="text/javascript" src="https://statics.2cto.com/js/jquery.sgallery.js"></script>
+<script charset="UTF-8" src="https://statics.2cto.com/js/zeroclipboard/jquery.zclip.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="https://statics.2cto.com/js/dialog.js"></script>
+<script type="text/javascript" src="https://statics.2cto.com/js/login.js"></script>
+<script type="text/javascript">
+	ajaxlogin(encodeURIComponent(location.href),1,3);
+</script>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('https://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='//home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="https://www.2cto.com/api.php?op=count&id=730766&modelid=1"></script>
+<script>
+  $(function(){
+    var appid = 'cyrBEfE7C',
+    conf = 'prod_830794cf494da8b808afb2994cfe0fee';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  '//assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+
+</script>
+<!--<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>-->
+<script> 
+				function copyToClipBoard(){ 
+					var clipBoardContent=document.title + '\r\n' + document.location; 
+					clipBoardContent+='\r\n';	//内容
+					var copyurl = clipBoardContent;
+					$(".ckcopy").zclip({
+						path: "https://statics.2cto.com/js/zeroclipboard/ZeroClipboard.swf",
+						copy: copyurl,
+						afterCopy: function() {
+							alert('链接复制成功');
+						},
+						clickAfter: false
+					});
+				} 
+				$(function (){
+					$(".ckcopy").click();
+				});
+			</script>
+</body>
+</html>

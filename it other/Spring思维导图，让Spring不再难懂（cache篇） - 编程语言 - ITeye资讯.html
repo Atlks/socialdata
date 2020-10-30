@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spring思维导图，让Spring不再难懂（cache篇）  - 编程语言 - ITeye资讯</title>
+    <meta name="description" content="关于缓存 缓存是实际工作中非常常用的一种提高性能的方法。而在java中，所谓缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。这样做可以减少系统开销，提高系统效率。 在增删改查中，数据库查询占据了数据库操作的80%以上，而非常频繁的磁盘I/O读取操作，会导致数据库性能极度低下。而数据库的重要性就不言而喻了： 数据库通常是企业应用系统最核 ..." />
+    <meta name="keywords" content="cache,language,编程语言" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="http://www.iteye.com/stylesheets/news.css?1517971858" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e19a8b00cf63f716d774540875007664";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+
+
+        //自动推送工具代码
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1448702469" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="page">
+      <div id="header">
+        <div class="clearfix"><div id="user_nav">
+
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <!--<a href="/signup" class="nobg">注册</a>-->
+    <!--<a href="http://passport.csdn.net/account/mobileregister?from=http://www.iteye.com">注册</a>-->
+  </div>
+</div>
+        <div class="clearfix">
+          <div id="branding">
+            <a href="http://www.iteye.com"><img alt="ITeye3.0" src="http://www.iteye.com/images/logo.gif?1448702469" title="ITeye-最棒的软件开发交流社区" /></a>
+          </div>
+          <div id="gg">
+          	<ins data-revive-zoneid="162" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+          </div>
+        </div>
+      </div>
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://jihong10102006.iteye.com" class="p-author" target="_blank">jihong10102006</a>
+</div>
+
+
+<div class="crumbs" style="margin:10px 0;">
+  <a href="/news">资讯频道</a> <span class="arrow">&rarr;</span>
+  <a href="/news/category/language">编程语言</a>
+</div>
+
+<div class="news_main">
+  <div class="news">
+    <div class="clearfix">
+      <div class="news_digg">
+        <div class='digg' id='d32626'><h3 class='digged'><span class='digg'>2顶</span><br/><span class='bury'>0踩</span></h3></div>
+      </div>
+      <div id="news_icon"><a href="/news/category/language" title="查看编程语言分类资讯" target="_blank"><img alt="编程语言" src="http://www.iteye.com/images/icon/whole_category/language.gif?1448702469" /></a></div>
+      <div class="title">
+        <h3>
+          <img alt="转载新闻" src="http://www.iteye.com/images/news/zz.gif?1448702469" />
+          <a href='/news/32626' title="Spring思维导图，让Spring不再难懂（cache篇） ">Spring思维导图，让Spring不再难懂（cache篇） </a>
+          <span class="actions">
+            
+            
+          </span>
+        </h3>
+        <div class="news_info" style="background-color: transparent;">
+          <span class='date'>2017-08-29 09:55</span> by 副主编 <a href='http://jihong10102006.iteye.com' target='_blank' title='jihong10102006'>jihong10102006</a>
+          <span class="comment"><a href="#comments">评论(0)</a></span>
+          <span class='view'>有5523人浏览</span>
+          
+        </div>
+        <div class="news_tag">
+                      <a href="/news/tag/cache"><span>cache</span></a>
+                  </div>
+      </div>
+    </div>
+        
+    
+    
+    <div id="news_content">
+      <span style="font-size: medium;"><strong>关于缓存</strong></span><br /><br />缓存是实际工作中非常常用的一种提高性能的方法。而在java中，所谓缓存，就是将程序或系统经常要调用的对象存在内存中，再次调用时可以快速从内存中获取对象，不必再去创建新的重复的实例。这样做可以减少系统开销，提高系统效率。<br /><br />在增删改查中，数据库查询占据了数据库操作的80%以上，而非常频繁的磁盘I/O读取操作，会导致数据库性能极度低下。而数据库的重要性就不言而喻了：<br /><ul><li>数据库通常是企业应用系统最核心的部分</li><li>数据库保存的数据量通常非常庞大</li><li>数据库查询操作通常很频繁，有时还很复杂</ul></li>在系统架构的不同层级之间，为了加快访问速度，都可以存在缓存<br /><div style="text-align: center;"><img src="http://dl2.iteye.com/upload/attachment/0126/7274/6fa341f8-58d0-3adc-94ce-f328a333fa52.png" /></div><br /><span style="font-size: medium;"><strong>spring cache特性与缺憾</strong></span><br /><br />现在市场上主流的缓存框架有ehcache、redis、memcached。spring cache可以通过简单的配置就可以搭配使用起来。其中使用注解方式是最简单的。<br /><div style="text-align: center;"><img src="http://dl2.iteye.com/upload/attachment/0126/7267/0ffc8a83-d814-3162-88d7-b2e0ff541cb3.png" /></div><br /><br /><span style="font-size: medium;"><strong>Cache注解</strong></span><br /><div style="text-align: center;"><img src="http://dl2.iteye.com/upload/attachment/0126/7269/24430a0a-5f83-3add-83cb-d7cbd50d1ad4.png" /></div><br />从以上的注解中可以看出，虽然使用注解的确方便，但是缺少灵活的缓存策略，<br /><br />缓存策略：<br /><ul><li>TTL（Time To Live ） 存活期，即从缓存中创建时间点开始直到它到期的一个时间段（不管在这个时间段内有没有访问都将过期）</li><li>TTI（Time To Idle） 空闲期，即一个数据多久没被访问将从缓存中移除的时间</ul></li>项目中可能有很多缓存的TTL不相同，这时候就需要编码式使用编写缓存。<br /><br /><span style="font-size: medium;"><strong>条件缓存</strong></span><br /><br />根据运行流程，如下@Cacheable将在执行方法之前( #result还拿不到返回值)判断condition，如果返回true，则查缓存； <br /><pre class=" " name="code">@Cacheable(value = "user", key = "#id", condition = "#id lt 10")  
+public User conditionFindById(final Long id)</pre><br />如下@CachePut将在执行完方法后（#result就能拿到返回值了）判断condition，如果返回true，则放入缓存<br /><pre class=" " name="code">@CachePut(value = "user", key = "#id", condition = "#result.username ne 'zhang'")  
+public User conditionSave(final User user)</pre><br /> 如下@CachePut将在执行完方法后（#result就能拿到返回值了）判断unless，如果返回false，则放入缓存；（即跟condition相反）<br /><pre class=" " name="code">@CachePut(value = "user", key = "#user.id", unless = "#result.username eq 'zhang'")  
+public User conditionSave2(final User user)</pre><br />如下@CacheEvict， beforeInvocation=false表示在方法执行之后调用（#result能拿到返回值了）；且判断condition，如果返回true，则移除缓存；<br /><pre class=" " name="code">@CacheEvict(value = "user", key = "#user.id", beforeInvocation = false, condition = "#result.username ne 'zhang'") 
+public User conditionDelete(final User user)</pre><br />小试牛刀，综合运用：<br /><pre class=" " name="code"> @CachePut(value = "user", key = "#user.id")
+    public User save(User user) {
+        users.add(user);
+        return user;
+    }
+
+    @CachePut(value = "user", key = "#user.id")
+    public User update(User user) {
+        users.remove(user);
+        users.add(user);
+        return user;
+    }
+
+    @CacheEvict(value = "user", key = "#user.id")
+    public User delete(User user) {
+        users.remove(user);
+        return user;
+    }
+
+    @CacheEvict(value = "user", allEntries = true)
+    public void deleteAll() {
+        users.clear();
+    }
+
+    @Cacheable(value = "user", key = "#id")
+    public User findById(final Long id) {
+        System.out.println("cache miss, invoke find by id, id:" + id);
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
+        return null;
+    }</pre><br /><span style="font-size: medium;"><strong>配置ehcache与redis</strong></span><br />spring cache集成ehcache，spring-ehcache.xml主要内容：<br /><pre class=" " name="code">&lt;dependency&gt;
+	&lt;groupId&gt;net.sf.ehcache&lt;/groupId&gt;
+	&lt;artifactId&gt;ehcache-core&lt;/artifactId&gt;
+	&lt;version&gt;${ehcache.version}&lt;/version&gt;
+&lt;/dependency&gt;</pre><br /><pre class=" " name="code">&lt;!-- Spring提供的基于的Ehcache实现的缓存管理器 --&gt;
+    
+&lt;!-- 如果有多个ehcacheManager要在bean加上p:shared="true" --&gt;
+&lt;bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"&gt;
+     &lt;property name="configLocation" value="classpath:xml/ehcache.xml"/&gt;
+&lt;/bean&gt;
+    
+&lt;bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"&gt;
+     &lt;property name="cacheManager" ref="ehcacheManager"/&gt;
+     &lt;property name="transactionAware" value="true"/&gt;
+&lt;/bean&gt;
+    
+&lt;!-- cache注解，和spring-redis.xml中的只能使用一个 --&gt;
+&lt;cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/&gt;</pre><br />spring cache集成redis，spring-redis.xml主要内容：<br /><pre class=" " name="code">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.data&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;
+	&lt;version&gt;1.8.1.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+	&lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;
+	&lt;version&gt;2.4.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;redis.clients&lt;/groupId&gt;
+	&lt;artifactId&gt;jedis&lt;/artifactId&gt;
+	&lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;</pre><br /><pre class=" " name="code">&lt;!-- 注意需要添加Spring Data Redis等jar包 --&gt;
+&lt;description&gt;redis配置&lt;/description&gt;
+
+&lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;
+	&lt;property name="maxIdle" value="${redis.pool.maxIdle}"/&gt;
+	&lt;property name="maxTotal" value="${redis.pool.maxActive}"/&gt;
+	&lt;property name="maxWaitMillis" value="${redis.pool.maxWait}"/&gt;
+	&lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/&gt;
+	&lt;property name="testOnReturn" value="${redis.pool.testOnReturn}"/&gt;
+&lt;/bean&gt;
+
+&lt;!-- JedisConnectionFactory --&gt;
+&lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;
+	&lt;property name="hostName" value="${redis.master.ip}"/&gt;
+	&lt;property name="port" value="${redis.master.port}"/&gt;
+	&lt;property name="poolConfig" ref="jedisPoolConfig"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+	  p:connectionFactory-ref="jedisConnectionFactory"&gt;
+	&lt;property name="keySerializer"&gt;
+		&lt;bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"&gt;&lt;/bean&gt;
+	&lt;/property&gt;
+	&lt;property name="valueSerializer"&gt;
+		&lt;bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/&gt;
+	&lt;/property&gt;
+	&lt;property name="hashKeySerializer"&gt;
+		&lt;bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/&gt;
+	&lt;/property&gt;
+	&lt;property name="hashValueSerializer"&gt;
+		&lt;bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/&gt;
+	&lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;!--spring cache--&gt;
+&lt;bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager"
+	  c:redisOperations-ref="redisTemplate"&gt;
+	&lt;!-- 默认缓存10分钟 --&gt;
+	&lt;property name="defaultExpiration" value="600"/&gt;
+	&lt;property name="usePrefix" value="true"/&gt;
+	&lt;!-- cacheName 缓存超时配置，半小时，一小时，一天 --&gt;
+	&lt;property name="expires"&gt;
+		&lt;map key-type="java.lang.String" value-type="java.lang.Long"&gt;
+			&lt;entry key="halfHour" value="1800"/&gt;
+			&lt;entry key="hour" value="3600"/&gt;
+			&lt;entry key="oneDay" value="86400"/&gt;
+			&lt;!-- shiro cache keys --&gt;
+			&lt;entry key="authorizationCache" value="1800"/&gt;
+			&lt;entry key="authenticationCache" value="1800"/&gt;
+			&lt;entry key="activeSessionCache" value="1800"/&gt;
+		&lt;/map&gt;
+	&lt;/property&gt;
+&lt;/bean&gt;
+&lt;!-- cache注解，和spring-ehcache.xml中的只能使用一个 --&gt;
+&lt;cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/&gt;</pre><br />项目中注解缓存只能配置一个，所以可以通过以下引入哪个配置文件来决定使用哪个缓存。<br />当然，可以通过其他配置搭配使用两个缓存机制。比如ecache做一级缓存，redis做二级缓存。<br /><div style="text-align: center;"><img src="http://dl2.iteye.com/upload/attachment/0126/7272/2ed6200b-df85-35d4-a57f-2dabd73f214d.png" /></div><br />更加详细的使用与配置，可以参考项目中spring-shiro-training中有关spring cache的配置。
+    </div>
+
+    <div id="news_recommended_n2">
+    	<ins data-revive-zoneid="163" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+		</div>
+
+    
+  <div class="attachments">
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0126/7267/0ffc8a83-d814-3162-88d7-b2e0ff541cb3.png" target="_blank"><img src='http://dl2.iteye.com/upload/attachment/0126/7267/0ffc8a83-d814-3162-88d7-b2e0ff541cb3-thumb.png' class='magplus' title='点击查看原始大小图片' /></a></li>
+          
+          <li>大小: 69.8 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0126/7269/24430a0a-5f83-3add-83cb-d7cbd50d1ad4.png" target="_blank"><img src='http://dl2.iteye.com/upload/attachment/0126/7269/24430a0a-5f83-3add-83cb-d7cbd50d1ad4-thumb.png' class='magplus' title='点击查看原始大小图片' /></a></li>
+          
+          <li>大小: 395.3 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0126/7272/2ed6200b-df85-35d4-a57f-2dabd73f214d.png" target="_blank"><img src='http://dl2.iteye.com/upload/attachment/0126/7272/2ed6200b-df85-35d4-a57f-2dabd73f214d-thumb.png' class='magplus' title='点击查看原始大小图片' /></a></li>
+          
+          <li>大小: 47.1 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0126/7274/6fa341f8-58d0-3adc-94ce-f328a333fa52.png" target="_blank"><img src='http://dl2.iteye.com/upload/attachment/0126/7274/6fa341f8-58d0-3adc-94ce-f328a333fa52-thumb.png' class='magplus' title='点击查看原始大小图片' /></a></li>
+          
+          <li>大小: 35.5 KB</li>
+        </ul>
+      
+    
+    
+      <ul>
+        <li><a href="#" onclick="$$('div.attachments ul').invoke('show');$(this).up(1).hide();return false;">查看图片附件</a></li>
+      </ul>
+    
+  </div>
+
+
+
+    <div>
+              来自: <a href="http://mp.weixin.qq.com/s/z0fBCVkN7F1zIfBDzpVTsA">java思维导图公众号</a>
+          </div>
+  </div>
+
+        <div id="digg_bottom" class="clearfix">
+      <div class="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+      </div>
+<div class='digged'><strong>2</strong> <br/>顶</div><div class='digged'><strong>0</strong> <br/>踩</div></div>
+
+  <div class="comments">
+    <span style="font-weight:bold; font-size:16px;margin-right:14px;">评论</span> 共 0 条  请<a href="/login">登录</a>后发表评论 
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+  <div class="comments"><h3>发表评论</h3></div>
+  
+  <p style="text-align:center; margin-top:10px; margin-bottom:30px;"><a href="/login"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /> 您还没有登录,请您登录后再发表评论 </a></p>
+
+</div>
+<script type="text/javascript">
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'NewsComment'},
+      onSuccess:function(response){
+        editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+  
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+  fix_image_size($$('div#news_content img'), 650);
+  fix_image_size($$('div.comments img'), 620);
+
+  new WeiboShare({share_buttons: $$('.share_weibo')[0], img_scope: $('news_content')});
+</script>
+
+
+
+        </div>
+        <div id="local">
+                      <div>
+  <form action="/news/search" method="get">    <input class="text" id="query" name="query" size="15" style="width: 135px;" type="text" />
+    <input class="submit" type="submit" value="搜索资讯" style="width: 68px;" />
+  </form></div>
+
+
+
+    
+        <div>
+  <h3>相关资讯 </h3>
+        <ul>
+                    
+                <li><a href="/news/20281-simplejdbc-release" target="_blank">SimpleJDBC 1.0发布</a></li>
+            
+                    
+                <li><a href="/news/30464" target="_blank">Redis入门－windows下的安装与使用</a></li>
+            
+                    
+                <li><a href="/news/30262" target="_blank">高效 Java Web 开发框架 JessMA v3.5.1 正式发布</a></li>
+            
+                    
+                <li><a href="/news/17211-spring-web-flow" target="_blank">Spring Web Flow 2.2.0 M1发布</a></li>
+            
+              </ul>
+  </div>
+        <div>
+  <h3>相关讨论 </h3>
+        <ul>
+                    
+                <li><a href="http://www.iteye.com/topic/1121252" target="_blank">自己动手写淘宝开放平台:Rop(将WebService REST进行到底!!)</a></li>
+            
+                    
+                <li><a href="http://www.iteye.com/topic/1134046" target="_blank">Activiti入门篇--Spring 与Activiti的入门整合</a></li>
+            
+                    
+                <li><a href="http://www.iteye.com/topic/10296" target="_blank">spring入门编程问题集锦</a></li>
+            
+                    
+                <li><a href="http://www.iteye.com/topic/405327" target="_blank">使用acegi 控制用户权限</a></li>
+            
+                    
+                <li><a href="http://www.iteye.com/topic/1129953" target="_blank">CAS服务器实验——单点登录测试</a></li>
+            
+              </ul>
+  </div>
+        <div>
+  <h3>相关博客 </h3>
+        <ul>
+                    
+                <li><a href="http://hanqunfeng.iteye.com/blog/2176172" target="_blank">Spring Cache注解+Redis</a></li>
+            
+                    
+                <li><a href="http://xinteng2012.iteye.com/blog/2198245" target="_blank">Maven构建spring+redis项目</a></li>
+            
+                    
+                <li><a href="http://m635674608.iteye.com/blog/2252918" target="_blank"> redis与spring的完全集成</a></li>
+            
+                    
+                <li><a href="http://phipray.iteye.com/blog/2248352" target="_blank">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+            
+                    
+                <li><a href="http://java-lxm.iteye.com/blog/2063907" target="_blank">springmvc整合mybaits配置数据源问题</a></li>
+            
+              </ul>
+  </div>
+        <div>
+  <h3>相关资源推荐 </h3>
+        <ul>
+                    
+                <li><a href="https://blog.csdn.net/zhuxianxin0118/article/details/77140552" target="_blank">Spring思维导图，让Spring不再难懂（aop篇）</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/u011277123/article/details/71169661" target="_blank">Spring思维导图，让spring不再难懂（一）</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/Dome_/article/details/79263180" target="_blank">Spring思维导图，让Spring不再难懂（cache篇 )</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/luobogen666/article/details/77689294" target="_blank">Spring思维导图，让Spring不再难懂（cache篇）</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/huangshulang1234/article/details/78878317" target="_blank">http超文本协议，让http不再难懂(二)</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/qq_15175765/article/details/78246082" target="_blank">一张思维导图，让正则表达式不再难懂</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/chendc201/article/details/75505032" target="_blank">Spring思维导图，让Spring不再难懂</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/Dome_/article/details/79263093" target="_blank">Spring 思维导图，让 spring 不再难懂</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/qq_36090419/article/details/70479186" target="_blank">开源项目spring-shiro-training思维导图，让项目不再难懂</a></li>
+            
+                    
+                <li><a href="https://blog.csdn.net/hj7jay/article/details/72518198" target="_blank">Spring思维导图，让Spring不再难懂（ioc篇）</a></li>
+            
+              </ul>
+  </div>
+    
+
+        </div>
+        <div id="nav">
+  <div class="wrapper">
+    <ul>
+            <li><a href="http://www.iteye.com/">首页</a></li>
+      <li><a href="http://www.iteye.com/news" class='selected'>资讯</a></li>
+      <li><a href="http://www.iteye.com/magazines">精华</a></li>
+      <li><a href="http://www.iteye.com/forums">论坛</a></li>
+      <li><a href="http://www.iteye.com/ask">问答</a></li>
+      <li><a href="http://www.iteye.com/blogs">博客</a></li>
+      <li><a href="http://www.iteye.com/blogs/subjects">专栏</a></li>
+      <li><a href="http://www.iteye.com/groups">群组</a></li>
+      <!-- <li><a target="_blank" href="http://job.iteye.com/iteye">招聘</a></li>-->
+      <li class="last"><a href="http://www.iteye.com/search">搜索</a></li>
+    </ul>
+  </div>
+</div>
+      </div>
+      <div id="footer">
+  <div id="site_nav">
+    <ul>
+      <li><a href="/index/service">广告服务</a></li>
+      <li><a href="http://webmaster.iteye.com">ITeye黑板报</a></li>
+      <li><a href="/index/contactus">联系我们</a></li>
+      <li class="last"><a href="/index/friend_links">友情链接</a></li>
+    </ul>
+  </div>
+  <div id="copyright">
+    &copy; 2003-2018 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证070598号</a>  京公网安备11010502027441 ]<br/>
+    北京创新乐知信息技术有限公司 版权所有<br />
+  </div>
+</div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+
+
+    <script type="text/javascript">
+      function json_digg(id) {
+        call_json_digg('digg', id)
+      };
+      function json_bury(id) {
+        call_json_digg('bury', id)
+      };
+      function disable_digg_link(id) {
+        $$('#digg_link_' + id + ' a.push_up').each(function(link) {
+            old_count = $('digg_count_' + id).textContent;
+            link.replace('<span class="push_up">顶 <b id="digg_count_' + id + '">' + old_count + '</b></span>')
+        });
+        $$('#digg_link_' + id + ' a.trample').each(function(link) {
+            old_count = $('bury_count_' + id).textContent;
+            link.replace('<span class="trample">踩 <b id="bury_count_' + id + '">' + old_count + '</b></span>')
+        });
+      };
+      function call_json_digg(type, id) {
+        if (type === 'bury' || type === 'digg') {
+          new Ajax.Request('/news/' + type,
+                           {
+                             method:'post',
+                             parameters: {"id": id, "format" : 'json' },
+                             onSuccess: function(transport) {
+                               disable_digg_link(id);
+                               var json = transport.responseText.evalJSON();
+                               $(type + "_count_" + id).update(json[type + '_count']);
+                             }
+                           });
+        }
+      };
+    </script>
+    
+    <script src="http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="http://csdnimg.cn/asdf/tracking-1.0.1.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="http://csdnimg.cn/asdf/async-1.0.1.js"></script>
+<script src="http://csdnimg.cn/pubfooter/js/tracking-1.0.3.js?version=20130923164150" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+  </body>
+</html>

@@ -1,0 +1,1273 @@
+﻿{
+    "code": "200",
+    "result": {
+        "deptMembers": [
+            {
+                "deptId": "00000136",
+                "displayName": "沈闯",
+                "duty": {
+                    "dutyName": "信息化部"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10168570",
+                    "birthday": "1981-10-20",
+                    "phone": "13337215688",
+                    "nickname": "沈闯",
+                    "tel": "88928123",
+                    "orgeh": "00000136",
+                    "zhrjg": "江苏·盱眙",
+                    "id": "00735737",
+                    "joinDate": "2016-08-29",
+                    "plansTxt": "信息化副总监",
+                    "workaddress": "科技园行政楼204",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "shenchuang@zoomlion.com",
+                    "icnum": "320830198110206812"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00735737"
+            },
+            {
+                "deptId": "00000136",
+                "displayName": "张飞庆",
+                "duty": {
+                    "dutyName": "信息化部"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "00000161",
+                    "birthday": "1964-01-24",
+                    "phone": "13974844266",
+                    "nickname": "张飞庆",
+                    "tel": "88923745",
+                    "orgeh": "00000136",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00000161",
+                    "joinDate": "1999-08-08",
+                    "plansTxt": "信息化部部长",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zhangfq@zlzk.com",
+                    "icnum": "430104196401243010"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00000161"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "曾钊伟",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10143321",
+                    "birthday": "1987-04-13",
+                    "phone": "13873128395",
+                    "nickname": "曾钊伟",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00723452",
+                    "joinDate": "2014-02-27",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zengzhaowei@zoomlion.com",
+                    "icnum": "422822198704131016"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00723452"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "梁倩",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143336",
+                    "birthday": "1990-08-25",
+                    "phone": "13787196796",
+                    "nickname": "梁倩",
+                    "tel": "88943688（总部）",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·娄底",
+                    "id": "00720537",
+                    "joinDate": "2012-09-25",
+                    "plansTxt": "规划工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "liangqian@zoomlion.com",
+                    "icnum": "432503199008250346"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00720537"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "陈萱",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143326",
+                    "birthday": "1986-01-10",
+                    "phone": "13975818414",
+                    "nickname": "陈萱",
+                    "tel": "88943688",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00702416",
+                    "joinDate": "2011-03-22",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "chenx@zlzk.com",
+                    "icnum": "430103198601103023"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00702416"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "莫高勇",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10164933",
+                    "birthday": "1985-10-11",
+                    "phone": "18774966935",
+                    "nickname": "莫高勇",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·永州",
+                    "id": "00701798",
+                    "joinDate": "2011-03-15",
+                    "plansTxt": "系统开发工程师",
+                    "workaddress": "科技园411办公室",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "mogy@zlzk.com",
+                    "icnum": "431103198510112750"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00701798"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "王虎",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10164932",
+                    "birthday": "1983-09-30",
+                    "phone": "13647445935",
+                    "nickname": "王虎",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖北·荆州",
+                    "id": "00006680",
+                    "joinDate": "2010-07-05",
+                    "plansTxt": "系统开发工程师",
+                    "workaddress": "科技园办公楼411房",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "wanghu@zlzk.com",
+                    "icnum": "421083198309307016"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006680"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "王煜",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10143335",
+                    "birthday": "1982-12-14",
+                    "phone": "13548689199",
+                    "nickname": "王煜",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006679",
+                    "joinDate": "2010-07-05",
+                    "plansTxt": "规划工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "wangyu82@zlzk.com",
+                    "icnum": "430111198212140314"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006679"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "邓珍石",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143319",
+                    "birthday": "1982-02-08",
+                    "phone": "18570667224",
+                    "nickname": "邓珍石",
+                    "tel": "88923912",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006359",
+                    "joinDate": "2009-07-29",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "dengzs@zlzk.com",
+                    "icnum": "430103198202081023"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006359"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "陈骥敏",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10143331",
+                    "birthday": "1984-12-20",
+                    "phone": "15074945176",
+                    "nickname": "陈骥敏",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "福建·南平",
+                    "id": "00006333",
+                    "joinDate": "2009-06-25",
+                    "plansTxt": "系统开发工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "chenjimin@zlzk.com",
+                    "icnum": "350721198412200030"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006333"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "徐岚",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143328",
+                    "birthday": "1975-12-30",
+                    "phone": "18674884515",
+                    "nickname": "徐岚",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006309",
+                    "joinDate": "2009-05-20",
+                    "plansTxt": "系统实施工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "xul@zlzk.com",
+                    "icnum": "430103197512300522"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006309"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "张晶晶",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143329",
+                    "birthday": "1986-05-25",
+                    "phone": "13907311950",
+                    "nickname": "张晶晶",
+                    "tel": "0731-89751719",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006224",
+                    "joinDate": "2008-10-28",
+                    "plansTxt": "系统实施工程师",
+                    "workaddress": "0731-89751719 按 4 按 88106#",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zhangjingjing@zlzk.com",
+                    "icnum": "430103198605250565"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006224"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "刘晓芳",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143325",
+                    "birthday": "1985-08-14",
+                    "phone": "13875919597",
+                    "nickname": "刘晓芳",
+                    "tel": "88943688",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·益阳",
+                    "id": "00006115",
+                    "joinDate": "2008-07-01",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "科技园418",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "liuxf@zlzk.com",
+                    "icnum": "430922198508142047"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006115"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "杨娟",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10143324",
+                    "birthday": "1985-06-07",
+                    "phone": "13974861263",
+                    "nickname": "杨娟",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·张家界",
+                    "id": "00006114",
+                    "joinDate": "2008-07-01",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "yangjuan@zlzk.com",
+                    "icnum": "430811198506070022"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006114"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "王龙",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10143322",
+                    "birthday": "1986-10-27",
+                    "phone": "15243684350",
+                    "nickname": "王龙",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·益阳",
+                    "id": "00005895",
+                    "joinDate": "2008-02-29",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "科技园422办公室",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "wangl@zlzk.com",
+                    "icnum": "430902198610278551"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00005895"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "黄洪",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10143320",
+                    "birthday": "1982-01-20",
+                    "phone": "18692205760",
+                    "nickname": "黄洪",
+                    "tel": "未知",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00005062",
+                    "joinDate": "2008-05-09",
+                    "plansTxt": "系统运营工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "alrece@zoomlion.com",
+                    "icnum": "430104198201202539"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00005062"
+            },
+            {
+                "deptId": "00020339",
+                "displayName": "罗颖",
+                "duty": {
+                    "dutyName": "信息系统室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114383",
+                    "birthday": "1979-07-20",
+                    "phone": "13786149635",
+                    "nickname": "罗颖",
+                    "tel": "88923918",
+                    "orgeh": "00020339",
+                    "zhrjg": "湖南·岳阳",
+                    "id": "00000169",
+                    "joinDate": "2001-07-10",
+                    "plansTxt": "信息系统室主任",
+                    "workaddress": "科技园",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "luoy@zoomlion.com",
+                    "icnum": "430623197907200035"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00000169"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "杨志中",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170704",
+                    "birthday": "1984-12-08",
+                    "phone": "18874791973",
+                    "nickname": "杨志中",
+                    "tel": "85667255",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·常德",
+                    "id": "00716272",
+                    "joinDate": "2012-04-05",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "430722198412080012"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00716272"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "张瑾",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10170721",
+                    "birthday": "1986-09-23",
+                    "phone": "13636650620",
+                    "nickname": "张瑾",
+                    "tel": "67663455",
+                    "orgeh": "00020340",
+                    "zhrjg": "上海",
+                    "id": "00716057",
+                    "joinDate": "2012-04-05",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "310115198609232223"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00716057"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "陈顺德",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114410",
+                    "birthday": "1989-12-24",
+                    "phone": "15574372371",
+                    "nickname": "陈顺德",
+                    "tel": "88923793",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·衡阳",
+                    "id": "00713961",
+                    "joinDate": "2012-07-01",
+                    "plansTxt": "信息安全工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "chenshunde@zoomlion.com",
+                    "icnum": "430421198912240251"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00713961"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "王建松",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170708",
+                    "birthday": "1986-06-11",
+                    "phone": "15367782819",
+                    "nickname": "王建松",
+                    "tel": "0736-2320700",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·汉寿",
+                    "id": "00703962",
+                    "joinDate": "2011-04-01",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "汉寿1319",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "wangjiansong61@163.com",
+                    "icnum": "430722198606110013"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00703962"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "秦乐",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114405",
+                    "birthday": "1981-08-12",
+                    "phone": "15802609901",
+                    "nickname": "秦乐",
+                    "tel": "88923793",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00622976",
+                    "joinDate": "2008-07-15",
+                    "plansTxt": "网络管理工程师",
+                    "workaddress": "中联重科科技园行政楼424室",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "430103198108121017"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00622976"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "唐文杰",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170703",
+                    "birthday": "1982-11-07",
+                    "phone": "15211102168",
+                    "nickname": "唐文杰",
+                    "tel": "85667255",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·湘潭",
+                    "id": "00622786",
+                    "joinDate": "2008-06-20",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "tangwj@zlzk.com",
+                    "icnum": "430321198211077871"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00622786"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "王娜",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10170707",
+                    "birthday": "1982-07-03",
+                    "phone": "18700371382",
+                    "nickname": "王娜",
+                    "tel": "未知",
+                    "orgeh": "00020340",
+                    "zhrjg": "陕西·渭南",
+                    "id": "00324671",
+                    "joinDate": "2010-05-07",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "wangna@zlzk.com",
+                    "icnum": "610502198207033820"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00324671"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "崔晓波",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170719",
+                    "birthday": "1970-10-18",
+                    "phone": "18700371383",
+                    "nickname": "崔晓波",
+                    "tel": "0913-2288910",
+                    "orgeh": "00020340",
+                    "zhrjg": "陕西·咸阳",
+                    "id": "00321102",
+                    "joinDate": "2008-01-01",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "cuixiaobo@zlzk.com",
+                    "icnum": "612103197010180511"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00321102"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "陈旭",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10170706",
+                    "birthday": "1983-11-01",
+                    "phone": "18627368119",
+                    "nickname": "陈旭",
+                    "tel": "0736-2918779",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·益阳",
+                    "id": "00260060",
+                    "joinDate": "2005-04-26",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "430903198311013648"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00260060"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "姚丹",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170701",
+                    "birthday": "1980-10-13",
+                    "phone": "18973189555",
+                    "nickname": "姚丹",
+                    "tel": "0731-88997219",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00202358",
+                    "joinDate": "2010-09-29",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "麓谷工业园4059",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "yaodan@zoomlion.com",
+                    "icnum": "430702198010132013"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00202358"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "高振锋",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170702",
+                    "birthday": "1981-10-18",
+                    "phone": "15111421131",
+                    "nickname": "高振锋",
+                    "tel": "0731-88997219",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·娄底",
+                    "id": "00186517",
+                    "joinDate": "2010-11-10",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "4059办公室 集团号（66807）",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "gaozf@zoomlion.com",
+                    "icnum": "432524198110181735"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00186517"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "邓韬",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170700",
+                    "birthday": "1977-12-12",
+                    "phone": "13975161977",
+                    "nickname": "邓韬",
+                    "tel": "0731-88997219",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·临澧",
+                    "id": "00006003",
+                    "joinDate": "2001-08-13",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "432401197712124012"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006003"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "周晓玲",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10114402",
+                    "birthday": "1965-06-08",
+                    "phone": "13975196001",
+                    "nickname": "周晓玲",
+                    "tel": "未知",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·株洲",
+                    "id": "00005841",
+                    "joinDate": "2007-11-16",
+                    "plansTxt": "网络管理工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zhouxl@zlzk.com",
+                    "icnum": "43020419650608404X"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00005841"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "周涛",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10114404",
+                    "birthday": "1984-06-02",
+                    "phone": "13739070885",
+                    "nickname": "周涛",
+                    "tel": "0731-8923741",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00005787",
+                    "joinDate": "2007-07-01",
+                    "plansTxt": "网络管理工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zhoutao@zlzk.com",
+                    "icnum": "430111198406020847"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00005787"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "翟艺",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114411",
+                    "birthday": "1982-05-25",
+                    "phone": "15387535741",
+                    "nickname": "翟艺",
+                    "tel": "0731-88923793",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·常德",
+                    "id": "00005773",
+                    "joinDate": "2007-07-16",
+                    "plansTxt": "信息安全工程师",
+                    "workaddress": "zlzk.157",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "zhaiyi@zoomlion.com",
+                    "icnum": "430702198205253018"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00005773"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "汪建平",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10170705",
+                    "birthday": "1974-07-07",
+                    "phone": "13507360182",
+                    "nickname": "汪建平",
+                    "tel": "0736-2918780",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00003070",
+                    "joinDate": "1999-08-08",
+                    "plansTxt": "网络维护工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "432424197407075052"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00003070"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "曾筝",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10114403",
+                    "birthday": "1980-10-21",
+                    "phone": "13787228964",
+                    "nickname": "曾筝",
+                    "tel": "88923741",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·常德",
+                    "id": "00002164",
+                    "joinDate": "2002-07-08",
+                    "plansTxt": "网络管理工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "430725198010210020"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00002164"
+            },
+            {
+                "deptId": "00020340",
+                "displayName": "杨虎",
+                "duty": {
+                    "dutyName": "网络通信室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114401",
+                    "birthday": "1979-02-26",
+                    "phone": "13873165517",
+                    "nickname": "杨虎",
+                    "tel": "88923741",
+                    "orgeh": "00020340",
+                    "zhrjg": "湖南·常德",
+                    "id": "00002134",
+                    "joinDate": "2003-03-19",
+                    "plansTxt": "网络通信室主任",
+                    "workaddress": "科技园办公楼424",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "yanghu@zoomlion.com",
+                    "icnum": "430703197902260012"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00002134"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "兰德平",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114422",
+                    "birthday": "1983-12-25",
+                    "phone": "13787176775",
+                    "nickname": "兰德平",
+                    "tel": "未知",
+                    "orgeh": "00020341",
+                    "zhrjg": "湖南·娄底",
+                    "id": "00714030",
+                    "joinDate": "2012-03-01",
+                    "plansTxt": "开发工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "13787176775@139.com",
+                    "icnum": "432502198312250016"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00714030"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "谢琼琳",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10114417",
+                    "birthday": "1983-11-29",
+                    "phone": "13787160041",
+                    "nickname": "谢琼琳",
+                    "tel": "88923702",
+                    "orgeh": "00020341",
+                    "zhrjg": "湖南·衡阳",
+                    "id": "00006675",
+                    "joinDate": "2010-07-01",
+                    "plansTxt": "开发工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "未知",
+                    "icnum": "430403198311291528"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006675"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "薛海",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114416",
+                    "birthday": "1984-09-09",
+                    "phone": "13973198141",
+                    "nickname": "薛海",
+                    "tel": "未知",
+                    "orgeh": "00020341",
+                    "zhrjg": "河南·南阳",
+                    "id": "00006472",
+                    "joinDate": "2010-07-01",
+                    "plansTxt": "开发工程师",
+                    "workaddress": "科技园医务室对面2楼203办公室",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "gps@zoomlion.com",
+                    "icnum": "411328198409095073"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006472"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "陶晰",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "2",
+                    "plans": "10114418",
+                    "birthday": "1983-09-06",
+                    "phone": "15802595223",
+                    "nickname": "陶晰",
+                    "tel": "88923702",
+                    "orgeh": "00020341",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006469",
+                    "joinDate": "2010-04-12",
+                    "plansTxt": "开发工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "gps@zoomlion.com",
+                    "icnum": "430124198309067960"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006469"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "刘睿思",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114413",
+                    "birthday": "1979-10-19",
+                    "phone": "13975156039",
+                    "nickname": "刘睿思",
+                    "tel": "88923702",
+                    "orgeh": "00020341",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00006032",
+                    "joinDate": "2008-04-01",
+                    "plansTxt": "开发工程师",
+                    "workaddress": "未知",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "liurs@zoomlion.com",
+                    "icnum": "430104197910194012"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00006032"
+            },
+            {
+                "deptId": "00020341",
+                "displayName": "谢长宇",
+                "duty": {
+                    "dutyName": "物联网室"
+                },
+                "managerId": 0,
+                "user": {
+                    "region": "86",
+                    "gesch": "1",
+                    "plans": "10114412",
+                    "birthday": "1973-08-17",
+                    "phone": "18673112652",
+                    "nickname": "谢长宇",
+                    "tel": "89732099",
+                    "orgeh": "00020341",
+                    "zhrjg": "湖南·长沙",
+                    "id": "00000532",
+                    "joinDate": "1999-08-08",
+                    "plansTxt": "物联网室主任",
+                    "workaddress": "科技园信息化部",
+                    "isOaUser": 1,
+                    "portraitUri": "",
+                    "email": "xiecy@zoomlion.com",
+                    "icnum": "430103197308172017"
+                },
+                "status": "ENABLED",
+                "timestamp": 1484552063000,
+                "useId": "00000532"
+            }
+        ],
+        "depts": [
+	    {
+                "deptName": "信息化部",
+                "id": "00000136",
+                "parentId": "0",
+                "sort": 0,
+                "status": "ENABLED",
+                "timestamp": 1484552083000
+            },
+            {
+                "deptName": "信息系统室",
+                "id": "00020339",
+                "parentId": "00000136",
+                "sort": 0,
+                "status": "ENABLED",
+                "timestamp": 1484552083000
+            },
+            {
+                "deptName": "物联网室",
+                "id": "00020341",
+                "parentId": "00000136",
+                "sort": 0,
+                "status": "ENABLED",
+                "timestamp": 1484552083000
+            },
+            {
+                "deptName": "网络通信室",
+                "id": "00020340",
+                "parentId": "00000136",
+                "sort": 0,
+                "status": "ENABLED",
+                "timestamp": 1484552083000
+            }
+        ],
+        "timestamp": 1484550260033
+    },
+    "msg": "Staff Synchronize Success"
+}

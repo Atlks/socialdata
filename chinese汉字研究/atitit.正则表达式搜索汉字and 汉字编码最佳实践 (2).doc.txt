@@ -1,0 +1,20 @@
+
+
+Gbk2312汉字范围： 0xB0A1 - 0xF7FE  gb2312
+
+Unicode   {4e00}- {9fa5} ucs2 big endian... defult
+Unicode   {004e}- {a59f}   ucs2  little endian
+
+
+Npp6
+  [\xB0-\xF7][\xa1-\xfe]   gbk汉字,高位,低位每byte
+
+
+[\xB0A1-\xF7FE]
+[\u4e00-\u9fa5]
+
+
+文件路径
+[a-zA-Z]\:[\\a-zA-Z0-9\xB0-\xF7\xa1-\xfe_.~]
+
+
