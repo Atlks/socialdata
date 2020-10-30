@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/zwgdft/article/details/53842574"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="本文将重点探讨数据采集层中的ELK日志系统，结合自身实践来介绍如何使用ELK系统、使用中的问题以及如何解决。ELK是一套开源的集中式日志数据管理的解决方案，由Elasticsearch、Logstash和Kibana三个系统组成。" />
+    <meta name="keywords" content="数据分析,elk" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>创业公司做数据分析（四）ELK日志系统 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-daa08cd88e.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-02ffddfbf5.min.css">
+
+    <script type="text/javascript">
+        var username = "zwgdft";
+        var blog_address = "https://blog.csdn.net/zwgdft";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "attilax"; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/zwgdft/article/details/53842574"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+        <script type="text/javascript" src="https://csdnimg.cn/pubfooter/js/tracking-1.0.2.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = '创业公司做数据分析（四）ELK日志系统';
+    var ChannelId = 17;
+    var articleId = '53842574';
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/zwgdft/article/details/53842574";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "elk+%E4%B8%9A%E5%8A%A1%E6%97%A5%E5%BF%97%E8%A7%84%E8%8C%83+requestid";
+    var needInsertBaidu = true;
+</script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h6 class="title-blog">
+				<a href="https://blog.csdn.net/zwgdft">茅庐</a>
+			</h6>
+			<p class="description">Engineering is trade-off.</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/zwgdft/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/zwgdft">
+                <img src="https://avatar.csdn.net/8/9/2/3_zwgdft.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/zwgdft" target="_blank" class="text-truncate" id="uid">zwgdft</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" id="btnAttent">关注</a>
+                            </span>
+            
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="30">
+            <dt>原创</dt>
+            <dd><span class="count">30</span></dd>
+        </dl>
+        <dl class="text-center" title="153">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">153</span></dd>
+        </dl>
+        <dl class="text-center" title="7">
+            <dt>喜欢</dt>
+            <dd><span class="count">7</span></dd>
+        </dl>
+        <dl class="text-center" title="48">
+            <dt>评论</dt>
+            <dd><span class="count">48</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="218067">
+                21万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="2357">
+                2357            </dd>
+        </dl>
+        <dl title="20016">
+            <dt>排名：</dt>
+            <dd>2万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                <a class="icon-badge" title="专栏达人">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-columns"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item1">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-columns"></use>
+                        </svg>
+                        <p>专栏达人</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予成功创建个人博客专栏的用户。专栏中添加五篇以上博文即可点亮！撰写博客专栏浓缩技术精华，专栏达人就是你！
+                    </div>
+                </div>
+            </div> 
+        </a>  
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom43300240" class="aside-box custom-box">
+    <h3 class="aside-title">我的联系方式</h3>
+    <div class="aside-content clearfix">
+        
+本人坐标南京！<br>
+欢迎加好友交流技术！<br>
+<br>
+QQ：792752305（注明来自CSDN和姓名，谢谢！）
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/zwgdft/article/details/75209434" target="_blank">打造私人搜书系统之系统设计</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/zwgdft/article/details/54728677" target="_blank">创业公司做数据分析（六）数据仓库的建设</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/zwgdft/article/details/54633105" target="_blank">Kafka下的生产消费者模式与订阅发布模式</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/zwgdft/article/details/54585644" target="_blank">谈一谈Elasticsearch的集群部署</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/zwgdft/article/details/54314999" target="_blank">创业公司做数据分析（五）微信分享追踪系统</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <div id="asideColumn" class="aside-box">
+    <h3 class="aside-title">博主专栏</h3>
+    <div class="aside-content">
+        <ul class="column-box csdn-tracking-statistics tracking-click" data-mod="popu_520" >
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/13529.html">
+                            <img src="https://img-blog.csdn.net/20161114211910291?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/13529.html">创业公司做数据分析</a></p>
+                        <div class="data">阅读量：<span>45651</span><span class="count">6 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/15013.html">
+                            <img src="https://img-blog.csdn.net/20170326193856920?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/15013.html">AWS云服务</a></p>
+                        <div class="data">阅读量：<span>0</span><span class="count">0 篇</span></div>
+                    </div>
+                </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/zwgdft/article/details/53561277#comments">RabbitMQ下的生产消费者模式...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_28695877" class="user-name" target="_blank">qq_28695877</a>：厉害                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/zwgdft/article/details/53842574#comments">创业公司做数据分析（四）ELK日志...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_41195218" class="user-name" target="_blank">weixin_41195218</a>：文章很好，很是受用，若为兄不介意，小弟转载啦~                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/zwgdft/article/details/75209434#comments">打造私人搜书系统之系统设计</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/xulhcsdn" class="user-name" target="_blank">xulhcsdn</a>：NICE                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/zwgdft/article/details/54728677#comments">创业公司做数据分析（六）数据仓库的...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/renjianqin_1984" class="user-name" target="_blank">renjianqin_1984</a>：能写下来，已经相当的不错了，赞一个。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/zwgdft/article/details/53542597#comments">创业公司做数据分析（三）用户行为数...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/renjianqin_1984" class="user-name" target="_blank">renjianqin_1984</a>：[reply]zwgdft[/reply]多数情况下，都会采用方式二来上报。                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js?20180309" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h6 class="title-article">创业公司做数据分析（四）ELK日志系统</h6>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+						<span class="c-gray">置顶</span>
+												<span class="time">2017年01月07日 00:54:07</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：8078</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <div class="markdown_views">
+                <p>  作为系列文章的第四篇，本文将重点探讨数据采集层中的<strong>ELK日志系统</strong>。日志，指的是后台服务中产生的log信息，通常会输入到不同的文件中，比如Django服务下，一般会有nginx日志和uWSGI日志。这些日志分散地存储在不同的机器上，取决于服务的部署情况了。如果我们依次登录每台机器去查阅日志，显然非常繁琐，效率也很低，而且也没法进行统计和检索。因此，我们需要对日志进行集中化管理，将所有机器上的日志信息收集、汇总到一起。完整的日志数据具有非常重要的作用：</p>
+
+<ul>
+<li><strong>信息查找</strong>。通过检索日志信息，定位相应的bug，找出解决方案。</li>
+<li><strong>服务诊断</strong>。通过对日志信息进行统计、分析，了解服务器的负荷和服务运行状态，找出耗时请求进行优化等等。</li>
+<li><strong>数据分析</strong>。如果是格式化的log，可以做进一步的数据分析，统计、聚合出有意义的信息，比如根据请求中的商品id，找出TOP10用户感兴趣商品。</li>
+</ul>
+
+<p>  ELK是一套开源的集中式日志数据管理的解决方案，由<strong>Elasticsearch</strong>、<strong>Logstash</strong>和<strong>Kibana</strong>三个系统组成。最初我们建设ELK日志系统的目的是做数据分析，记得第一个需求是期望利用nginx的日志，从API请求的参数中挖掘出用户的位置分布信息。后来该系统在追踪恶意刷量、优化耗时服务等方面都发挥了重要作用，而且随着对Elasticsearch的认知加深，我们将其应用到了其他方面的数据存储和分析中。 本文的重点是结合自身实践来介绍如何使用ELK系统、使用中的问题以及如何解决，文中涉及的ELK版本是：Elasticsearch 2.3、Logstash 2.3、Kibana 4。 <br>
+<br></p>
+
+
+
+<h2 id="elk整体方案"><strong>ELK整体方案</strong></h2>
+
+<p>  ELK中的三个系统分别扮演不同的角色，组成了一个整体的解决方案。<strong>Logstash</strong>是一个ETL工具，负责从每台机器抓取日志数据，对数据进行格式转换和处理后，输出到Elasticsearch中存储。<strong>Elasticsearch</strong>是一个分布式搜索引擎和分析引擎，用于数据存储，可提供实时的数据查询。<strong>Kibana</strong>是一个数据可视化服务，根据用户的操作从Elasticsearch中查询数据，形成相应的分析结果，以图表的形式展现给用户。 <br>
+  ELK的安装很简单，可以按照“下载-&gt;修改配置文件-&gt;启动”方法分别部署三个系统，也可以使用<a href="https://elk-docker.readthedocs.io/">docker</a>来快速部署。具体的安装方法这里不详细介绍，我们来看一个常见的部署方案，如下图所示，部署思路是：</p>
+
+<ul>
+<li>第一，在每台生成日志文件的机器上，部署Logstash，作为Shipper的角色，负责从日志文件中提取数据，但是不做任何处理，直接将数据输出到Redis队列(list)中；</li>
+<li>第二，需要一台机器部署Logstash，作为Indexer的角色，负责从Redis中取出数据，对数据进行格式化和相关处理后，输出到Elasticsearch中存储；</li>
+<li>第三，部署Elasticsearch集群，当然取决于你的数据量了，数据量小的话可以使用单台服务，如果做集群的话，最好是有3个以上节点，同时还需要部署相关的监控插件；</li>
+<li>第四，部署Kibana服务，提供Web服务。</li>
+</ul>
+
+<div align="center"><img src="https://img-blog.csdn.net/20170104161830848?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvendnZGZ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="600"></div>
+
+<p><br>
+  在前期部署阶段，主要工作是Logstash节点和Elasticsearch集群的部署，而在后期使用阶段，主要工作就是Elasticsearch集群的监控和使用Kibana来检索、分析日志数据了，当然也可以直接编写程序来消费Elasticsearch中的数据。 <br>
+  在上面的部署方案中，我们将Logstash分为Shipper和Indexer两种角色来完成不同的工作，中间通过Redis做数据管道，为什么要这样做？为什么不是直接在每台机器上使用Logstash提取数据、处理、存入Elasticsearch？ <br>
+  首先，采用这样的架构部署，有三点优势：第一，降低对日志所在机器的影响，这些机器上一般都部署着反向代理或应用服务，本身负载就很重了，所以尽可能的在这些机器上少做事；第二，如果有很多台机器需要做日志收集，那么让每台机器都向Elasticsearch持续写入数据，必然会对Elasticsearch造成压力，因此需要对数据进行缓冲，同时，这样的缓冲也可以一定程度的保护数据不丢失；第三，将日志数据的格式化与处理放到Indexer中统一做，可以在一处修改代码、部署，避免需要到多台机器上去修改配置。 <br>
+  其次，我们需要做的是将数据放入一个消息队列中进行缓冲，所以Redis只是其中一个选择，也可以是RabbitMQ、Kafka等等，在实际生产中，Redis与Kafka用的比较多。由于Redis集群一般都是通过key来做分片，无法对list类型做集群，在数据量大的时候必然不合适了，而Kafka天生就是分布式的消息队列系统。 <br>
+<br></p>
+
+
+
+<h2 id="logstash"><strong>Logstash</strong></h2>
+
+<p>  在官方文档中，<a href="https://www.elastic.co/guide/en/logstash/2.3/deploying-and-scaling.html">Deploying and Scaling Logstash</a>一文详细介绍了各种Logstash的部署架构，下图是与我们上述方案相吻合的架构。Logstash由input、filter和output三部分组成，<strong>input</strong>负责从数据源提取数据，<strong>filter</strong>负责解析、处理数据，<strong>output</strong>负责输出数据，每部分都有提供丰富的插件。Logstash的设计思路也非常值得借鉴，以插件的形式来组织功能，通过配置文件来描述需要插件做什么。我们以nginx日志为例，来看看如何使用一些常用插件。</p>
+
+<div align="center"><img src="https://img-blog.csdn.net/20170104161915469?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvendnZGZ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="700"></div>
+
+<p><strong>1. 配置nginx日志格式</strong> <br>
+  首先需要将nginx日志格式规范化，便于做解析处理。在nginx.conf文件中设置：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs nginx"><span class="hljs-title">log_format</span> main <span class="hljs-string">'<span class="hljs-variable">$remote_addr</span> "<span class="hljs-variable">$time_iso8601</span>" "<span class="hljs-variable">$request</span>" <span class="hljs-variable">$status</span> <span class="hljs-variable">$body_bytes_sent</span> "<span class="hljs-variable">$http_user_agent</span>" "<span class="hljs-variable">$http_referer</span>" "<span class="hljs-variable">$http_x_forwarded_for</span>" "<span class="hljs-variable">$request_time</span>" "<span class="hljs-variable">$upstream_response_time</span>" "<span class="hljs-variable">$http_cookie</span>" "<span class="hljs-variable">$http_Authorization</span>" "<span class="hljs-variable">$http_token</span>"'</span>;
+
+<span class="hljs-title">access_log</span>  /var/log/nginx/example.access.log  main;</code></pre>
+
+<p><strong>2. nginx日志–&gt;&gt;Logstash–&gt;&gt;消息队列</strong> <br>
+  这部分是Logstash Shipper的工作，涉及input和output两种插件。input部分，由于需要提取的是日志文件，一般使用<a href="https://www.elastic.co/guide/en/logstash/2.3/plugins-inputs-file.html"><strong>file</strong></a>插件，该插件常用的几个参数是：</p>
+
+<ul>
+<li>path，指定日志文件路径。</li>
+<li>type，指定一个名称，设置type后，可以在后面的filter和output中对不同的type做不同的处理，适用于需要消费多个日志文件的场景。</li>
+<li>start_position，指定起始读取位置，“beginning”表示从文件头开始，“end”表示从文件尾开始（类似tail -f）。</li>
+<li>sincedb_path，与Logstash的一个坑有关。通常Logstash会记录每个文件已经被读取到的位置，保存在sincedb中，如果Logstash重启，那么对于同一个文件，会继续从上次记录的位置开始读取。如果想重新从头读取文件，需要删除sincedb文件，sincedb_path则是指定了该文件的路径。为了方便，我们可以根据需要将其设置为“/dev/null”，即不保存位置信息。</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">input {
+    file {
+        type =&gt; <span class="hljs-string">"example_nginx_access"</span>
+        path =&gt; [<span class="hljs-string">"/var/log/nginx/example.access.log"</span>]
+
+        start_position =&gt; <span class="hljs-string">"beginning"</span>
+        sincedb_path =&gt; <span class="hljs-string">"/dev/null"</span>
+    }
+}</code></pre>
+
+<p>  output部分，将数据输出到消息队列，以redis为例，需要指定redis server和list key名称。另外，在测试阶段，可以使用stdout来查看输出信息。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment"># 输出到redis</span>
+output {
+    <span class="hljs-keyword">if</span> [type] == <span class="hljs-string">"example_nginx_access"</span> {
+        redis {
+            host =&gt; <span class="hljs-string">"127.0.0.1"</span>
+            port =&gt; <span class="hljs-string">"6379"</span>
+            data_type =&gt; <span class="hljs-string">"list"</span>
+            key =&gt; <span class="hljs-string">"logstash:example_nginx_access"</span>
+        }
+      <span class="hljs-comment">#  stdout {codec =&gt; rubydebug}</span>
+    }
+}</code></pre>
+
+<p><strong>3. 消息队列–&gt;&gt;Logstash–&gt;&gt;Elasticsearch</strong> <br>
+  这部分是Logstash Indexer的工作，涉及input、filter和output三种插件。在input部分，我们通过redis插件将数据从消息队列中取出来。在output部分，我们通过elasticsearch插件将数据写入Elasticsearch。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment"># 从redis输入数据</span>
+input {
+    redis {
+            host =&gt; <span class="hljs-string">"127.0.0.1"</span>
+            port =&gt; <span class="hljs-string">"6379"</span>
+            data_type =&gt; <span class="hljs-string">"list"</span>
+            key =&gt; <span class="hljs-string">"logstash:example_nginx_access"</span>
+    }
+}
+
+output {
+    elasticsearch {
+        index =&gt; <span class="hljs-string">"logstash-example-nginx-%{+YYYY.MM}"</span>
+        hosts =&gt; [<span class="hljs-string">"127.0.0.1:9200"</span>]
+    }
+}
+</code></pre>
+
+<p>  这里，我们重点关注filter部分，下面列举几个常用的插件，实际使用中根据自身需求从官方文档中查找适合自己业务的插件并使用即可，当然也可以编写自己的插件。</p>
+
+<ul>
+<li><a href="https://www.elastic.co/guide/en/logstash/2.3/plugins-filters-grok.html"><strong>grok</strong></a>，是Logstash最重要的一个插件，用于将非结构化的文本数据转化为结构化的数据。grok内部使用正则语法对文本数据进行匹配，为了降低使用复杂度，其提供了一组pattern，我们可以直接调用pattern而不需要自己写正则表达式，参考源码<a href="https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/grok-patterns">grok-patterns</a>。grok解析文本的语法格式是<em>%{SYNTAX:SEMANTIC}</em>，SYNTAX是pattern名称，SEMANTIC是需要生成的字段名称，使用工具<a href="https://grokdebug.herokuapp.com/">Grok Debugger</a>可以对解析语法进行调试。例如，在下面的配置中，我们先使用grok对输入的原始nginx日志信息（默认以message作为字段名）进行解析，并添加新的字段request_path_with_verb（该字段的值是verb和request_path的组合），然后对request_path字段做进一步解析。</li>
+<li><a href="https://www.elastic.co/guide/en/logstash/2.3/plugins-filters-kv.html"><strong>kv</strong></a>，用于将某个字段的值进行分解，类似于编程语言中的字符串Split。在下面的配置中，我们将request_args字段值按照“&amp;”进行分解，分解后的字段名称以“request_args_”作为前缀，并且丢弃重复的字段。</li>
+<li><a href="https://www.elastic.co/guide/en/logstash/2.3/plugins-filters-geoip.html"><strong>geoip</strong></a>，用于根据IP信息生成地理位置信息，默认使用自带的一份GeoLiteCity database，也可以自己更换为最新的数据库，但是需要数据格式需要遵循Maxmind的格式（参考<a href="http://dev.maxmind.com/geoip/legacy/geolite/">GeoLite</a>），似乎目前只能支持legacy database，数据类型必须是.dat。下载GeoLiteCity.dat.gz后解压， 并将文件路径配置到source中即可。</li>
+<li><a href="https://www.elastic.co/guide/en/logstash/2.3/plugins-filters-translate.html"><strong>translate</strong></a>，用于检测某字段的值是否符合条件，如果符合条件则将其翻译成新的值，写入一个新的字段，匹配pattern可以通过YAML文件来配置。例如，在下面的配置中，我们对request_api字段翻译成更加易懂的文字描述。</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">filter {
+    grok {
+        match =&gt; {<span class="hljs-string">"message"</span> =&gt; <span class="hljs-string">"%{IPORHOST:client_ip} \"%{TIMESTAMP_ISO8601:timestamp}\" \"%{WORD:verb} %{NOTSPACE:request_path} HTTP/%{NUMBER:httpversion}\" %{NUMBER:response_status:int} %{NUMBER:response_body_bytes:int} \"%{DATA:user_agent}\" \"%{DATA:http_referer}\" \"%{NOTSPACE:http_x_forwarder_for}\" \"%{NUMBER:request_time:float}\" \"%{DATA:upstream_resopnse_time}\" \"%{DATA:http_cookie}\" \"%{DATA:http_authorization}\" \"%{DATA:http_token}\""</span>}
+        add_field =&gt; {<span class="hljs-string">"request_path_with_verb"</span> =&gt; <span class="hljs-string">"%{verb} %{request_path}"</span>}
+    }
+
+    grok {
+        match =&gt; {<span class="hljs-string">"request_path"</span> =&gt; <span class="hljs-string">"%{URIPATH:request_api}(?:\?%{NOTSPACE:request_args}|)"</span>}
+        add_field =&gt; {<span class="hljs-string">"request_annotation"</span> =&gt; <span class="hljs-string">"%{request_api}"</span>}
+    }
+
+    kv {
+        prefix =&gt; <span class="hljs-string">"request_args_"</span>
+        field_split =&gt; <span class="hljs-string">"&amp;"</span>
+        source =&gt; <span class="hljs-string">"request_args"</span>
+        allow_duplicate_values =&gt; <span class="hljs-keyword">false</span>
+    }
+
+    geoip {
+        source =&gt; <span class="hljs-string">"client_ip"</span>
+        database =&gt; <span class="hljs-string">"/home/elktest/geoip_data/GeoLiteCity.dat"</span>
+    }
+
+   translate {
+        field =&gt; request_path
+        destination =&gt; request_annotation
+        regex =&gt; <span class="hljs-keyword">true</span>
+        exact =&gt; <span class="hljs-keyword">true</span>
+        dictionary_path =&gt; <span class="hljs-string">"/home/elktest/api_annotation.yaml"</span>
+        override =&gt; <span class="hljs-keyword">true</span>
+    }
+}
+</code></pre>
+
+<p><br></p>
+
+
+
+<h2 id="elasticsearch"><strong>Elasticsearch</strong></h2>
+
+<p>  Elasticsearch承载了数据存储和查询的功能，其基础概念和使用方法可以参考另一篇博文<a href="http://blog.csdn.net/zwgdft/article/details/53868754">Elasticsearch使用总结</a>，这里主要介绍些实际生产中的问题和方法：</p>
+
+<ul>
+<li>关于集群配置，重点关注三个参数：第一，<strong>discovery.zen.ping.unicast.hosts</strong>，Elasticsearch默认使用Zen Discovery来做节点发现机制，推荐使用unicast来做通信方式，在该配置项中列举出Master节点。第二，<strong>discovery.zen.minimum_master_nodes</strong>，该参数表示集群中可工作的具有Master节点资格的最小数量，默认值是1。为了提高集群的可用性，避免脑裂现象（所谓脑裂，就是同一个集群中的不同节点，对集群的状态有不一致的理解。），官方推荐设置为(N/2)+1，其中N是具有Master资格的节点的数量。第三，<strong>discovery.zen.ping_timeout</strong>，表示节点在发现过程中的等待时间，默认值是3秒，可以根据自身网络环境进行调整，一定程度上提供可用性。</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class=" hljs profile"><span class="hljs-filename">discovery.zen.ping.unicast.hosts</span>: [<span class="hljs-string">"master1"</span>, <span class="hljs-string">"master2"</span>, <span class="hljs-string">"master3"</span>] 
+<span class="hljs-filename">discovery.zen.minimum_master_nodes</span>: <span class="hljs-number">2</span>
+<span class="hljs-filename">discovery.zen.ping_timeout</span>: <span class="hljs-number">10</span></code></pre>
+
+<ul>
+<li>关于集群节点，第一，节点类型包括：候选Master节点、数据节点和Client节点。通过设置两个配置项node.master和node.data为true或false，来决定将一个节点分配为什么类型的节点。第二，尽量将候选Master节点和Data节点分离开，通常Data节点负载较重，需要考虑单独部署。</li>
+<li>关于内存，Elasticsearch默认设置的内存是1GB，对于任何一个业务部署来说，这个都太小了。通过指定ES_HEAP_SIZE环境变量，可以修改其堆内存大小，服务进程在启动时候会读取这个变量，并相应的设置堆的大小。建议设置系统内存的一半给Elasticsearch，但是不要超过32GB。参考<a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html">官方文档</a>。</li>
+<li>关于硬盘空间，Elasticsearch默认将数据存储在/var/lib/elasticsearch路径下，随着数据的增长，一定会出现硬盘空间不够用的情形，此时就需要给机器挂载新的硬盘，并将Elasticsearch的路径配置到新硬盘的路径下。通过“path.data”配置项来进行设置，比如“path.data: /data1,/var/lib/elasticsearch,/data”。需要注意的是，同一分片下的数据只能写入到一个路径下，因此还是需要合理的规划和监控硬盘的使用。</li>
+<li>关于Index的划分和分片的个数，这个需要根据数据量来做权衡了，Index可以按时间划分，比如每月一个或者每天一个，在Logstash输出时进行配置，shard的数量也需要做好控制。</li>
+<li>关于监控，笔者使用过head和marvel两个监控插件，head免费，功能相对有限，marvel现在需要收费了。另外，不要在数据节点开启监控插件。 <br>
+<br></li>
+</ul>
+
+<h2 id="kibana"><strong>Kibana</strong></h2>
+
+<p>  Kibana提供的是数据查询和显示的Web服务，有丰富的图表样板，能满足大部分的数据可视化需求，这也是很多人选择ELK的主要原因之一。UI的操作没有什么特别需要介绍的，经常使用就会熟练，这里主要介绍经常遇到的三个问题。 <br>
+<strong>1. 查询语法</strong> <br>
+  在Kibana的Discover页面中，可以输入一个查询条件来查询所需的数据。查询条件的写法使用的是Elasticsearch的Query String语法，而不是Query DSL，参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax">官方文档query-string-syntax</a>，这里列举其中部分常用的：</p>
+
+<ul>
+<li>单字段的全文检索，比如搜索args字段中包含first的文档，写作 args:first；</li>
+<li>单字段的精确检索，比如搜索args字段值为first的文档，写作 args: “first”；</li>
+<li>多个检索条件的组合，使用 NOT, AND 和 OR 来组合，注意必须是大写，比如 args:(“first” OR “second”) AND NOT agent: “third”；</li>
+<li>字段是否存在，_exists_:agent表示要求agent字段存在，_missing_:agent表示要求agent字段不存在；</li>
+<li>通配符：用 ? 表示单字母，* 表示任意个字母。</li>
+</ul>
+
+<p><strong>2. 错误“Discover: Request Timeout after 30000ms”</strong> <br>
+  这个错误经常发生在要查询的数据量比较大的情况下，此时Elasticsearch需要较长时间才能返回，导致Kibana发生Timeout报错。解决这个问题的方法，就是在Kibana的配置文件中修改elasticsearch.requestTimeout一项的值，然后重启Kibana服务即可，注意单位是ms。</p>
+
+<p><strong>3. 疑惑“字符串被分解了”</strong> <br>
+  经常在QQ群里看到一些人在问这样一个问题：为什么查询结果的字段值是正确的，可是做图表时却发现字段值被分解了，不是想要的结果？如下图所示的client_agent_info字段。</p>
+
+<div align="center"><img src="https://img-blog.csdn.net/20170106234532222?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvendnZGZ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="700"></div>
+
+<p><br>
+  得到这样一个不正确结果的原因是使用了Analyzed字段来做图表分析，默认情况下Elasticsearch会对字符串数据进行分析，建立倒排索引，所以如果对这么一个字段进行terms聚合，必然会得到上面所示的错误结果了。那么应该怎么做才对？默认情况下，Elasticsearch还会创建一个相对应的没有被Analyzed的字段，即带“.raw”后缀的字段，在这样的字段上做聚合分析即可。 <br>
+  又会有很多人问这样的问题：为什么我的Elasticsearch没有自动创建带“.raw”后缀的字段？然而在Logstash中输出数据时，设置index名称前缀为“logstash-”就有了这个字段。这个问题的根源是Elasticsearch的dynamic template在捣鬼（可以查看博文<a href="http://blog.csdn.net/zwgdft/article/details/53868754">Elasticsearch使用总结</a>中的详细介绍），dynamic temlate用于指导Elasticsearch如何为插入的数据自动建立Schema映射关系，默认情况下，Logstash会在Elasticsearch中建立一个名为“logstash”的模板，所有前缀为“logstash-”的index都会参照这个模板来建立映射关系，在该模板中申明了要为每个字符串数据建立一个额外的带“.raw”后缀的字段。可以向Elasticsearch来查询你的模板，使用API：GET <a href="http://localhost:9200/_template">http://localhost:9200/_template</a>。 <br>
+<br>
+<br>
+  以上便是对ELK日志系统的总结介绍，还有一个重要的功能没有提到，就是<strong>如何将日志数据与自身产品业务的数据融合起来</strong>。举个例子，在nginx日志中，通常会包含API请求访问时携带的用户Token信息，由于Token是有时效性的，我们需要及时将这些Token转换成真实的用户信息存储下来。这样的需求通常有两种实现方式，一种是自己写一个Logstash filter，然后在Logstash处理数据时调用；另一种是将Logstash Indexer产生的数据再次输出到消息队列中，由我们自己的脚本程序从消息队列中取出数据，做相应的业务处理后，输出到Elasticsearch中。目前，团队对ruby技术栈不是很熟悉，所以我们采用了第二种方案来实施。 <br>
+  当前，我们的数据增长相对缓慢，遇到的问题也有限，随着数据量的增加，未来一定会遇到更多的挑战，也可以进一步探索ELK。</p>
+
+<p><br>
+<br>
+（全文完，本文地址：<a href="http://blog.csdn.net/zwgdft/article/details/53842574">http://blog.csdn.net/zwgdft/article/details/53842574</a>） <br>
+Bruce，2017/01/06</p>
+
+<p><br>
+<br></p>            </div>
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/markdown_views-ea0013b516.css" />
+                </div>
+			</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/zwgdft/article/details/53842574		</div>
+						<div class="tags-box artic-tag-box">
+			<span class="label">文章标签：</span>
+						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=数据分析&t=blog" target="_blank">数据分析						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=elk&t=blog" target="_blank">elk						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=logstash&t=blog" target="_blank">logstash						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=kibana&t=blog" target="_blank">kibana						<a class="tag-link" href="http://so.csdn.net/so/search/s.do?q=日志系统&t=blog" target="_blank">日志系统						</a>
+		</div>
+						<div class="tags-box">
+			<span class="label">个人分类：</span>
+						<a class="tag-link" href="https://blog.csdn.net/zwgdft/article/category/6432392"  target="_blank">后台服务						<a class="tag-link" href="https://blog.csdn.net/zwgdft/article/category/6432397"  target="_blank">数据系统						</a>
+		</div>
+						<div class="tags-box">
+			<span class="label">所属专栏：</span>
+						<a class="tag-link" href="https://blog.csdn.net/column/details/13529.html" target="_blank">创业公司做数据分析</a>
+						</a>
+		</div>
+			</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> 
+    MathJax.Hub.Config({ 
+			"HTML-CSS": { 
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<img src="https://avatar.csdn.net/3/9/1/3_attilax.jpg">
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="delphi">Delphi</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="vb">Visual Basic</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/h952520296/article/details/78873849" target="_blank" strategy="BlogCommendFromBaidu_0">
+				<em>ELK</em>6.1搭建--安装和配置			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/h952520296/article/details/78873849" target="_blank" >
+				<em>ELK</em>简介Elasticsearch
+Elasticsearch是一个实时的分布式搜索分析引擎， 它能让你以一个之前从未有过的速度和规模，去探索你的数据。它被用作全文检索、结构化搜索、分析以及这三个功...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/h952520296" title="h952520296" target="_blank">
+					<img src="https://avatar.csdn.net/D/F/1/3_h952520296.jpg" alt="h952520296" class="avatar-pic">
+					<span class="name">h952520296</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-12-22 15:33:54</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：11592</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sinat_36716743/article/details/80235259" target="_blank" strategy="BlogCommendFromBaidu_1">
+				Linux下logstash安装（6.2.3版本）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sinat_36716743/article/details/80235259" target="_blank" >
+				流程简介使用logstash从MySQL增量或全量提取数据，传入elasticsearch中，同步到数据存储。logstashlogstash安装#下载，logstash5及以上版本需要jdk8
+wg...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sinat_36716743" title="sinat_36716743" target="_blank">
+					<img src="https://avatar.csdn.net/2/4/A/3_sinat_36716743.jpg" alt="sinat_36716743" class="avatar-pic">
+					<span class="name">sinat_36716743</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-05-08 17:53:38</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2164</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/bluetjs/article/details/78770447" target="_blank" strategy="BlogCommendFromBaidu_2">
+				<em>ELK</em> 快速指南			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/bluetjs/article/details/78770447" target="_blank" >
+				https://dunwu.github.io/blog/2017/11/14/javatool/<em>elk</em>/
+
+
+
+
+<em>ELK</em> 快速指南
+
+概念
+
+<em>ELK</em>
+ 是什么
+
+
+<em>ELK</em> ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/bluetjs" title="bluetjs" target="_blank">
+					<img src="https://avatar.csdn.net/9/8/2/3_bluetjs.jpg" alt="bluetjs" class="avatar-pic">
+					<span class="name">bluetjs</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-12-11 10:51:39</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：478</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/chenxh/3650" target="_blank" strategy="BlogCommendFromBaidu_3">
+						猪鱼网络DJ美化版					</a>
+				</h4>
+				<p>
+					<span class="data">2004年05月17日 </span>
+					<span class="size">4KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/chenxh/3650" target="_blank" strategy="BlogCommendFromBaidu_3">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/rar.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Ahri_J/article/details/79609444" target="_blank" strategy="BlogCommendFromBaidu_4">
+				【<em>ELK</em>笔记】<em>ELK</em>的安装，快速搭建一个<em>ELK</em>日志分析平台			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Ahri_J/article/details/79609444" target="_blank" >
+				<em>ELK</em> 是 ElasticSearch、 LogStash、 Kibana 三个开源工具的简称，现在还包括 Beats，其分工如下:
+
+
+LogStash/Beats: 负责数据的收集与处理
+Elas...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Ahri_J" title="Ahri_J" target="_blank">
+					<img src="https://avatar.csdn.net/C/B/B/3_ahri_j.jpg" alt="Ahri_J" class="avatar-pic">
+					<span class="name">Ahri_J</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-03-19 11:33:49</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1132</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/fishmai/article/details/51838681" target="_blank" strategy="BlogCommendFromBaidu_5">
+				关于syslog报文的RFC规范			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/fishmai/article/details/51838681" target="_blank" >
+				Caution：目前RFC3164已经被RFC5424所取代，具体可以参考rfc5424
+关于syslog协议的描述，现在主要有两个规范：一个是RFC3164，另外一个是RFC3195。而这两个协议...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/fishmai" title="fishmai" target="_blank">
+					<img src="https://avatar.csdn.net/E/0/3/3_fishmai.jpg" alt="fishmai" class="avatar-pic">
+					<span class="name">fishmai</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-07-06 14:31:47</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：6031</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_23598037/article/details/79560639" target="_blank" strategy="BlogCommendFromBaidu_6">
+				<em>ELK</em>日志分析Kibana——数据图形化制作			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_23598037/article/details/79560639" target="_blank" >
+				摘要： Kibana把数据图形化,可以帮助我们更好的去分析数据,找到数据里面的结构 注意看一下,上面缩看的界面,是一个聚合的结果,他是由CPU Usage图表、System Load图表、CPU us...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_23598037" title="qq_23598037" target="_blank">
+					<img src="https://avatar.csdn.net/2/5/B/3_qq_23598037.jpg" alt="qq_23598037" class="avatar-pic">
+					<span class="name">qq_23598037</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-03-14 21:26:43</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：431</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/tanga842428/article/details/76195850" target="_blank" strategy="BlogCommendFromBaidu_7">
+				<em>ELK</em>实时日志分析平台部署搭建详细实现过程			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/tanga842428/article/details/76195850" target="_blank" >
+				原文地址：http://www.linuxidc.com/Linux/2016-09/135137.htm
+
+
+1、<em>ELK</em>平台介绍
+
+
+在搜索<em>ELK</em>资料的时候，发现这篇文章比较好，于是摘抄...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/tanga842428" title="tanga842428" target="_blank">
+					<img src="https://avatar.csdn.net/9/A/8/3_tanga842428.jpg" alt="tanga842428" class="avatar-pic">
+					<span class="name">tanga842428</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-07-27 15:18:22</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2501</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/DINGYANG0315/article/details/79228566" target="_blank" strategy="BlogCommendFromBaidu_8">
+				<em>ELK</em>实时日志分析平台环境部署--完整记录			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/DINGYANG0315/article/details/79228566" target="_blank" >
+				在日常运维工作中，对于系统和业务日志的处理尤为重要。今天，在这里分享一下自己部署的<em>ELK</em>（+Redis）-开源实时日志分析平台的记录过程（仅依据本人的实际操作为例说明，如有误述，敬请指出）~
+
+一...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/DINGYANG0315" title="DINGYANG0315" target="_blank">
+					<img src="https://avatar.csdn.net/C/B/0/3_dingyang0315.jpg" alt="DINGYANG0315" class="avatar-pic">
+					<span class="name">DINGYANG0315</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-02-01 14:54:44</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：926</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/wenlixing110/article/details/56277603" target="_blank" strategy="BlogCommendFromBaidu_9">
+				<em>ELK</em>多种架构及优劣			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/wenlixing110/article/details/56277603" target="_blank" >
+				圈子里关于大数据、云计算相关文章和讨论是越来越多，愈演愈烈。行业内企业也争前恐后，群雄逐鹿。而在大数据时代的运维挑站问题也就日渐突出，任重而道远了。本文旨在针对复杂的大数据运维系统推荐一把利器，达到抛...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/wenlixing110" title="wenlixing110" target="_blank">
+					<img src="https://avatar.csdn.net/0/E/C/3_wenlixing110.jpg" alt="wenlixing110" class="avatar-pic">
+					<span class="name">wenlixing110</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-21 10:34:39</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：5787</span>
+			</p>
+		</div>
+	</div>
+			            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+</div>
+<div class="mask-dark"></div>
+<div class="report-box">
+    <div class="pos-box">
+        <h2 class="title">不良信息举报</h2>
+        <a class="btn-close">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-times"></use>
+            </svg>
+        </a>
+        <form id="frmReport">
+            <div class="form-box">
+                <div class="txt-row-box">
+                    <label class="title" id="reptTit">举报内容：</label>
+                    <p class="rpt-title text-truncate">创业公司做数据分析（四）ELK日志系统</p>
+                </div>
+                <div class="txt-row-box">
+                    <label class="title">举报原因：</label>
+                    <div class="rdo-box">
+                        <label><input type="radio" class="rdo-chk report-type" id="report_sex" name="report_type" value="1">色情</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_Politics" name="report_type" value="2">政治</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_copy" name="report_type" value="3">抄袭</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_ad" name="report_type" value="4">广告</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_want" name="report_type" value="5">招聘</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_call" name="report_type" value="6">骂人</label>
+                        <label><input type="radio" class="rdo-chk report-type" id="report_other" name="report_type" value="7">其他</label>
+                    </div>
+                </div>
+                <div class="txt-row-box" id="rptOriginalurl">
+                    <label class="title">原文地址：</label>
+                    <div class="txt-box">
+                        <input class="ipt" type="text" name="originalurl">
+                    </div>
+                </div>
+                <div class="txt-row-box">
+                    <label class="title">原因补充：</label>
+                    <div class="txt-box">
+                        <textarea class="ipt ipt-textarea" name="description" maxlength="30"></textarea>
+                        <p class="remark">最多只允许输入30个字</p>
+                    </div>
+                </div>
+            </div>
+            <div class="opt-box text-right">
+                <input type="reset" class="btn btn-link-gray btn-close" value="取消">
+                <input type="submit" class="btn btn-red btn-submit" value="提交">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>5</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,'创业公司做数据分析（四）ELK日志系统');
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-f135ae5334.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=elk+%E4%B8%9A%E5%8A%A1%E6%97%A5%E5%BF%97%E8%A7%84%E8%8C%83+requestid"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>
